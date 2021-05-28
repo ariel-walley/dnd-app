@@ -1,23 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
-import Input from './input';
+import InitialPage from './initalPage';
+import SendContainer from './sendContainer';
+import History from './history';
+import Imitate from './imitator';
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  flex-direction: column;
-`;
 
 class Parent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      page: 'init'
+    }
+
+  }
+
   render() {
-    return (
-      <Container>
-        <p>Send...</p>
-        <Input/>
-      </Container>
-    )
+    switch (this.state.page) {
+      case 'init':
+        return <InitialPage/>;
+        break;
+      case 'send':
+        return <SendContainer/>
+        break;
+      case 'history':
+        return <History/>
+        break;
+      case 'imitate':
+        return <Imitate/>
+        break;
+      default:
+        return <InitialPage/>
+    }
   }
 }
 
