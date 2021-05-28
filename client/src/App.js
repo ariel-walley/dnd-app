@@ -1,7 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
-import Parent from './components/parent';
+import InitialPage from './components/initalPage';
+import SendContainer from './components/sendContainer';
+import History from './components/history';
+import Imitate from './components/imitator';
 import Child from './components/child';
 
 class App extends React.Component {
@@ -31,7 +34,11 @@ class App extends React.Component {
     return (
       <div>
         <GlobalStyle/>
-        <Route exact path="/"><Parent/></Route>
+        <Route exact path="/"><InitialPage/></Route>
+        <Route path="/dm/start"><InitialPage/></Route>
+        <Route path="/dm/send"><SendContainer/></Route>
+        <Route path="/dm/history"><History/></Route>
+        <Route path="/dm/imitate"><Imitate/></Route>
         {this.createRoutes()}
       </div>
     )

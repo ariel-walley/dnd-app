@@ -1,9 +1,14 @@
 import React from 'react';
+import Header from './header';
 
 class History extends React.Component {
   render() {
     return(
-      <div>History page</div>
+      <div>
+        <Header/>
+        <div>History page</div>
+      </div>
+
     )
   }
 }

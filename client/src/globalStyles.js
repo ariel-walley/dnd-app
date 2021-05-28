@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
     align-content: center;
     text-align: center;
   }
+
+  #root {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 export default GlobalStyle;

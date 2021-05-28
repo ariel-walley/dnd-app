@@ -1,9 +1,14 @@
 import React from 'react';
+import Header from './header';
 
 class Imitate extends React.Component {
   render() {
     return(
-      <div>Imitate page</div>
+      <div>
+        <Header/>
+        <div>Imitate page</div>
+      </div>
+
     )
   }
 }

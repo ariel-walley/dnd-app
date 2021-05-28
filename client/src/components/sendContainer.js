@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './header';
 import styled from 'styled-components';
 import Input from './input';
 
@@ -14,6 +15,7 @@ class SendContainer extends React.Component {
   render() {
     return(
       <Container>
+        <Header/>
         <p>Send...</p>
         <Input/>
       </Container>

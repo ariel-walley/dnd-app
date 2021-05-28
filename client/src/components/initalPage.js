@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './header';
 import styled from 'styled-components';
 import { Container } from '../styles';
 
@@ -53,13 +54,12 @@ class InitialPage extends React.Component {
     for (let i = 1; i < id; i++) {     
       window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");
     }
-    
-    this.props.function('send');
   }
 
   render() {
     return(
       <Container>
+        <Header/>
         <p>Welcome!</p>
         <label>How many players will you have?</label>
         <DivContainer>
