@@ -16,7 +16,6 @@ class SendContainer extends React.Component {
     return(
       <Container>
         <Header/>
-        <p>Send...</p>
         <Input/>
       </Container>
     )

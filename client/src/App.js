@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
-import InitialPage from './components/initalPage';
+import StartPage from './components/start';
 import SendContainer from './components/sendContainer';
 import History from './components/history';
 import Imitate from './components/imitator';
@@ -10,10 +10,6 @@ import Child from './components/child';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
-      players: 4
-    }
 
     this.createRoutes = this.createRoutes.bind(this);
   }
@@ -21,9 +17,9 @@ class App extends React.Component {
   createRoutes() {
     let routes = [];
 
-    for (let i = 0; i < this.state.players; i++) {
+    for (let i = 0; i < 5; i++) {
       routes.push(
-        <Route path={`/player/${i}`} key={`Player${i}`}><Child player={`${i}`}/></Route>
+        <Route path={`/player/${i}`} key={`Route${i}`}><Child key={`Child${i}`} player={i}/></Route>
       )
     }
 
@@ -34,8 +30,8 @@ class App extends React.Component {
     return (
       <div>
         <GlobalStyle/>
-        <Route exact path="/"><InitialPage/></Route>
-        <Route path="/dm/start"><InitialPage/></Route>
+        <Route exact path="/"><StartPage/></Route>
+        <Route path="/dm/start"><StartPage/></Route>
         <Route path="/dm/send"><SendContainer/></Route>
         <Route path="/dm/history"><History/></Route>
         <Route path="/dm/imitate"><Imitate/></Route>

@@ -3,7 +3,11 @@ import React from 'react';
 class Child extends React.Component {
   render() {
     return (
-      <p>Player {this.props.player}</p>
+      <div>
+        <p>Hi</p>
+        <p>Player {this.props.player}</p>
+      </div>
+
     )
   }
 }

@@ -27,7 +27,7 @@ const PlayerDiv = styled.div`
   
 `;
 
-class InitialPage extends React.Component {
+class StartPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -70,4 +70,4 @@ class InitialPage extends React.Component {
   }
 }
 
-export default InitialPage;
+export default StartPage;
