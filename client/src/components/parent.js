@@ -1,10 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import InitialPage from './initalPage';
 import SendContainer from './sendContainer';
 import History from './history';
 import Imitate from './imitator';
-
 
 class Parent extends React.Component {
   constructor(props) {
@@ -14,22 +12,27 @@ class Parent extends React.Component {
       page: 'init'
     }
 
+    this.updateState = this.updateState.bind(this);
+
   }
+
+  updateState(newState) {
+    this.setState({
+      page: newState
+    })
+  }
+
 
   render() {
     switch (this.state.page) {
       case 'init':
-        return <InitialPage/>;
-        break;
+        return <InitialPage function={this.updateState}/>;
       case 'send':
         return <SendContainer/>
-        break;
       case 'history':
         return <History/>
-        break;
       case 'imitate':
         return <Imitate/>
-        break;
       default:
         return <InitialPage/>
     }
