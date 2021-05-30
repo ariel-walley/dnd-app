@@ -27,6 +27,11 @@ class Child extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    //need to clean up open connection here or everytime you update component it'll open a new connection AND keep old one open and you'll end up with multiple conenctions from each child window
+    if(socket != null) socket.disconnect()
+  }
+
   render() {
     return (
       <div>
