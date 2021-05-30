@@ -23,6 +23,7 @@ io.on('connection', (socket) => {
 
   socket.on('displayBasicText', (msg, fn) => {
     console.log('message: ' + msg);
+    io.emit('displayBasicText', msg);
     fn('ack')
   });
 });
