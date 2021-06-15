@@ -2,9 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
 import StartPage from './components/start';
-import SendContainer from './components/sendContainer';
-import History from './components/history';
-import Imitate from './components/imitator';
+import MainPage from './components/main';
 import Child from './components/child';
 
 class App extends React.Component {
@@ -14,7 +12,7 @@ class App extends React.Component {
     this.createRoutes = this.createRoutes.bind(this);
   }
   
-  createRoutes() {
+  createRoutes() { // Create routes for each player window
     let routes = [];
 
     for (let i = 0; i < 5; i++) {
@@ -31,10 +29,7 @@ class App extends React.Component {
       <div>
         <GlobalStyle/>
         <Route exact path="/"><StartPage/></Route>
-        <Route path="/dm/start"><StartPage/></Route>
-        <Route path="/dm/send"><SendContainer/></Route>
-        <Route path="/dm/history"><History/></Route>
-        <Route path="/dm/imitate"><Imitate/></Route>
+        <Route path="/dm"><MainPage/></Route>
         {this.createRoutes()}
       </div>
     )
