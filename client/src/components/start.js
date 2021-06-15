@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './header';
 import styled from 'styled-components';
 import { Container } from '../styles';
 
@@ -59,7 +58,6 @@ class StartPage extends React.Component {
   render() {
     return(
       <Container>
-        <Header/>
         <p>Welcome!</p>
         <label>How many players will you have?</label>
         <DivContainer>
