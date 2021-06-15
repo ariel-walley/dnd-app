@@ -14,7 +14,7 @@ const PlayerDiv = styled.div`
   width: 150px;
   height: 150px;
   margin: 30px;
-  background-color: lightgreen;
+  background-color: #2E3033;
   color: white;
   font-size: 45px;
   font-weight: 700;

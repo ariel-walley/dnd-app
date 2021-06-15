@@ -12,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     align-content: center;
     text-align: center;
+    background-color: black;
+    color: white;
   }
 
   #root {
