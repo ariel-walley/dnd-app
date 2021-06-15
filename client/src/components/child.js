@@ -35,9 +35,7 @@ class Child extends React.Component {
   render() {
     return (
       <div>
-        <p>Hi</p>
-        <p>Player {this.props.player}</p>
-        <p>Message: {this.state.displayOutput}</p>
+        <p>{this.state.displayOutput}</p>
       </div>
 
     )
