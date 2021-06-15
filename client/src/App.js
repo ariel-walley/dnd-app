@@ -1,9 +1,15 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
+import styled from 'styled-components';
 import StartPage from './components/start';
 import MainPage from './components/main';
 import Child from './components/child';
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -26,12 +32,12 @@ class App extends React.Component {
   
   render() {
     return (
-      <div>
+      <Container>
         <GlobalStyle/>
         <Route exact path="/"><StartPage/></Route>
         <Route path="/dm"><MainPage/></Route>
         {this.createRoutes()}
-      </div>
+      </Container>
     )
   }
 }

@@ -1,6 +1,16 @@
 import { createGlobalStyle } from 'styled-components';
  
 const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100%;
+    width: 100%;
+  }
+
+  #root {
+    height: 100%;
+    width: 100%;
+  }
+
   body {
     margin: 0;
     padding: 0;
@@ -14,12 +24,9 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
     background-color: black;
     color: white;
+    font-family: Arial, Calibri, sans-serif;
   }
 
-  #root {
-    height: 100%;
-    width: 100%;
-  }
-`;
+  `;
 
 export default GlobalStyle;

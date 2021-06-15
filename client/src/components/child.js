@@ -1,7 +1,22 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { io } from 'socket.io-client';
 let socket = null
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;  
+`;
+
+
+const Text = styled.p`
+  font-size: 24px;
+`;
 
 class Child extends React.Component {
   constructor(props) {
@@ -34,9 +49,9 @@ class Child extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>{this.state.displayOutput}</p>
-      </div>
+      <Container>
+        <Text>{this.state.displayOutput}</Text>
+      </Container>
 
     )
   }
