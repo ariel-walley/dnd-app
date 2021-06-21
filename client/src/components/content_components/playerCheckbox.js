@@ -8,10 +8,9 @@ const StyledCheckbox = styled.div`
   border-radius: 5px;
 `;
 
-class PlayerCheckbox extends React.Component {
-  render() {
-    return <StyledCheckbox/>
-  }
+function PlayerCheckbox() {
+  return <StyledCheckbox/>
+
 }
 
 export default PlayerCheckbox;

@@ -16,21 +16,19 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-class ContentContainer extends React.Component {
-  render() {
-    return(
-      <div>
-        <Container>
-          <Imgs/>
-          <Gifs/>
-          <Videos/>
-          <Filters/>
-          <TextInput/>
-          <PlayerCheckbox/>
-        </Container>
-      </div>
-    )
-  }
+function ContentContainer() {
+  return(
+    <div>
+      <Container>
+        <Imgs/>
+        <Gifs/>
+        <Videos/>
+        <Filters/>
+        <TextInput/>
+        <PlayerCheckbox/>
+      </Container>
+    </div>
+  );
 }
 
 export default ContentContainer;
