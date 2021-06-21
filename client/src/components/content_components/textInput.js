@@ -11,7 +11,11 @@ const StyledInput = styled.input`
 class TextInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: 'Hello world', playerNumber: '1'};
+    
+    this.state = {
+      value: 'Hello world', 
+      playerNumber: '1'
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

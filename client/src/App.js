@@ -1,15 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
-import styled from 'styled-components';
+import { Container } from './styles';
 import StartPage from './components/start';
-import MainPage from './components/main';
+import MainPage from './components/mainPage';
 import Child from './components/child';
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-`;
 
 class App extends React.Component {
   constructor(props) {
