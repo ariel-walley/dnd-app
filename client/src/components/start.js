@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { Container } from '../styles';
+import { io } from 'socket.io-client';
 
 const UserInput = styled.input`
   height: 25px;
@@ -26,15 +28,49 @@ function StartPage() {
 
     return display;
   }
-
-  divSubmit(e) {
-    let id = parseInt(e.target.id) + 1;
-
-    for (let i = 1; i < id; i++) {     
-      window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");
+  
+  const handleEnter = (event) => {  // Submit user input if 'Enter' key is pressed   
+    if (event.key !== undefined) {
+      if (event.key === 'Enter') {
+        setUpPlayers();
+      }
+    } else if (event.keyCode !== undefined) {
+      if (event.keyCode === 13) {
+        setUpPlayers();
+      };
     }
   }
 
+  const history = useHistory(); //must be defined outside setUpPlayers due to scope
+  
+  const setUpPlayers = () => {
+    // Gather values from inputs
+    let inputValues = {};
+
+    for (let i = 1; i < 5; i++) {
+      let value = document.getElementById(`Input${i}`).value;
+      inputValues[`Input${i}`] = value;
+    }    
+
+    // Check inputs for blank spaces and create player object
+    let players = {};
+    let count = 1;
+
+    for (let input in inputValues) { 
+      let trimmedValue = inputValues[input].trim();
+      if (trimmedValue !== "" && trimmedValue !== null) {
+        players[`Player${count}`] = trimmedValue;
+        count++;
+      }
+    }
+
+    // Launch player windows
+    for (let i = 1; i < Object.keys(players).length + 1; i++) {    
+      window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");
+    }
+
+    // Direct to control panel page
+    history.push("/dm");
   }
   
   return(
