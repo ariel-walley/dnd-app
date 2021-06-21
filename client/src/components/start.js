@@ -2,45 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container } from '../styles';
 
-const DivContainer = styled.div`
+const UserInput = styled.input`
+  height: 25px;
+  width: 220px;
   margin: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  padding: 5px;
+  font-size: 18px;
 `;
 
-const PlayerDiv = styled.div`
-  width: 150px;
-  height: 150px;
-  margin: 30px;
-  background-color: #2E3033;
-  color: white;
-  font-size: 45px;
-  font-weight: 700;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  border-radius: 5px;
-  
-`;
-
-class StartPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.createDivs = this.createDivs.bind(this);
-    this.divSubmit = this.divSubmit.bind(this);
-
-  }
-
-  createDivs() {
+function StartPage() {
+  const createDivs = () => {
     let display = [];
 
     for (let i = 1; i < 5; i++) {
       display.push(
-        <PlayerDiv key={`Player#${i}`} id={i} onClick={this.divSubmit}>{i}</PlayerDiv>
+        <UserInput key={`Input${i}`} id={`Input${i}`} onKeyDown={handleEnter}/>
+
+        /* <Link to={'/dm'} style={{ textDecoration: 'none' }}>
+          <PlayerDiv key={`Player#${i}`} id={i} onClick={this.divSubmit}>{i}</PlayerDiv>
+        </Link> */
       )
     }
 
@@ -55,17 +35,16 @@ class StartPage extends React.Component {
     }
   }
 
-  render() {
-    return(
-      <Container>
-        <p>Welcome!</p>
-        <label>How many players will you have?</label>
-        <DivContainer>
-          {this.createDivs()}
-        </DivContainer>
-      </Container>
-    )
   }
+  
+  return(
+    <Container>
+      <p>Welcome!</p>
+      <label>How many players will you have?</label>
+      {createDivs()}
+      <button onClick={setUpPlayers} type="submit">Enter</button>
+    </Container>
+  )
 }
 
 export default StartPage;
