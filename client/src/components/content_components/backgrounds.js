@@ -1,12 +1,12 @@
 import React from 'react';
 //import styled from 'styled-components';
 
-function Videos() {
+function Backgrounds() {
   return(
     <div>
-      <p>Videos: </p>
+      <p>Backgrounds: </p>
     </div>
   )
 }
 
-export default Videos;
+export default Backgrounds;
