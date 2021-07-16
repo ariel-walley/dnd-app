@@ -1,12 +1,19 @@
 import React from 'react';
-//import styled from 'styled-components';
+import { Container } from '../../styles';
 
-function Images () {
-  return(
-      <div>
-        <p>Images: </p>
-      </div>
-  );
+let imgCount = 0;
+
+export default function Images (props) {
+
+  console.log('running');
+  fetch('http://localhost:3100/res/imgs').then(raw => raw.json()).then((data) => {
+    console.log(data)
+  }).catch(err => console.error(err))
+
+  if (imgCount > 0) {
+    return <Container></Container>
+  } else {
+    return <p>No {props.name} found.</p>
+  }
+
 }
-
-export default Images;
