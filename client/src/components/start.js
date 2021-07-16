@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { Container } from '../styles';
-import { io } from 'socket.io-client';
 
 const UserInput = styled.input`
   height: 25px;

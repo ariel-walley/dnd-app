@@ -20,7 +20,7 @@ function Child() {
       let data = JSON.parse(raw_data)
       console.log(data)
 
-      if(data.playerNumber == this.props.player) {
+      if(data.playerNumber === this.props.player) {
         setOutput(data.message);
         
         setTimeout(() => {
