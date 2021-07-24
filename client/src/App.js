@@ -25,7 +25,7 @@ function App() {
       <GlobalStyle/>
       <Route exact path="/"><StartPage/></Route>
       <Route path="/dm"><MainPage/></Route>
-      {createRoutes}
+      {createRoutes()}
     </Container>
   )
 }

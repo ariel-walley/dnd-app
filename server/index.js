@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -37,6 +38,19 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static('../resources'));
+
 app.get("/res/imgs", (req, res, next) => {
-  res.json({message: "Hello from server!"});
+  let imgArray = [];
+
+  fs.readdir('../resources/imgs', (err, files) => {
+    if (err)
+      console.log(err);
+    else {
+      files.forEach(file => {
+        imgArray.push(file);
+      })
+      res.json({images: imgArray});
+    }
+  })
 })
