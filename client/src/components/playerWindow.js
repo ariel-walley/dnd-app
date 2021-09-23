@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Container } from '../styles';
 
 import { io } from 'socket.io-client';
-let socket = null
+let socket = null;
 
 const Text = styled.p`
   font-size: 24px;
 `;
 
-function Child() {
+function playerWindow() {
   const [displayOutput, setOutput] = useState('');
 
   useEffect(() => { //componentDidMount
@@ -42,4 +42,4 @@ function Child() {
   )
 }
 
-export default Child;
+export default playerWindow;

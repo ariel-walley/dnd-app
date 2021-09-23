@@ -4,7 +4,7 @@ import GlobalStyle from './globalStyles';
 import { Container } from './styles';
 import StartPage from './components/start';
 import MainPage from './components/mainPage';
-import Child from './components/child';
+import PlayerWindow from './components/playerWindow';
 
 function App() {
 
@@ -13,7 +13,7 @@ function App() {
 
     for (let i = 0; i < 5; i++) {
       routes.push(
-        <Route path={`/player/${i}`} key={`Route${i}`}><Child key={`Child${i}`} player={i}/></Route>
+        <Route path={`/player/${i}`} key={`Route${i}`}><PlayerWindow key={`Player${i}`} player={i}/></Route>
       )
     }
 
