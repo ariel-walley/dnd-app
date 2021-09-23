@@ -15,7 +15,6 @@ function TextInput() {
     console.log('Submitted: "' + inputValue + '" -> Player ' + playerNumber);
 
     const socket = io.connect('http://localhost:3100/');
-
     socket.emit("displayBasicText", JSON.stringify({
       message: inputValue,
       playerNumber: playerNumber

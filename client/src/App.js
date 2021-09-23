@@ -13,7 +13,9 @@ function App() {
 
     for (let i = 0; i < 5; i++) {
       routes.push(
-        <Route path={`/player/${i}`} key={`Route${i}`}><PlayerWindow key={`Player${i}`} player={i}/></Route>
+        <Route path={`/player/${i}`} key={`Route${i}`}>
+          <PlayerWindow key={`Player${i}`} player={i}/>
+        </Route>
       )
     }
 
