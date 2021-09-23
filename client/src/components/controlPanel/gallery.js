@@ -8,16 +8,16 @@ const UpdatedContainer = styled(Container)`
 `;
 
 const StyledImg = styled.img`
-  max-width: 150px;
+  max-width: 100px;
   margin: 10px;
 `;
 
-export default function Images (props) {
+export default function Gallery (props) {
 
   const [imgContent, setImgContent] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3100/res/imgs')
+    fetch(`http://localhost:3100/res/${props.name}`)
     .then(raw => raw.json())
     .then((data) => {
       setImgContent(data.images);
@@ -28,7 +28,7 @@ export default function Images (props) {
     let display = [];
 
     imgContent.forEach((img) => {
-      display.push(<StyledImg src={'/imgs/' + img} key={img} alt={img}/>);
+      display.push(<StyledImg src={'/images/' + img} key={img} alt={img}/>);
     })
 
     return display;

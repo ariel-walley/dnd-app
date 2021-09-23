@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container } from '../styles';
-import VisualContent from './content/visualContent';
+import VisualContent from './content/contentContainer';
 import History from './history';
 import Snapshots from './snapshots';
 import TextInput from './content/textInput';
-import PlayerCheckbox from './content/playerCheckbox';
 
 const UpdatedContainer = styled(Container)`
   justify-content: flex-start;
@@ -33,7 +32,6 @@ function MainPage() {
         <UpdatedContainer2>
           <Container>
             <TextInput/>
-            <PlayerCheckbox/>
           </Container>
           <History/>
         </UpdatedContainer2>

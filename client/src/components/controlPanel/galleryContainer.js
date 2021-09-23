@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import Images from './imgs';
+import Gallery from './gallery';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -68,13 +68,13 @@ export default function TabsWrappedLabel() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index="one">
-        <Images name="images"/>
+        <Gallery name="images"/>
       </TabPanel>
       <TabPanel value={value} index="two">
-        <Images name="gifs"/>
+        <Gallery name="gifs"/>
       </TabPanel>
       <TabPanel value={value} index="three">
-        <Images name="backgrounds"/>
+        <Gallery name="backgrounds"/>
       </TabPanel>
     </div>
   );
