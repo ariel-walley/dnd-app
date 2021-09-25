@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container } from '../styles';
-import VisualContent from './content/contentContainer';
+import { Container } from '../../styles';
+import GalleryContainer from './galleryContainer';
 import History from './history';
 import Snapshots from './snapshots';
-import TextInput from './content/textInput';
+import TextInput from './textInput';
 
 const UpdatedContainer = styled(Container)`
   justify-content: flex-start;
@@ -28,7 +28,7 @@ function MainPage() {
         <Snapshots/>
       </Column>
       <Column width="66.66%">
-        <VisualContent/>
+        <GalleryContainer/>
         <UpdatedContainer2>
           <Container>
             <TextInput/>
