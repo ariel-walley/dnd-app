@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -52,7 +52,49 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TabsWrappedLabel() {
   const classes = useStyles();
+  const contentTypes = ["backgrounds", "gifs", "images"];
+  const numbers = ["one", "two", "three"];
+
   const [value, setValue] = React.useState('one');
+  const [content, setContent] = React.useState({});
+
+  useEffect(() => {
+    fetch(`http://localhost:3100/res/?contentTypes=${contentTypes.toString()}`)
+      .then(raw => raw.json())
+      .then((data) => {
+        setContent(data);
+      }).catch(err => console.error(err))
+  }, []);
+
+  const generateTabs = () => {
+    let display = [];
+
+    for (let i = 0; i < contentTypes.length; i++) {
+      let type = contentTypes[i];
+
+      display.push( 
+        <Tab value={numbers[i]} label={type} key={type + 'Tab'} {...a11yProps(numbers[i])} />
+      );
+    }
+
+    return display;
+  }
+
+  const generateTabPanels = () => {
+    let display = [];
+
+    for (let i = 0; i < contentTypes.length; i++) {
+      let type = contentTypes[i];
+
+      display.push( 
+        <TabPanel value={value} index={numbers[i]} key={type + 'TabPanel'}>
+          <Gallery name={type} paths={content[type]} key={type + 'Gallery'} />
+        </TabPanel>
+      );
+    }
+
+    return display;
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -62,20 +104,10 @@ export default function TabsWrappedLabel() {
     <div className={classes.body}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example" className={classes.body}>
-          <Tab value="one" label="Images" {...a11yProps('one')} />
-          <Tab value="two" label="Gifs" {...a11yProps('two')} />
-          <Tab value="three" label="Backgrounds" {...a11yProps('three')} />
+          {generateTabs()}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index="one">
-        <Gallery name="images"/>
-      </TabPanel>
-      <TabPanel value={value} index="two">
-        <Gallery name="gifs"/>
-      </TabPanel>
-      <TabPanel value={value} index="three">
-        <Gallery name="backgrounds"/>
-      </TabPanel>
+      {generateTabPanels()}
     </div>
   );
 }

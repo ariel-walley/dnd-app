@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Container } from '../../styles';
 import styled from 'styled-components';
 
@@ -7,34 +7,25 @@ const UpdatedContainer = styled(Container)`
   flex-wrap: wrap;
 `;
 
-const StyledImg = styled.img`
+const StyledContent = styled.img`
   max-width: 100px;
   margin: 10px;
 `;
 
 export default function Gallery (props) {
-
-  const [imgContent, setImgContent] = useState([]);
-
-  useEffect(() => {
-    fetch(`http://localhost:3100/res/${props.name}`)
-    .then(raw => raw.json())
-    .then((data) => {
-      setImgContent(data.images);
-    }).catch(err => console.error(err))
-  }, []);
-
   const renderGallery = () => {
     let display = [];
 
-    imgContent.forEach((img) => {
-      display.push(<StyledImg src={'/images/' + img} key={img} alt={img}/>);
+    props.paths.forEach((path) => {
+      display.push(<StyledContent src={`/${props.name}/` + path} key={path} alt={path}/>);
     })
 
     return display;
   }
 
-  if (imgContent.length > 0) {
+  if (props.paths === undefined) {
+    return <p>Loading...</p>
+  } else if (props.paths.length > 0) {
     return <UpdatedContainer>{renderGallery()}</UpdatedContainer>
   } else {
     return <p>No {props.name} found.</p>

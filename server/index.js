@@ -40,17 +40,20 @@ app.use((req, res, next) => {
 
 app.use(express.static('../resources'));
 
-app.get("/res/imgs", (req, res, next) => {
-  let imgArray = [];
+app.get('/res/', async (req, res, next) => {
+  let contentTypesArr = req.query.contentTypes.split(',');
+  let contentObj = {};
 
-  fs.readdir('../resources/imgs', (err, files) => {
-    if (err)
-      console.log(err);
-    else {
-      files.forEach(file => {
-        imgArray.push(file);
-      })
-      res.json({images: imgArray});
-    }
-  })
+  contentTypesArr.forEach(contentType => {
+    let fileArray = [];
+    let response = fs.readdirSync(`../resources/${contentType}`);
+    
+    response.forEach(file => {
+      fileArray.push(file);
+    })
+
+    contentObj[contentType] = fileArray;
+  });
+
+  res.json(contentObj);
 })
