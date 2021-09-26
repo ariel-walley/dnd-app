@@ -65,7 +65,11 @@ function StartPage() {
 
     // Launch player windows
     for (let i = 1; i < Object.keys(players).length + 1; i++) {    
-      window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");
+      let newWindow = window.open(`http://localhost:3000/player/${i}`, `window${i}`, "resizable=yes, top=400,left=400,width=400,height=400");     
+
+      newWindow.addEventListener('load', () => {
+        newWindow.document.getElementById(`Player${i}Message`).innerHTML = players[`Player${i}`];
+      }, false);
     }
 
     // Direct to control panel page
