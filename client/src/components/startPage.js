@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { Container } from '../styles';
 
+import { io } from 'socket.io-client';
+
 const UserInput = styled.input`
   height: 25px;
   width: 220px;
@@ -64,12 +66,24 @@ function StartPage() {
     }
 
     // Launch player windows
-    for (let i = 1; i < Object.keys(players).length + 1; i++) {    
-      let newWindow = window.open(`http://localhost:3000/player/${i}`, `window${i}`, "resizable=yes, top=400,left=400,width=400,height=400");     
+    for (let i = 1; i < Object.keys(players).length + 1; i++) {  // is there something better than a for loop?   
+      window.open(`http://localhost:3000/player/${i}`, `window${i}`, "resizable=yes, top=400,left=400,width=400,height=400");     
+    }
 
-      newWindow.addEventListener('load', () => {
-        newWindow.document.getElementById(`Player${i}Message`).innerHTML = players[`Player${i}`];
-      }, false);
+    // Set player names
+    setTimeout(() => {
+      const socket = io.connect('http://localhost:3100/');
+      socket.emit("displayBasicText", JSON.stringify({
+        message: players['Player1'],
+        playerNumber: '1',
+        type: 'init-name'
+      }), (data) => {
+        console.log(data)
+        socket.disconnect();
+      })
+
+    }, 3 * 1000)
+
     }
 
     // Direct to control panel page

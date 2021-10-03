@@ -17,14 +17,18 @@ function PlayerWindow(props) {
 
     socket.on("displayBasicText", (raw_data) => {
       let data = JSON.parse(raw_data);
+      console.log(data);
      
       if(parseInt(data.playerNumber) === props.player) {
         console.log(data.message);
         setOutput(data.message);
         
-        setTimeout(() => {
-          setOutput('');
-        }, 15 * 1000) //hide after 15 seconds
+        if (data.type === 'message') {
+          setTimeout(() => {
+            setOutput('');
+          }, 15 * 1000) //hide after 15 seconds for messages sent from DM
+        }
+
       }
     });
 

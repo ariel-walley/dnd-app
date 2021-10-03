@@ -17,7 +17,8 @@ function TextInput() {
     const socket = io.connect('http://localhost:3100/');
     socket.emit("displayBasicText", JSON.stringify({
       message: inputValue,
-      playerNumber: playerNumber
+      playerNumber: playerNumber,
+      type: 'message'
     }), (data) => {
       console.log(data)
       socket.disconnect();
