@@ -65,27 +65,24 @@ function StartPage() {
       }
     }
 
-    // Launch player windows
-    for (let i = 1; i < Object.keys(players).length + 1; i++) {  // is there something better than a for loop?   
-      window.open(`http://localhost:3000/player/${i}`, `window${i}`, "resizable=yes, top=400,left=400,width=400,height=400");     
+    // Launch player windows and set initial name
+    const socket = io.connect('http://localhost:3100/');
+
+    for (let i = 1; i < Object.keys(players).length + 1; i++) {  
+      let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");     
+
+      newWindow.addEventListener('load', () => {
+        socket.emit("displayBasicText", JSON.stringify({
+          message: players['Player' + i],
+          playerNumber: i.toString(),
+          type: 'init-name'
+        }), (data) => {
+          console.log(data)
+          socket.disconnect();
+        })
+      }, false);
     }
-
-    // Set player names
-    setTimeout(() => {
-      const socket = io.connect('http://localhost:3100/');
-      socket.emit("displayBasicText", JSON.stringify({
-        message: players['Player1'],
-        playerNumber: '1',
-        type: 'init-name'
-      }), (data) => {
-        console.log(data)
-        socket.disconnect();
-      })
-
-    }, 3 * 1000)
-
-    }
-
+  
     // Direct to control panel page
     history.push("/dm");
   }

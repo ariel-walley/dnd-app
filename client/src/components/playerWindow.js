@@ -41,7 +41,7 @@ function PlayerWindow(props) {
 
   return (
     <Container>
-      <Text id={`Player${props.player}Message`}>Message: {displayOutput}</Text>
+      <Text>Message: {displayOutput}</Text>
     </Container>
   )
 }
