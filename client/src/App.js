@@ -1,7 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+
 import GlobalStyle from './globalStyles';
 import { Container } from './styles';
+
+import { PlayersContext } from './context';
+
 import StartPage from './components/startPage';
 import MainPage from './components/controlPanel/mainPage';
 import PlayerWindow from './components/playerWindow';
@@ -25,9 +29,11 @@ function App() {
   return (
     <Container>
       <GlobalStyle/>
-      <Route exact path="/"><StartPage/></Route>
-      <Route path="/dm"><MainPage/></Route>
-      {createRoutes()}
+      <PlayersContext.Provider value={"this is a real test"}>
+        <Route exact path="/"><StartPage/></Route>
+        <Route path="/dm"><MainPage/></Route>
+        {createRoutes()}
+      </PlayersContext.Provider>
     </Container>
   )
 }

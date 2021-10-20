@@ -1,9 +1,13 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+
 import styled from 'styled-components';
 import { Container } from '../styles';
 
 import { io } from 'socket.io-client';
+
+import { PlayersContext } from '../context';
+import { useContext } from 'react';
 
 const UserInput = styled.input`
   height: 25px;
@@ -87,9 +91,12 @@ function StartPage() {
     history.push("/dm");
   }
   
+  const contextTest = useContext(PlayersContext);
+
   return(
     <Container>
       <p>Welcome!</p>
+      <p>{contextTest}</p>
       <label>How many players will you have?</label>
       {createDivs()}
       <button onClick={setUpPlayers} type="submit">Enter</button>
