@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
+import PlayersContext from '../../context';
+
+import MessengerCheckboxes from './messengerCheckboxes';
 
 import { io } from 'socket.io-client';
-import PlayersContext from '../../context';
+
+import styled from 'styled-components';
 
 const StyledInput = styled.input`
   width: 250px;
@@ -30,11 +33,10 @@ function Messenger() {
 
   return(
     <div>
-      <p>Players are: {JSON.stringify(players)}</p>
-      <p>Text: </p>
       <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
       <p>Player Number: </p>
       <input type="text" value={playerNumber} onChange={(event) => setPlayerNumber(event.target.value)} />
+      <MessengerCheckboxes/>
       <input onClick={handleSubmit} type="button" value="Send" />
     </div>
   )
