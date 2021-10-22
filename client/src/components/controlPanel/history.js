@@ -60,7 +60,6 @@ export default function BasicTabs() {
     setValue(newValue);
   };
 
-
   const generateTabs = Object.values(players).map((player, index) => 
     <Tab key={player + 'HistoryTab'} label={player} {...a11yProps(index + 1)} />
   );

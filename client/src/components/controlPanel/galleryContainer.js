@@ -53,10 +53,13 @@ const useStyles = makeStyles((theme) => ({
 export default function GalleryContainer() {
   const classes = useStyles();
   const contentTypes = ["backgrounds", "gifs", "images"];
-  const numbers = ["one", "two", "three"];
 
-  const [value, setValue] = React.useState('one');
+  const [value, setValue] = React.useState(0);
   const [content, setContent] = React.useState({});
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3100/res/?contentTypes=${contentTypes.toString()}`)
@@ -67,18 +70,14 @@ export default function GalleryContainer() {
   }, []);
 
   const generateTabs = contentTypes.map((type, index) => 
-    <Tab value={numbers[index]} label={type} key={type + 'Tab'} {...a11yProps(numbers[index])} />
+    <Tab value={index} label={type} key={type + 'Tab'} {...a11yProps(index)} />
   );
 
   const generateTabPanels = contentTypes.map((type, index) => 
-    <TabPanel value={value} index={numbers[index]} key={type + 'TabPanel'}>
+    <TabPanel value={value} index={index} key={type + 'TabPanel'}>
       <Gallery name={type} paths={content[type]} key={type + 'Gallery'} />
     </TabPanel>
   );
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <div className={classes.body}>
