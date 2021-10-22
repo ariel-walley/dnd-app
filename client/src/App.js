@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
+
+import PlayersContext from './context';
 
 import GlobalStyle from './globalStyles';
 import { Container } from './styles';
-
-import { PlayersContext } from './context';
 
 import StartPage from './components/startPage';
 import MainPage from './components/controlPanel/mainPage';
 import PlayerWindow from './components/playerWindow';
 
 function App() {
+  const [players, setPlayers] = useState({});
+  const value = { players, setPlayers }
 
   const createRoutes = () => {
     let routes = [];
@@ -29,7 +31,7 @@ function App() {
   return (
     <Container>
       <GlobalStyle/>
-      <PlayersContext.Provider value={"this is a real test"}>
+      <PlayersContext.Provider value={value}>
         <Route exact path="/"><StartPage/></Route>
         <Route path="/dm"><MainPage/></Route>
         {createRoutes()}

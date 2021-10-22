@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 import styled from 'styled-components';
@@ -6,7 +6,7 @@ import { Container } from '../styles';
 
 import { io } from 'socket.io-client';
 
-import { PlayersContext } from '../context';
+import PlayersContext from '../context';
 import { useContext } from 'react';
 
 const UserInput = styled.input`
@@ -17,7 +17,11 @@ const UserInput = styled.input`
   font-size: 18px;
 `;
 
-function StartPage() {
+function StartPage(props) {
+  const [localPlayers, setLocalPlayers] = useState();
+  const { setPlayers } = useContext(PlayersContext); 
+  const history = useHistory();
+  
   const createDivs = () => {
     let display = [];
 
@@ -37,18 +41,16 @@ function StartPage() {
   const handleEnter = (event) => {  // Submit user input if 'Enter' key is pressed   
     if (event.key !== undefined) {
       if (event.key === 'Enter') {
-        setUpPlayers();
+        determinePlayers();
       }
     } else if (event.keyCode !== undefined) {
       if (event.keyCode === 13) {
-        setUpPlayers();
+        determinePlayers();
       };
     }
   }
 
-  const history = useHistory(); //must be defined outside setUpPlayers due to scope
-  
-  const setUpPlayers = () => {
+  const determinePlayers = () => {
     // Gather values from inputs
     let inputValues = {};
 
@@ -58,26 +60,32 @@ function StartPage() {
     }    
 
     // Check inputs for blank spaces and create player object
-    let players = {};
+    let playerObj = {};
     let count = 1;
 
     for (let input in inputValues) { 
       let trimmedValue = inputValues[input].trim();
       if (trimmedValue !== "" && trimmedValue !== null) {
-        players[`Player${count}`] = trimmedValue;
+        playerObj[`Player${count}`] = trimmedValue;
         count++;
       }
     }
 
-    // Launch player windows and set initial name
+    setLocalPlayers(playerObj);
+    console.log('Players are: ' + JSON.stringify(playerObj));
+  }
+  
+  if (localPlayers) { setPlayers(localPlayers) };
+
+  const launchWindows = () => {
     const socket = io.connect('http://localhost:3100/');
 
-    for (let i = 1; i < Object.keys(players).length + 1; i++) {  
+    for (let i = 1; i < Object.keys(localPlayers).length + 1; i++) {  // Launch player windows
       let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");     
 
-      newWindow.addEventListener('load', () => {
+      newWindow.addEventListener('load', () => { // Display player name on window initalization
         socket.emit("displayBasicText", JSON.stringify({
-          message: players['Player' + i],
+          message: localPlayers['Player' + i],
           playerNumber: i.toString(),
           type: 'init-name'
         }), (data) => {
@@ -86,20 +94,18 @@ function StartPage() {
         })
       }, false);
     }
-  
-    // Direct to control panel page
-    history.push("/dm");
-  }
-  
-  const contextTest = useContext(PlayersContext);
+
+    history.push("/dm"); // Direct to control panel page
+  }  
+
+  if (localPlayers) { launchWindows() };
 
   return(
     <Container>
       <p>Welcome!</p>
-      <p>{contextTest}</p>
       <label>How many players will you have?</label>
       {createDivs()}
-      <button onClick={setUpPlayers} type="submit">Enter</button>
+      <button onClick={determinePlayers} type="submit">Enter</button>
     </Container>
   )
 }

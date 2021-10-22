@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import { io } from 'socket.io-client';
+import PlayersContext from '../../context';
 
 const StyledInput = styled.input`
   width: 250px;
@@ -10,6 +11,7 @@ const StyledInput = styled.input`
 function TextInput() {
   const [inputValue, setInputValue] = useState('Hello world');
   const [playerNumber, setPlayerNumber] = useState('1');
+  const { players } = useContext(PlayersContext);
 
   const handleSubmit = (event) => {
     console.log('Submitted: "' + inputValue + '" -> Player ' + playerNumber);
@@ -28,6 +30,7 @@ function TextInput() {
 
   return(
     <div>
+      <p>Players are: {JSON.stringify(players)}</p>
       <p>Text: </p>
       <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
       <p>Player Number: </p>

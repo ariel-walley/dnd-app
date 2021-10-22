@@ -1,4 +1,9 @@
 import React from 'react';
 
-export const PlayersContext = React.createContext("this is a test")
+const PlayersContext = React.createContext({
+    players: {},
+    setPlayers: () => {}
+});
+
+export default PlayersContext;
 
