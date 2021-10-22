@@ -8,7 +8,7 @@ const StyledInput = styled.input`
   width: 250px;
 `;
 
-function TextInput() {
+function Messenger() {
   const [inputValue, setInputValue] = useState('Hello world');
   const [playerNumber, setPlayerNumber] = useState('1');
   const { players } = useContext(PlayersContext);
@@ -40,4 +40,4 @@ function TextInput() {
   )
 }
 
-export default TextInput;
+export default Messenger;

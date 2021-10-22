@@ -4,7 +4,7 @@ import { Container } from '../../styles';
 import GalleryContainer from './galleryContainer';
 import History from './history';
 import Snapshots from './snapshots';
-import TextInput from './textInput';
+import Messenger from './messenger';
 
 const UpdatedContainer = styled(Container)`
   justify-content: flex-start;
@@ -31,7 +31,7 @@ function MainPage() {
         <GalleryContainer/>
         <UpdatedContainer2>
           <Container>
-            <TextInput/>
+            <Messenger/>
           </Container>
           <History/>
         </UpdatedContainer2>
