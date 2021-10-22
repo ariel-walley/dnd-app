@@ -1,55 +1,13 @@
 import React, { useContext } from 'react';
 import PlayersContext from '../../context';
+import { TabPanel, useStyles, a11yProps } from './tabs';
 
 import PropTypes from 'prop-types';
+import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  header: {
-    backgroundColor: "#141314"
-  },
-  body: {
-    flexGrow: 1,
-    backgroundColor: "#212021"
-  },
-}));
 
 export default function BasicTabs() {
   const { players } = useContext(PlayersContext);
@@ -65,24 +23,21 @@ export default function BasicTabs() {
   );
   
   const generateTabPanels = Object.values(players).map((player, index) => 
-    <TabPanel key={player + 'HistoryPanel'} value={value} index={index + 1}>{`${player}'s history`}</TabPanel>
+    <TabPanel key={player + 'HistoryPanel'} value={value} index={index + 1} style="simple">{`${player}'s history`}</TabPanel>
   );
   
   return (
     <div className={classes.body}>
-      <Box sx={{ maxWidth: 480 }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="basic tabs example">
-            <Tab label="All" {...a11yProps(0)} />
-            {generateTabs}
-          </Tabs>
-        </Box>
-        <TabPanel value={value} index={0}>
+      <AppBar position="static">
+        <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="basic tabs example">
+          <Tab label="All" {...a11yProps(0)} />
+          {generateTabs}
+        </Tabs>
+      </AppBar>
+        <TabPanel value={value} index={0} style="simple">
           All recent history changes.
         </TabPanel>
         {generateTabPanels}
-      </Box>
     </div>
-
   );
 }

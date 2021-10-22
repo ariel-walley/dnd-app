@@ -1,54 +1,14 @@
 import React, { useEffect } from 'react';
+import { TabPanel, useStyles, a11yProps, MainTabFunction } from './tabs';
+
 import PropTypes from 'prop-types';
-import { makeStyles } from '@mui/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { makeStyles } from '@mui/styles';
+
 import Gallery from './gallery';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`wrapped-tabpanel-${index}`}
-      aria-labelledby={`wrapped-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `wrapped-tab-${index}`,
-    'aria-controls': `wrapped-tabpanel-${index}`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  header: {
-    backgroundColor: "#141314"
-  },
-  body: {
-    flexGrow: 1,
-    backgroundColor: "#212021"
-  },
-}));
 
 export default function GalleryContainer() {
   const classes = useStyles();
@@ -74,7 +34,7 @@ export default function GalleryContainer() {
   );
 
   const generateTabPanels = contentTypes.map((type, index) => 
-    <TabPanel value={value} index={index} key={type + 'TabPanel'}>
+    <TabPanel value={value} index={index} key={type + 'TabPanel'} style="wrapped">
       <Gallery name={type} paths={content[type]} key={type + 'Gallery'} />
     </TabPanel>
   );

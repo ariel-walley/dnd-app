@@ -11,7 +11,11 @@ import MainPage from './components/controlPanel/mainPage';
 import PlayerWindow from './components/playerWindow';
 
 function App() {
-  const [players, setPlayers] = useState({});
+  const [players, setPlayers] = useState({
+    Player1: 'Cheryl',
+    Player2: 'Dave',
+    Player3: 'Anthony'
+  });
   const value = { players, setPlayers }
 
   const createRoutes = () => {
