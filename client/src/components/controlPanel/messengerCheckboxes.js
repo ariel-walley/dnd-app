@@ -13,39 +13,23 @@ export default function MessengerCheckboxes() {
     setChecked([event.target.checked, event.target.checked, event.target.checked]);
   };
 
-  const handleChangeChild = (e, count) => {
-    let index = e.target.id.slice(0, 1);
-    let localChecked = JSON.parse(JSON.stringify(checked));
+  const handleChangeChild = (e, index) => {
+    let localChecked = checked.slice(0);
     localChecked[index] = !checked[index];
     setChecked(localChecked);    
   };
 
-  const generateChildren = () => {
-    let display = [];
-    let count = 0;
-
-    Object.values(players).forEach((player) => {
-      display.push(
-        <FormControlLabel
-            label={player}
-            key={player + 'FormControlLabel'}
-            control={<Checkbox 
-                key={player + 'Checkbox'} 
-                id={count + 'Checkbox'} 
-                checked={checked[count]} 
-                onChange={(e) => handleChangeChild(e, count)} />}
-        />);
-      count++;
-    })
-
-    return display;
-  }
-
-  const children = (
-    <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
-        {generateChildren()}
-    </Box>
-  );
+  const generateChildren = Object.values(players).map((player, index) => 
+    <FormControlLabel
+        label={player}
+        key={player + 'FormControlLabel'}
+        control={<Checkbox 
+            key={player + 'Checkbox'} 
+            id={index + 'Checkbox'} 
+            checked={checked[index]} 
+            onChange={(e) => handleChangeChild(e, index)} />}
+    />
+  )
 
   return (
     <div>
@@ -59,7 +43,9 @@ export default function MessengerCheckboxes() {
           />
         }
       />
-      {children}
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
+          {generateChildren}
+      </Box>
     </div>
   );
 }
