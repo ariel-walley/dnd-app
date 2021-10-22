@@ -7,30 +7,43 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default function MessengerCheckboxes() {
   const { players } = useContext(PlayersContext);
-  const [checked, setChecked] = React.useState([true, false]);
+  const [checked, setChecked] = useState([false, false, false]);
 
-  const handleChange1 = (event) => {
-    setChecked([event.target.checked, event.target.checked]);
+  const handleChangeParent = (event) => {
+    setChecked([event.target.checked, event.target.checked, event.target.checked]);
   };
 
-  const handleChange2 = (event) => {
-    setChecked([event.target.checked, checked[1]]);
+  const handleChangeChild = (e, count) => {
+    let index = e.target.id.slice(0, 1);
+    let localChecked = JSON.parse(JSON.stringify(checked));
+    localChecked[index] = !checked[index];
+    setChecked(localChecked);    
   };
 
-  const handleChange3 = (event) => {
-    setChecked([checked[0], event.target.checked]);
-  };
+  const generateChildren = () => {
+    let display = [];
+    let count = 0;
+
+    Object.values(players).forEach((player) => {
+      display.push(
+        <FormControlLabel
+            label={player}
+            key={player + 'FormControlLabel'}
+            control={<Checkbox 
+                key={player + 'Checkbox'} 
+                id={count + 'Checkbox'} 
+                checked={checked[count]} 
+                onChange={(e) => handleChangeChild(e, count)} />}
+        />);
+      count++;
+    })
+
+    return display;
+  }
 
   const children = (
     <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
-      <FormControlLabel
-        label="Child 1"
-        control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
-      />
-      <FormControlLabel
-        label="Child 2"
-        control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
-      />
+        {generateChildren()}
     </Box>
   );
 
@@ -40,9 +53,9 @@ export default function MessengerCheckboxes() {
         label="All"
         control={
           <Checkbox
-            checked={checked[0] && checked[1]}
-            indeterminate={checked[0] !== checked[1]}
-            onChange={handleChange1}
+            checked={ checked.indexOf(false) === -1 }
+            indeterminate={ checked.indexOf(true) !== -1 && checked.indexOf(false) !== -1 }
+            onChange={handleChangeParent}
           />
         }
       />
