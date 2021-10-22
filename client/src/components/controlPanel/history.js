@@ -66,7 +66,7 @@ export default function BasicTabs() {
     let count = 1;
 
     Object.values(players).forEach((player) => {
-      display.push(<Tab label={player} {...a11yProps(count)} />);
+      display.push(<Tab key={player + 'HistoryTab'} label={player} {...a11yProps(count)} />);
       count++;
     })
 
@@ -78,7 +78,7 @@ export default function BasicTabs() {
     let count = 1;
 
     Object.values(players).forEach((player) => {
-      display.push(<TabPanel value={value} index={count}>{`${player}'s history`}</TabPanel>);
+      display.push(<TabPanel key={player + 'HistoryPanel'} value={value} index={count}>{`${player}'s history`}</TabPanel>);
       count++;
     })
 
