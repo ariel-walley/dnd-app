@@ -28,10 +28,6 @@ function StartPage(props) {
     for (let i = 1; i < 5; i++) {
       display.push(
         <UserInput key={`Input${i}`} id={`Input${i}`} onKeyDown={handleEnter}/>
-
-        /* <Link to={'/dm'} style={{ textDecoration: 'none' }}>
-          <PlayerDiv key={`Player#${i}`} id={i} onClick={this.divSubmit}>{i}</PlayerDiv>
-        </Link> */
       )
     }
 

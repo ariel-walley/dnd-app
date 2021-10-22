@@ -13,20 +13,14 @@ const StyledContent = styled.img`
 `;
 
 export default function Gallery (props) {
-  const renderGallery = () => {
-    let display = [];
-
-    props.paths.forEach((path) => {
-      display.push(<StyledContent src={`/${props.name}/` + path} key={path} alt={path}/>);
-    })
-
-    return display;
-  }
-
   if (props.paths === undefined) {
     return <p>Loading...</p>
   } else if (props.paths.length > 0) {
-    return <UpdatedContainer>{renderGallery()}</UpdatedContainer>
+    return <UpdatedContainer>{
+      props.paths.map((path) => 
+        <StyledContent src={`/${props.name}/` + path} key={path} alt={path}/>
+      )}
+    </UpdatedContainer>
   } else {
     return <p>No {props.name} found.</p>
   }

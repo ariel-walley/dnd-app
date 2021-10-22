@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TabsWrappedLabel() {
+export default function GalleryContainer() {
   const classes = useStyles();
   const contentTypes = ["backgrounds", "gifs", "images"];
   const numbers = ["one", "two", "three"];
@@ -66,35 +66,15 @@ export default function TabsWrappedLabel() {
       }).catch(err => console.error(err))
   }, []);
 
-  const generateTabs = () => {
-    let display = [];
+  const generateTabs = contentTypes.map((type, index) => 
+    <Tab value={numbers[index]} label={type} key={type + 'Tab'} {...a11yProps(numbers[index])} />
+  );
 
-    for (let i = 0; i < contentTypes.length; i++) {
-      let type = contentTypes[i];
-
-      display.push( 
-        <Tab value={numbers[i]} label={type} key={type + 'Tab'} {...a11yProps(numbers[i])} />
-      );
-    }
-
-    return display;
-  }
-
-  const generateTabPanels = () => {
-    let display = [];
-
-    for (let i = 0; i < contentTypes.length; i++) {
-      let type = contentTypes[i];
-
-      display.push( 
-        <TabPanel value={value} index={numbers[i]} key={type + 'TabPanel'}>
-          <Gallery name={type} paths={content[type]} key={type + 'Gallery'} />
-        </TabPanel>
-      );
-    }
-
-    return display;
-  }
+  const generateTabPanels = contentTypes.map((type, index) => 
+    <TabPanel value={value} index={numbers[index]} key={type + 'TabPanel'}>
+      <Gallery name={type} paths={content[type]} key={type + 'Gallery'} />
+    </TabPanel>
+  );
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -104,10 +84,10 @@ export default function TabsWrappedLabel() {
     <div className={classes.body}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example" className={classes.body}>
-          {generateTabs()}
+          {generateTabs}
         </Tabs>
       </AppBar>
-      {generateTabPanels()}
+      {generateTabPanels}
     </div>
   );
 }

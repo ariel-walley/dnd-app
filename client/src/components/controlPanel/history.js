@@ -61,43 +61,27 @@ export default function BasicTabs() {
   };
 
 
-  const generateTabs = () => {
-    let display = [];
-    let count = 1;
-
-    Object.values(players).forEach((player) => {
-      display.push(<Tab key={player + 'HistoryTab'} label={player} {...a11yProps(count)} />);
-      count++;
-    })
-
-    return display;
-  }
-
-  const generateTabPanels = () => {
-    let display = [];
-    let count = 1;
-
-    Object.values(players).forEach((player) => {
-      display.push(<TabPanel key={player + 'HistoryPanel'} value={value} index={count}>{`${player}'s history`}</TabPanel>);
-      count++;
-    })
-
-    return display;
-  }
-
+  const generateTabs = Object.values(players).map((player, index) => 
+    <Tab key={player + 'HistoryTab'} label={player} {...a11yProps(index + 1)} />
+  );
+  
+  const generateTabPanels = Object.values(players).map((player, index) => 
+    <TabPanel key={player + 'HistoryPanel'} value={value} index={index + 1}>{`${player}'s history`}</TabPanel>
+  );
+  
   return (
     <div className={classes.body}>
       <Box sx={{ maxWidth: 480 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" aria-label="basic tabs example">
             <Tab label="All" {...a11yProps(0)} />
-            {generateTabs()}
+            {generateTabs}
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
           All recent history changes.
         </TabPanel>
-        {generateTabPanels()}
+        {generateTabPanels}
       </Box>
     </div>
 
