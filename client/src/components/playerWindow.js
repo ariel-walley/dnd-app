@@ -19,7 +19,7 @@ function PlayerWindow(props) {
       let data = JSON.parse(raw_data);
       console.log(data);
      
-      if(parseInt(data.playerNumber) === props.player) {
+      if (data.playerNumbers.indexOf(props.player) !== -1) {
         console.log(data.message);
         setOutput(data.message);
         

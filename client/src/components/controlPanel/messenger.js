@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
 import PlayersContext from '../../context';
 
-import MessengerCheckboxes from './messengerCheckboxes';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { io } from 'socket.io-client';
 
@@ -11,35 +13,80 @@ const StyledInput = styled.input`
   width: 250px;
 `;
 
-function Messenger() {
-  const [inputValue, setInputValue] = useState('Hello world');
-  const [playerNumber, setPlayerNumber] = useState('1');
+export default function Messenger() {
   const { players } = useContext(PlayersContext);
+  const [inputValue, setInputValue] = useState('Hello world');
+  const [checked, setChecked] = useState(Object.keys(players).map(() => false));
+  
+  /*    CHECKBOXES    */
 
-  const handleSubmit = (event) => {
-    console.log('Submitted: "' + inputValue + '" -> Player ' + playerNumber);
+  const handleChangeParent = (event) => { // Handle the "All Players" select/unselect all feature
+    setChecked(Object.keys(players).map(() => event.target.checked));
+  };
 
-    const socket = io.connect('http://localhost:3100/');
-    socket.emit("displayBasicText", JSON.stringify({
-      message: inputValue,
-      playerNumber: playerNumber,
-      type: 'message'
-    }), (data) => {
-      console.log(data)
-      socket.disconnect();
-    })
-    event.preventDefault();
+  const handleChangeChild = (e, index) => { // Handle the individual player checkboxes
+    let localChecked = checked.slice(0);
+    localChecked[index] = !checked[index];
+    setChecked(localChecked);    
+  };
+
+  const generateChildren = Object.values(players).map((player, index) => 
+  <FormControlLabel
+      label={player}
+      key={player + 'FormControlLabel'}
+      control={<Checkbox 
+          key={player + 'Checkbox'} 
+          id={index + 'Checkbox'} 
+          checked={checked[index]} 
+          onChange={(e) => handleChangeChild(e, index)} />}
+  />
+)
+
+  const MessengerCheckboxes = (
+    <div>
+      <FormControlLabel
+        label="All Players"
+        control={
+          <Checkbox
+            checked={ checked.indexOf(false) === -1 }
+            indeterminate={ checked.indexOf(true) !== -1 && checked.indexOf(false) !== -1 }
+            onChange={handleChangeParent}
+          />
+        }
+      />
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
+          {generateChildren}
+      </Box>
+    </div>
+  );
+
+  /*    REST OF MESSENGER COMPONENT    */
+
+  const sendMessage = (event) => {
+    const playerNumbers = checked.reduce((acc, el, i) => (el ? [...acc, i + 1] : acc), []);
+
+    if (playerNumbers.length > 0) {
+      console.log('Submitted: "' + inputValue + '" -> Player(s): ' + playerNumbers);
+
+      const socket = io.connect('http://localhost:3100/');
+  
+      socket.emit("displayBasicText", JSON.stringify({
+        message: inputValue,
+        playerNumbers: playerNumbers,
+        type: 'message'
+      }), (data) => {
+        console.log(data)
+        socket.disconnect();
+      })
+      event.preventDefault(); 
+    }
   }
 
   return(
     <div>
       <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-      <p>Player Number: </p>
-      <input type="text" value={playerNumber} onChange={(event) => setPlayerNumber(event.target.value)} />
-      <MessengerCheckboxes/>
-      <input onClick={handleSubmit} type="button" value="Send" />
+      {MessengerCheckboxes}
+      <input onClick={sendMessage} type="button" value="Send" />
     </div>
   )
 }
-
-export default Messenger;

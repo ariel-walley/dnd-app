@@ -82,7 +82,7 @@ function StartPage(props) {
       newWindow.addEventListener('load', () => { // Display player name on window initalization
         socket.emit("displayBasicText", JSON.stringify({
           message: localPlayers['Player' + i],
-          playerNumber: i.toString(),
+          playerNumbers: [i],
           type: 'init-name'
         }), (data) => {
           console.log(data)
