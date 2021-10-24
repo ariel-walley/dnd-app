@@ -62,6 +62,14 @@ export default function Messenger() {
 
   /*    REST OF MESSENGER COMPONENT    */
 
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+
+    if (event.code === "Enter" || event.code === "NumpadEnter" || event.key === "Enter" || event.keyCode === "13") {
+      document.getElementById("submit-button").click();
+    }
+  }
+
   const sendMessage = (event) => {
     const playerNumbers = checked.reduce((acc, el, i) => (el ? [...acc, i + 1] : acc), []);
 
@@ -80,13 +88,15 @@ export default function Messenger() {
       })
       event.preventDefault(); 
     }
+
+    setInputValue(''); // Reset input
   }
 
   return(
     <div>
-      <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+      <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleInputChange} />
       {MessengerCheckboxes}
-      <input onClick={sendMessage} type="button" value="Send" />
+      <input id="submit-button" onClick={sendMessage} type="button" value="Send" />
     </div>
   )
 }
