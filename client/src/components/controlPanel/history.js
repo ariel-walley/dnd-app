@@ -12,39 +12,7 @@ import { makeStyles } from '@mui/styles';
 import { io } from 'socket.io-client';
 let socket = null;
 
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+/*    STYLING    */
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -72,25 +40,17 @@ export default function HistoryContainer() {
     "history4": []
   });
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  /*    CONNECTING TO WEB SOCKET    */
 
-  const generateTabs = Object.values(players).map((player, index) => 
-    <Tab key={player + 'HistoryTab'} label={player} {...a11yProps(index + 1)} />
-  );
+    useEffect(() => {
+      socket = io.connect('http://localhost:3100/');
   
-  const generateTabPanels = Object.values(players).map((player, index) => 
-    <TabPanel key={player + 'HistoryPanel'} value={value} index={index + 1}>{`${player}'s history`}</TabPanel>
-  );
+      socket.on("displayHistory", (data) => {
+        setHistory(data);
+      })
+    }, [])
 
-  useEffect(() => {
-    socket = io.connect('http://localhost:3100/');
-
-    socket.on("displayHistory", (data) => {
-      setHistory(data);
-    })
-  }) 
+  /*    CREATING ROWS FOR HISTORY ENTRIES    */
 
   const generateNames = (playerNums) => {
     let arr = playerNums.map((player) => players['Player' + player]);
@@ -104,6 +64,63 @@ export default function HistoryContainer() {
       </HistoryEntry>
     );
   }
+
+  const generatePlayerHistory = (playerNum) => {
+    const historyStr = playerNum.replace("Player", "history");
+
+    return history[historyStr].map((hist, index) => 
+      <HistoryEntry key={playerNum + 'History' + index}>
+        Sent "{hist.content}"
+      </HistoryEntry>
+    );
+  }
+
+  /*    CREATING TAB STRUCTURE    */
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            {children}
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
+const generateTabs = Object.values(players).map((player, index) => 
+  <Tab key={player + 'HistoryTab'} label={player} {...a11yProps(index + 1)} />
+);
+
+const generateTabPanels = Object.keys(players).map((playerNum, index) => 
+  <TabPanel key={players[playerNum] + 'HistoryPanel'} value={value} index={index + 1}>{generatePlayerHistory(playerNum)}</TabPanel>
+);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <div className={classes.body}>
