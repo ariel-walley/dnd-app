@@ -89,7 +89,10 @@ export default function Messenger() {
       event.preventDefault(); 
     }
 
-    setInputValue(''); // Reset input
+    // Reset text input and checkboxes after submission
+    setInputValue('');
+    setChecked(Object.keys(players).map(() => false));
+
   }
 
   return(

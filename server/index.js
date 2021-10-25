@@ -15,19 +15,7 @@ server.listen(3100, () => {
   console.log('listening on *:3100');
 });
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-
-  socket.on('displayBasicText', (msg, fn) => {
-    console.log('message: ' + msg);
-    io.emit('displayBasicText', msg);
-    fn('ack')
-  });
-});
+/*    CORS    */
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -37,6 +25,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+/*    SENDING FILE RESOURCES    */
 
 app.use(express.static('../resources'));
 
@@ -57,3 +47,48 @@ app.get('/res/', async (req, res, next) => {
 
   res.json(contentObj);
 })
+
+let history = {
+  allHistory: [],
+  history1: [],
+  history2: [],
+  history3: [],
+  history4: []
+}
+
+io.on('connection', (socket) => {
+
+  /*  Basic Connections */
+
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  /*  Sending text messages to players  */
+
+  socket.on('displayBasicText', (msg, fn) => {
+    console.log('message: ' + msg);
+    let parseMsg = JSON.parse(msg);
+
+    history.allHistory.push({
+      "type": parseMsg.type,
+      "content": parseMsg.message,
+      "players": parseMsg.playerNumbers
+    })
+
+    parseMsg.playerNumbers.forEach((player) => {
+      history['history' + player].push({
+        "type": parseMsg.type,
+        "content": parseMsg.message,
+      })
+    });
+
+    io.emit('displayBasicText', msg);
+    io.emit('displayHistory', history);
+    fn('ack');
+
+  }); 
+
+});

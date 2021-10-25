@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import styled from 'styled-components';
 import PlayersContext from '../../context';
 
 import PropTypes from 'prop-types';
@@ -7,6 +8,10 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
+
+import { io } from 'socket.io-client';
+let socket = null;
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,7 +26,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -51,10 +56,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTabs() {
+const HistoryEntry = styled.div`
+  border: solid black 1px;
+`;
+
+export default function HistoryContainer() {
   const { players } = useContext(PlayersContext);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [history, setHistory] = React.useState({ 
+    "allHistory": [],
+    "history1": [],
+    "history2": [],
+    "history3": [],
+    "history4": []
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -67,7 +83,28 @@ export default function BasicTabs() {
   const generateTabPanels = Object.values(players).map((player, index) => 
     <TabPanel key={player + 'HistoryPanel'} value={value} index={index + 1}>{`${player}'s history`}</TabPanel>
   );
-  
+
+  useEffect(() => {
+    socket = io.connect('http://localhost:3100/');
+
+    socket.on("displayHistory", (data) => {
+      setHistory(data);
+    })
+  }) 
+
+  const generateNames = (playerNums) => {
+    let arr = playerNums.map((player) => players['Player' + player]);
+    return [arr.slice(0, -1).join(', '), arr.pop()].filter(w => w !== '').join(' and ')
+  }
+
+  const generateAllHistory = () => {
+    return history.allHistory.map((hist, index) => 
+      <HistoryEntry key={'allHist' + index}>
+        {`"${hist.content}" was sent to ` + generateNames(hist.players)}
+      </HistoryEntry>
+    );
+  }
+
   return (
     <div className={classes.body}>
       <Box sx={{ maxWidth: 480 }}>
@@ -78,11 +115,10 @@ export default function BasicTabs() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          All recent history changes.
+          { history.allHistory.length > 0 ? generateAllHistory() : 'No history yet.'}
         </TabPanel>
         {generateTabPanels}
       </Box>
     </div>
-
   );
 }
