@@ -10,22 +10,21 @@ const Text = styled.p`
 `;
 
 function PlayerWindow(props) {
-  const [displayOutput, setOutput] = useState('');
+  const [displayText, setText] = useState('');
 
   useEffect(() => {
     socket = io.connect('http://localhost:3100/');
 
     socket.on("displayBasicText", (raw_data) => {
       let data = JSON.parse(raw_data);
-      console.log(data);
      
       if (data.playerNumbers.indexOf(props.player) !== -1) {
-        console.log(data.message);
-        setOutput(data.message);
+        console.log(data.content);
+        setText(data.content);
         
-        if (data.type === 'message') {
+        if (data.contentType === 'message') {
           setTimeout(() => {
-            setOutput('');
+            setText('');
           }, 15 * 1000) //hide after 15 seconds for messages sent from DM
         }
 
@@ -41,7 +40,7 @@ function PlayerWindow(props) {
 
   return (
     <Container>
-      <Text>Message: {displayOutput}</Text>
+      <Text>Message: {displayText}</Text>
     </Container>
   )
 }

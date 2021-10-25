@@ -35,14 +35,8 @@ function StartPage(props) {
   }
   
   const handleEnter = (event) => {  // Submit user input if 'Enter' key is pressed   
-    if (event.key !== undefined) {
-      if (event.key === 'Enter') {
-        determinePlayers();
-      }
-    } else if (event.keyCode !== undefined) {
-      if (event.keyCode === 13) {
-        determinePlayers();
-      };
+    if (event.code === "Enter" || event.code === "NumpadEnter" || event.key === "Enter" || event.keyCode === "13") {
+      determinePlayers();
     }
   }
 
@@ -68,7 +62,6 @@ function StartPage(props) {
     }
 
     setLocalPlayers(playerObj);
-    console.log('Players are: ' + JSON.stringify(playerObj));
   }
   
   if (localPlayers) { setPlayers(localPlayers) };
@@ -81,9 +74,11 @@ function StartPage(props) {
 
       newWindow.addEventListener('load', () => { // Display player name on window initalization
         socket.emit("displayBasicText", JSON.stringify({
-          message: localPlayers['Player' + i],
+          contentType: 'init-name', 
+          content: localPlayers['Player' + i],
           playerNumbers: [i],
-          type: 'init-name'
+          playerNames: [localPlayers['Player' + i].toString()],
+          timestamp: Date()
         }), (data) => {
           console.log(data)
           socket.disconnect();

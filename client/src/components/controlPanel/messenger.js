@@ -8,6 +8,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { io } from 'socket.io-client';
 
 import styled from 'styled-components';
+import { Container } from '../../styles';
+
+/*    STYING    */
+
+const UpdatedContainer = styled(Container)`
+  height: 50%;
+  margin: 15px;
+  background-color: #202021
+`;
+
 
 const StyledInput = styled.input`
   width: 250px;
@@ -79,9 +89,11 @@ export default function Messenger() {
       const socket = io.connect('http://localhost:3100/');
   
       socket.emit("displayBasicText", JSON.stringify({
-        message: inputValue,
+        contentType: 'message',
+        content: inputValue,
         playerNumbers: playerNumbers,
-        type: 'message'
+        playerNames: playerNumbers.map(playerNum => players['Player' + playerNum]),
+        timestamp: Date()
       }), (data) => {
         console.log(data)
         socket.disconnect();
@@ -96,10 +108,10 @@ export default function Messenger() {
   }
 
   return(
-    <div>
+    <UpdatedContainer>
       <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleInputChange} />
       {MessengerCheckboxes}
       <input id="submit-button" onClick={sendMessage} type="button" value="Send" />
-    </div>
+    </UpdatedContainer>
   )
 }

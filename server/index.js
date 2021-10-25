@@ -73,18 +73,27 @@ io.on('connection', (socket) => {
     let parseMsg = JSON.parse(msg);
 
     history.allHistory.push({
-      "type": parseMsg.type,
-      "content": parseMsg.message,
-      "players": parseMsg.playerNumbers
+      contentType: parseMsg.contentType,
+      content: parseMsg.content,
+      playerNumbers: parseMsg.playerNumbers,
+      playerNames: parseMsg.playerNames,
+      timestamp: new Date()
     })
 
     parseMsg.playerNumbers.forEach((player) => {
       history['history' + player].push({
-        "type": parseMsg.type,
-        "content": parseMsg.message,
+        contentType: parseMsg.contentType,
+        content: parseMsg.content,
+        playerNumbers: parseMsg.playerNumbers,
+        playerNames: parseMsg.playerNames,
+        timestamp: new Date()
       })
     });
 
+    console.log(history.allHistory);
+    history.allHistory.forEach((hist) => {
+      console.log(hist.playerNames);
+    })
     io.emit('displayBasicText', msg);
     io.emit('displayHistory', history);
     fn('ack');
