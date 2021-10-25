@@ -1,41 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container } from '../../styles';
-import GalleryContainer from './galleryContainer';
-import History from './history';
+
 import Snapshots from './snapshots';
+import GalleryContainer from './galleryContainer';
 import Messenger from './messenger';
+import Notes from './notes';
+import History from './history';
 
 const UpdatedContainer = styled(Container)`
-  justify-content: flex-start;
   flex-direction: row;
 `;
 
-const Column = styled.div`
-  width: ${props => props.width || "100%"};
-  height: 100%;
-  padding: 25px;
-`;
-
-const UpdatedContainer2 = styled(Container)`
-  flex-direction: row;
+const Column = styled(Container)`
+  margin: 15px;
 `;
 
 function MainPage() {
   return(
     <UpdatedContainer>
-      <Column width="33.33%">
+      <Column>
         <Snapshots/>
       </Column>
-      <Column width="66.66%">
+      <Column>
         <GalleryContainer/>
-        <UpdatedContainer2>
-          <Container>
-            <Messenger/>
-          </Container>
-          <History/>
-        </UpdatedContainer2>
+        <Messenger/>
       </Column>
+      <Column>
+        <Notes/>
+        <History/>
+      </Column>      
     </UpdatedContainer>
   )
 }
