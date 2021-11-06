@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function GalleryContainer() {
   const classes = useStyles();
-  const contentTypes = ["backgrounds", "gifs", "images"];
+  const contentTypes = ["backgrounds", "gifs", "filters"];
 
   const [value, setValue] = React.useState(0);
   const [content, setContent] = React.useState({});
