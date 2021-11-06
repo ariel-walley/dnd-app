@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { makeStyles } from '@mui/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -50,12 +51,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const SelectBar = styled.div`
+  width: 100%;
+  min-height: 50px;
+`;
+
+const StyledContent = styled.img` 
+  max-width: 50px;
+  margin: 10px;
+`;
+
 export default function GalleryContainer() {
   const classes = useStyles();
   const contentTypes = ["backgrounds", "gifs", "filters"];
 
   const [value, setValue] = React.useState(0);
   const [content, setContent] = React.useState({});
+  const [selectedContent, selectContent] = React.useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -73,10 +85,26 @@ export default function GalleryContainer() {
     <Tab value={index} label={type} key={type + 'Tab'} {...a11yProps(index)} />
   );
 
+  const addSelectedContent = (path) => {
+    if (!selectedContent.includes(path)) {
+      selectContent(currentState => [...currentState, path]);
+    }
+  }
+
+  const removeSelectedContent = (path) => {
+    let newState = [...selectedContent];
+    newState = newState.filter(elem => elem !== path);
+    selectContent(newState);
+  }
+
   const generateTabPanels = contentTypes.map((type, index) => 
     <TabPanel value={value} index={index} key={type + 'TabPanel'}>
-      <Gallery name={type} paths={content[type]} key={type + 'Gallery'} />
+      <Gallery name={type} paths={content[type]} key={type + 'Gallery'} function={addSelectedContent}/>
     </TabPanel>
+  );
+
+  const displaySelectedContent = selectedContent.map((path, index) => 
+    <StyledContent src={path} key={path + 'Thumbnail'} alt={'thumbnail of ' + path} onClick={() => removeSelectedContent(path)}/>
   );
 
   return (
@@ -87,6 +115,7 @@ export default function GalleryContainer() {
         </Tabs>
       </AppBar>
       {generateTabPanels}
+      <SelectBar>{ selectedContent.length > 0 ? displaySelectedContent : 'No content selected.'}</SelectBar>
     </div>
   );
 }

@@ -18,7 +18,7 @@ export default function Gallery (props) {
   } else if (props.paths.length > 0) {
     return <UpdatedContainer>{
       props.paths.map((path) => 
-        <StyledContent src={`/${props.name}/` + path} key={path} alt={path}/>
+        <StyledContent src={`/${props.name}/` + path} key={path} alt={props.name + 'image'} onClick={(event) => props.function(`/${props.name}/` + path)} />
       )}
     </UpdatedContainer>
   } else {
