@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import PlayersContext from '../../context';
+import { PlayersContext } from '../../context';
 
 import styled from 'styled-components';
 import { Container } from '../../styles';
