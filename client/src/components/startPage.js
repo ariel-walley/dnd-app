@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
+import { PlayersContext } from '../context';
 
 import styled from 'styled-components';
 import { Container } from '../styles';
 
 import { io } from 'socket.io-client';
 
-import PlayersContext from '../context';
-import { useContext } from 'react';
 
 const UserInput = styled.input`
   height: 25px;
@@ -17,7 +16,7 @@ const UserInput = styled.input`
   font-size: 18px;
 `;
 
-function StartPage(props) {
+function StartPage() {
   const [localPlayers, setLocalPlayers] = useState();
   const { setPlayers } = useContext(PlayersContext); 
   const history = useHistory();
