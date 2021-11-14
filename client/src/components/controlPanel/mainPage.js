@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Container } from '../../styles';
 
 import Snapshots from './snapshots';
-import GalleryContainer from './galleryContainer';
 import Messenger from './messenger';
 import Notes from './notes';
 import History from './history';
@@ -23,7 +22,6 @@ function MainPage() {
         <Snapshots/>
       </Column>
       <Column>
-        <GalleryContainer/>
         <Messenger/>
       </Column>
       <Column>

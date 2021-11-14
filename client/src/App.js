@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 
-import PlayersContext from './context';
+import { PlayersContext } from './context';
 
 import GlobalStyle from './globalStyles';
 import { Container } from './styles';

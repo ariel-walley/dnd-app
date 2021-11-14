@@ -1,9 +1,12 @@
 import React from 'react';
 
-const PlayersContext = React.createContext({
+export const PlayersContext = React.createContext({
     players: {},
     setPlayers: () => {}
 });
 
-export default PlayersContext;
+export const MessageContext = React.createContext({
+  message: {},
+  updateMessage: () => {}
+})
 
