@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import PlayersContext from '../../context';
+import { PlayersContext } from '../../context';
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 
