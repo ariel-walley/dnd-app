@@ -7,7 +7,7 @@ import GlobalStyle from './globalStyles';
 import { Container } from './styles';
 
 import StartPage from './components/startPage';
-import MainPage from './components/controlPanel/mainPage';
+import MainPage from './components/mainPage/mainPage';
 import PlayerWindow from './components/playerWindow';
 
 function App() {

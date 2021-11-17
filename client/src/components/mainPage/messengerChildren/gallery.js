@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { MessageContext } from '../../context';
+import { MessageContext } from '../../../context';
 
-import { Container } from '../../styles';
+import { Container } from '../../../styles';
 import styled from 'styled-components';
 
 const UpdatedContainer = styled(Container)`

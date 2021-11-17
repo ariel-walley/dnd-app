@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { PlayersContext, MessageContext } from '../../context';
 
-import GalleryContainer from './galleryContainer';
-import TextInput from './textInput';
-import PlayerCheckboxes from './playerCheckboxes';
+import GalleryContainer from './messengerChildren/galleryContainer';
+import TextInput from './messengerChildren/textInput';
+import PlayerCheckboxes from './messengerChildren/playerCheckboxes';
 
 import { io } from 'socket.io-client';
 
