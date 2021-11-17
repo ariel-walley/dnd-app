@@ -45,22 +45,21 @@ export default function HistoryContainer() {
       socket = io.connect('http://localhost:3100/');
   
       socket.on("displayHistory", (data) => {
-        console.log(data);
-//        setHistory(data);
+        setHistory(data);
       })
     }, [])
 
   /*    CREATING ROWS FOR HISTORY ENTRIES    */
-
-  const generateNames = (playerNums) => {
-    let arr = playerNums.map((player) => players['Player' + player]);
-    return [arr.slice(0, -1).join(', '), arr.pop()].filter(w => w !== '').join(' and ')
+  const generateNames = (playerNames) => {
+    let playerNames2 = [...playerNames];
+    let str = [playerNames2.slice(0, -1).join(', '), playerNames2.pop()].filter(w => w !== '').join(' and ');
+    return str;
   }
 
   const generateAllHistory = () => {
     return history.allHistory.map((hist, index) => 
       <HistoryEntry key={'allHist' + index}>
-        {`"${hist.content}" was sent to ` + generateNames(hist.players)}
+        Something was sent to {generateNames(hist.playerNames)} 
       </HistoryEntry>
     );
   }
@@ -70,7 +69,7 @@ export default function HistoryContainer() {
 
     return history[historyStr].map((hist, index) => 
       <HistoryEntry key={playerNum + 'History' + index}>
-        Sent "{hist.content}"
+        Sent "something" to {generateNames(hist.playerNames)}
       </HistoryEntry>
     );
   }

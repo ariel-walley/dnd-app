@@ -76,13 +76,13 @@ io.on('connection', (socket) => {
     console.log('content: ' + content);
     let parseContent = JSON.parse(content);
 
-    history.allHistory.push({parseContent});
+    history.allHistory.push(parseContent);
 
     parseContent.playerNumbers.forEach((player) => {
-      history['history' + player].push({parseContent})
+      history['history' + player].push(parseContent)
     });
 
-    io.emit('displayBasicText', content);
+    io.emit('displayBasicText', parseContent);
     io.emit('displayHistory', history);
     fn('ack');
 
