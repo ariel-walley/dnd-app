@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-/*    SENDING FILE RESOURCES    */
+/*    SENDING FILE RESOURCES TO CLIENT    */
 
 app.use(express.static('../resources'));
 
@@ -48,6 +48,10 @@ app.get('/res/', async (req, res, next) => {
   res.json(contentObj);
 })
 
+/*  HISTORY OBJECT    */
+
+// for now -- let's push to different histories but eventually we'll parse this out
+
 let history = {
   allHistory: [],
   history1: [],
@@ -58,7 +62,7 @@ let history = {
 
 io.on('connection', (socket) => {
 
-  /*  Basic Connections */
+  /*  BASIC CONNECTIONS */
 
   console.log('a user connected');
 
@@ -66,26 +70,19 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  /*  Sending text messages to players  */
+  /*  SENDING CONTENT TO PLAYERS  */
 
-  socket.on('displayBasicText', (msg, fn) => {
-    console.log('message: ' + msg);
-    let parseMsg = JSON.parse(msg);
+  socket.on('displayBasicText', (content, fn) => {
+    console.log('content: ' + content);
+    let parseContent = JSON.parse(content);
 
-    history.allHistory.push({
-      "type": parseMsg.type,
-      "content": parseMsg.message,
-      "players": parseMsg.playerNumbers
-    })
+    history.allHistory.push({parseContent});
 
-    parseMsg.playerNumbers.forEach((player) => {
-      history['history' + player].push({
-        "type": parseMsg.type,
-        "content": parseMsg.message,
-      })
+    parseContent.playerNumbers.forEach((player) => {
+      history['history' + player].push({parseContent})
     });
 
-    io.emit('displayBasicText', msg);
+    io.emit('displayBasicText', content);
     io.emit('displayHistory', history);
     fn('ack');
 

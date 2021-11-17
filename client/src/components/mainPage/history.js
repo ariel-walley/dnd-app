@@ -45,7 +45,8 @@ export default function HistoryContainer() {
       socket = io.connect('http://localhost:3100/');
   
       socket.on("displayHistory", (data) => {
-        setHistory(data);
+        console.log(data);
+//        setHistory(data);
       })
     }, [])
 

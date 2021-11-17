@@ -30,8 +30,9 @@ export default function Messenger() {
       socket.emit("displayBasicText", JSON.stringify({
         content: localContent,
         playerNumbers: playerNumbers,
+        playerNames: playerNumbers.map((player) => players['Player' + player]),
         timestamp: Date.now()
-      }), (data) => {
+      }), () => {
         socket.disconnect();
       })
       event.preventDefault();
