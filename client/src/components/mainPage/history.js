@@ -24,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HistoryEntry = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
   border: solid black 1px;
 `;
 
@@ -56,22 +63,29 @@ export default function HistoryContainer() {
     return str;
   }
 
-  const generateAllHistory = () => {
-    return history.allHistory.map((hist, index) => 
-      <HistoryEntry key={'allHist' + index}>
-        Something was sent to {generateNames(hist.playerNames)} 
-      </HistoryEntry>
-    );
+  const generateContent = (contentObj) => {
+    return Object.keys(contentObj).map(function(content) {
+      if (content === 'message') {
+        return (<p>{contentObj[content]}</p>)
+      } else {
+        return (<img style={{height: '50px'}} src={contentObj[content]} alt={content + ' thumbnail'}/>)
+      }
+    })
   }
 
-  const generatePlayerHistory = (playerNum) => {
-    const historyStr = playerNum.replace("Player", "history");
-
+  const generateHistory = (historySelect) => {
+    // Figuring out which part of the history object to generate
+    let historyStr = historySelect === 0 ? 'allHistory' : historySelect.replace("Player", "history");
+  
+    //Mapping content to JSX
     return history[historyStr].map((hist, index) => 
-      <HistoryEntry key={playerNum + 'History' + index}>
-        Sent "something" to {generateNames(hist.playerNames)}
+      <HistoryEntry key={'allHist' + index}>
+        <p>Sent</p>
+        <div>{generateContent(hist.content)}</div>
+        {historyStr === 'allHistory' ? (' to ' + generateNames(hist.playerNames)) : '' }
+        <p>{new Date(hist.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit'})}</p>
       </HistoryEntry>
-    );
+    )
   }
 
   /*    CREATING TAB STRUCTURE    */
@@ -114,7 +128,7 @@ const generateTabs = Object.values(players).map((player, index) =>
 );
 
 const generateTabPanels = Object.keys(players).map((playerNum, index) => 
-  <TabPanel key={players[playerNum] + 'HistoryPanel'} value={value} index={index + 1}>{generatePlayerHistory(playerNum)}</TabPanel>
+  <TabPanel key={players[playerNum] + 'HistoryPanel'} value={value} index={index + 1}>{generateHistory(playerNum)}</TabPanel>
 );
 
   const handleChange = (event, newValue) => {
@@ -131,7 +145,7 @@ const generateTabPanels = Object.keys(players).map((playerNum, index) =>
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          { history.allHistory.length > 0 ? generateAllHistory() : 'No history yet.'}
+          { history.allHistory.length > 0 ? generateHistory(0) : 'No history yet.'}
         </TabPanel>
         {generateTabPanels}
       </Box>

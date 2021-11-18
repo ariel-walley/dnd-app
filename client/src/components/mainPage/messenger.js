@@ -31,7 +31,7 @@ export default function Messenger() {
         content: localContent,
         playerNumbers: playerNumbers,
         playerNames: playerNumbers.map((player) => players['Player' + player]),
-        timestamp: Date.now()
+        timestamp: new Date()
       }), () => {
         socket.disconnect();
       })
