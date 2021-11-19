@@ -10,25 +10,41 @@ const Text = styled.p`
 `;
 
 function PlayerWindow(props) {
-  const [displayOutput, setOutput] = useState('');
+  const [displayMessage, setMessage] = useState('');
+  const [displayBackground, setBackground] = useState(null);
+  const [displayFilter, setFilter] = useState(null);
 
   useEffect(() => {
     socket = io.connect('http://localhost:3100/');
 
     socket.on("displayBasicText", (raw_data) => {
       let data = JSON.parse(raw_data);
-      console.log(data);
      
-      if (data.playerNumbers.indexOf(props.player) !== -1) {
-        console.log(data.message);
-        setOutput(data.message);
-        
-        if (data.type === 'message') {
-          setTimeout(() => {
-            setOutput('');
-          }, 15 * 1000) //hide after 15 seconds for messages sent from DM
-        }
+      if (data.playerNumbers.includes(props.player)) {
+        Object.keys(data.content).forEach((contentType) => {
+          let func;
+          
+          switch(contentType) {
+            case 'message':
+              func = setMessage()
+              break;
+            case 'background':
+              func = setBackground();
+              break;
+            case 'filter':
+              func = setFilter();
+              break;
+            default:
+          }
 
+          func(data.content[contentType]);
+
+          if (!Object.keys(data.content).includes('init')) {
+            setTimeout(() => {
+              contentType === 'message' ? func('') : func(null);
+            }, 6 * 1000)
+          }
+        });
       }
     });
 
@@ -41,7 +57,9 @@ function PlayerWindow(props) {
 
   return (
     <Container>
-      <Text>Message: {displayOutput}</Text>
+      <Text>Message: {displayMessage}</Text>
+      <Text>Background: {displayBackground}</Text>
+      <Text>Filter: {displayFilter}</Text>
     </Container>
   )
 }
