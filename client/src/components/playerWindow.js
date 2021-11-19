@@ -19,22 +19,24 @@ function PlayerWindow(props) {
 
     socket.on("displayBasicText", (raw_data) => {
       let data = JSON.parse(raw_data);
-     
+
       if (data.playerNumbers.includes(props.player)) {
         Object.keys(data.content).forEach((contentType) => {
-          let func;
+          let func = () => {};
           
           switch(contentType) {
             case 'message':
-              func = setMessage()
+              func = (x) => setMessage(x);
               break;
             case 'background':
-              func = setBackground();
+              func = (x) => setBackground(x);
               break;
             case 'filter':
-              func = setFilter();
+              func = (x) => setFilter(x);
               break;
             default:
+              func = (x) => setMessage(x); // used for the 'init' message that displays a player's name on  window initalization
+              break;
           }
 
           func(data.content[contentType]);
@@ -44,6 +46,7 @@ function PlayerWindow(props) {
               contentType === 'message' ? func('') : func(null);
             }, 6 * 1000)
           }
+
         });
       }
     });

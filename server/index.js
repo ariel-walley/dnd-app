@@ -73,17 +73,21 @@ io.on('connection', (socket) => {
   /*  SENDING CONTENT TO PLAYERS  */
 
   socket.on('displayBasicText', (content, fn) => {
-    console.log('content: ' + content);
+    console.log(content);
     let parseContent = JSON.parse(content);
 
-    history.allHistory.push(parseContent);
+    if (!Object.keys(parseContent.content).includes('init')) {
+      history.allHistory.push(parseContent);
 
-    parseContent.playerNumbers.forEach((player) => {
-      history['history' + player].push(parseContent)
-    });
+      parseContent.playerNumbers.forEach((player) => {
+        history['history' + player].push(parseContent)
+      });
 
-    io.emit('displayBasicText', parseContent);
-    io.emit('displayHistory', history);
+      io.emit('displayHistory', history);
+    }
+    
+    io.emit('displayBasicText', content);
+    
     fn('ack');
 
   }); 
