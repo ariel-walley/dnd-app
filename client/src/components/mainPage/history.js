@@ -83,7 +83,7 @@ export default function HistoryContainer() {
         <p>Sent</p>
         <div>{generateContent(hist.content)}</div>
         {historyStr === 'allHistory' ? (' to ' + generateNames(hist.playerNames)) : '' }
-        <p>{new Date(hist.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit'})}</p>
+        <p>{new Date(hist.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
       </HistoryEntry>
     )
   }

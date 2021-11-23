@@ -32,7 +32,7 @@ export default function Notes() {
 
   const generateNoteHistory = () => {
     return inputHistory.map((note, index) =>
-      <p key={'DMnote' + index}>{note.timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}: {note.content}</p>
+      <p key={'DMnote' + index}>{note.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}: {note.content}</p>
     );
   }
 
