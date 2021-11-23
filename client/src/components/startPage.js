@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { PlayersContext } from '../context';
 
@@ -17,7 +17,6 @@ const UserInput = styled.input`
 `;
 
 function StartPage() {
-  const [localPlayers, setLocalPlayers] = useState();
   const { setPlayers } = useContext(PlayersContext); 
   const history = useHistory();
   
@@ -36,16 +35,16 @@ function StartPage() {
   const handleEnter = (event) => {  // Submit user input if 'Enter' key is pressed   
     if (event.key !== undefined) {
       if (event.key === 'Enter') {
-        determinePlayers();
+        initalizeGame();
       }
     } else if (event.keyCode !== undefined) {
       if (event.keyCode === 13) {
-        determinePlayers();
+        initalizeGame();
       };
     }
   }
 
-  const determinePlayers = () => {
+  const initalizeGame = () => {
     // Gather values from inputs
     let inputValues = {};
 
@@ -66,25 +65,24 @@ function StartPage() {
       }
     }
 
-    setLocalPlayers(playerObj);
+    // Update PlayerContext
+    setPlayers(playerObj);
     console.log('Players are: ' + JSON.stringify(playerObj));
-  }
-  
-  if (localPlayers) { setPlayers(localPlayers) };
 
-  const launchWindows = () => {
+    // Launch player windows and send init message
+
     const socket = io.connect('http://localhost:3100/');
 
-    for (let i = 1; i < Object.keys(localPlayers).length + 1; i++) {  // Launch player windows
+    for (let i = 1; i < Object.keys(playerObj).length + 1; i++) {  
       let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");     
 
       newWindow.addEventListener('load', () => { // Display player name on window initalization
         socket.emit("displayBasicText", JSON.stringify({
           content: {
-            init: localPlayers['Player' + i]
+            init: playerObj['Player' + i]
           },
           playerNumbers: [i],
-          playerNames: localPlayers['Player' + i],
+          playerNames: playerObj['Player' + i],
           timestamp: new Date()
         }), (data) => {
           console.log(data)
@@ -93,17 +91,17 @@ function StartPage() {
       }, false);
     }
 
-    history.push("/dm"); // Direct to control panel page
+    // Direct to control panel page
+    history.push("/dm"); 
+    
   }  
-
-  if (localPlayers) { launchWindows() };
 
   return(
     <Container>
       <p>Welcome!</p>
       <label>How many players will you have?</label>
       {createDivs()}
-      <button onClick={determinePlayers} type="submit">Enter</button>
+      <button onClick={initalizeGame} type="submit">Enter</button>
     </Container>
   )
 }
