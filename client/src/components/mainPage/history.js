@@ -124,7 +124,7 @@ export default function HistoryContainer() {
   }
 
   const generateTabs = players.map((player, index) => 
-    <Tab key={player + 'HistoryTab'} label={player} {...a11yProps(index)} />
+    <Tab key={player + 'HistoryTab'} label={player} style={{textTransform: 'none'}} {...a11yProps(index)} />
   );
 
   const generateTabPanels = players.map((player, index) =>

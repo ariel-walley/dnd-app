@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { PlayersContext } from '../context';
 
@@ -18,6 +18,7 @@ const UserInput = styled.input`
 
 function StartPage() {
   const { setPlayers } = useContext(PlayersContext); 
+  const [error, toggleError] = useState([false]);
   const history = useHistory();
   
   const createDivs = () => {
@@ -49,12 +50,14 @@ function StartPage() {
     let playerArr = [];
 
     for (let i = 1; i < 5; i++) {
-      let value = document.getElementById(`Input${i}`).value;
-      if (value !== '') {
-        playerArr.push(value.trim());
+      let value = document.getElementById(`Input${i}`).value.trim();
+      if (playerArr.includes(value)) {
+        toggleError([true, value]);
+        return
+      } else if (value !== '') {
+        playerArr.push(value);
       }
     }    
-
 
     // Update PlayerContext
     setPlayers(playerArr);
@@ -83,14 +86,26 @@ function StartPage() {
 
     // Direct to control panel page
     history.push("/dm");
-    
+
   }  
+
+  const displayError = () => {
+    if (error[0]) {
+      return (
+        <div style={{color: 'red'}}>
+          <p>Error: "{error[1]}" is entered twice. Please enter unique names for all players.</p> 
+          <p>If you have two players with the same name, one can be capitalized and the other entered in lower case.</p>
+        </div>
+      )
+    }
+  }
 
   return(
     <Container>
       <p>Welcome!</p>
       <label>How many players will you have?</label>
       {createDivs()}
+      {displayError()}
       <button onClick={initalizeGame} type="submit">Enter</button>
     </Container>
   )
