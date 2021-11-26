@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const PlayersContext = React.createContext({
-    players: {},
+    players: [],
     setPlayers: () => {}
 });
 

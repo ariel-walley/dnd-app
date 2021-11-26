@@ -40,10 +40,10 @@ export default function HistoryContainer() {
   const [value, setValue] = React.useState(0);
   const [history, setHistory] = React.useState({ 
     "allHistory": [],
+    "history0": [],
     "history1": [],
     "history2": [],
-    "history3": [],
-    "history4": []
+    "history3": []
   });
 
   /*    CONNECTING TO WEB SOCKET    */
@@ -73,9 +73,9 @@ export default function HistoryContainer() {
     })
   }
 
-  const generateHistory = (historySelect) => {
+  const generateHistory = (playerNum) => {
     // Figuring out which part of the history object to generate
-    let historyStr = historySelect === 0 ? 'allHistory' : historySelect.replace("Player", "history");
+    let historyStr = playerNum === 'all' ? 'allHistory' : 'history' + playerNum;
   
     //Mapping content to JSX
     return history[historyStr].map((hist, index) => 
@@ -123,13 +123,19 @@ export default function HistoryContainer() {
     };
   }
 
-const generateTabs = Object.values(players).map((player, index) => 
-  <Tab key={player + 'HistoryTab'} label={player} {...a11yProps(index + 1)} />
-);
+  const generateTabs = players.map((player, index) => 
+    <Tab key={player + 'HistoryTab'} label={player} {...a11yProps(index)} />
+  );
 
-const generateTabPanels = Object.keys(players).map((playerNum, index) => 
-  <TabPanel key={players[playerNum] + 'HistoryPanel'} value={value} index={index + 1}>{generateHistory(playerNum)}</TabPanel>
-);
+  const generateTabPanels = players.map((player, index) =>
+    <TabPanel
+      key={player + 'HistoryPanel'}
+      value={value}
+      index={index + 1}
+    >
+      {generateHistory(index)}
+    </TabPanel>
+  );
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -145,7 +151,7 @@ const generateTabPanels = Object.keys(players).map((playerNum, index) =>
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          { history.allHistory.length > 0 ? generateHistory(0) : 'No history yet.'}
+          { history.allHistory.length > 0 ? generateHistory('all') : 'No history yet.'}
         </TabPanel>
         {generateTabPanels}
       </Box>

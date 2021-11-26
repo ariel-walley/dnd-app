@@ -20,7 +20,7 @@ function PlayerWindow(props) {
     socket.on("displayBasicText", (raw_data) => {
       let data = JSON.parse(raw_data);
 
-      if (data.playerNumbers.includes(props.player)) {
+      if (data.playerNumbers.includes(props.playerInd)) {
         Object.keys(data.content).forEach((contentType) => {
           let func = () => {};
           
@@ -56,7 +56,7 @@ function PlayerWindow(props) {
       //need to clean up open connection here or everytime you update component it'll open a new connection AND keep old one open and you'll end up with multiple conenctions from each child window
       if(socket != null) socket.disconnect()
     }
-  }, [props.player]); 
+  }, [props.playerInd]); 
 
   return (
     <Container>

@@ -30,7 +30,7 @@ const PlayerSnapshot = styled.div`
 function Snapshots() {
   const { players } = useContext(PlayersContext);
 
-  const generateSnapshots = Object.values(players).map((player) => 
+  const generateSnapshots = players.map((player) => 
       <PlayerSnapshot key={player + 'Snapshot'}>{player}</PlayerSnapshot>
   )
 

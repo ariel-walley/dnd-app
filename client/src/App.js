@@ -11,19 +11,14 @@ import MainPage from './components/mainPage/mainPage';
 import PlayerWindow from './components/playerWindow';
 
 function App() {
-  const [players, setPlayers] = useState({
-    Player1: 'Harry',
-    Player2: 'Ron',
-    Player3: 'Hermione',
-    Player4: 'Neville'
-  });
-  
+  const [players, setPlayers] = useState([]);
+    
   const value = { players, setPlayers }
 
   const createRoutes = () => {
     let routes = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       routes.push(
         <Route path={`/player/${i}`} key={`Route${i}`}>
           <PlayerWindow key={`Player${i}Window`} player={i}/>

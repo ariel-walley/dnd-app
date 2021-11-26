@@ -10,7 +10,7 @@ export default function PlayerCheckboxes() {
   const { message, updateMessage } = useContext(MessageContext);
 
   const handleChangeParent = (event) => { // Handle the "All Players" select/unselect all feature
-    updateMessage({...message, checkedPlayers: Object.keys(players).map(() => event.target.checked)})
+    updateMessage({...message, checkedPlayers: players.map(() => event.target.checked)})
   };
 
   const handleChangeChild = (e, index) => { // Handle the individual player checkboxes
@@ -19,7 +19,7 @@ export default function PlayerCheckboxes() {
     updateMessage({...message, checkedPlayers: localChecked});
   };
 
-  const generateChildren = Object.values(players).map((player, index) => 
+  const generateChildren = players.map((player, index) => 
   <FormControlLabel
       label={player}
       key={player + 'FormControlLabel'}

@@ -54,10 +54,10 @@ app.get('/res/', async (req, res, next) => {
 
 let history = {
   allHistory: [],
+  history0: [],
   history1: [],
   history2: [],
-  history3: [],
-  history4: []
+  history3: []
 }
 
 io.on('connection', (socket) => {

@@ -45,54 +45,44 @@ function StartPage() {
   }
 
   const initalizeGame = () => {
-    // Gather values from inputs
-    let inputValues = {};
+    // Gather values from inputs, check they are not empty, trim empty space
+    let playerArr = [];
 
     for (let i = 1; i < 5; i++) {
       let value = document.getElementById(`Input${i}`).value;
-      inputValues[`Input${i}`] = value;
+      if (value !== '') {
+        playerArr.push(value.trim());
+      }
     }    
 
-    // Check inputs for blank spaces and create player object
-    let playerObj = {};
-    let count = 1;
-
-    for (let input in inputValues) { 
-      let trimmedValue = inputValues[input].trim();
-      if (trimmedValue !== "" && trimmedValue !== null) {
-        playerObj[`Player${count}`] = trimmedValue;
-        count++;
-      }
-    }
 
     // Update PlayerContext
-    setPlayers(playerObj);
-    console.log('Players are: ' + JSON.stringify(playerObj));
+    setPlayers(playerArr);
+    console.log('Players are: ' + JSON.stringify(playerArr));
 
     // Launch player windows and send init message
-
     const socket = io.connect('http://localhost:3100/');
 
-    for (let i = 1; i < Object.keys(playerObj).length + 1; i++) {  
+    playerArr.forEach((player, i) => {
       let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");     
 
       newWindow.addEventListener('load', () => { // Display player name on window initalization
         socket.emit("displayBasicText", JSON.stringify({
           content: {
-            init: playerObj['Player' + i]
+            init: player
           },
           playerNumbers: [i],
-          playerNames: playerObj['Player' + i],
+          playerNames: player,
           timestamp: new Date()
         }), (data) => {
           console.log(data)
           socket.disconnect();
         })
       }, false);
-    }
+    })
 
     // Direct to control panel page
-    history.push("/dm"); 
+    history.push("/dm");
     
   }  
 

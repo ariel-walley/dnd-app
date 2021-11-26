@@ -13,24 +13,29 @@ export default function Messenger() {
     background: null,
     filter: null,
     textInput: '',
-    checkedPlayers: Object.keys(players).map(() => false)
+    checkedPlayers: players.map(() => false)
   });
 
   const sendMessage = (event) => {
+  
     if (message.checkedPlayers.includes(true) && (message.background || message.filter || message.textInput !== '')) {
+
+      // Build content object to send
       let localContent = {};
       if (message.background) { localContent.background = message.background }
       if (message.filter) { localContent.filter = message.filter }
       if (message.textInput !== '') { localContent.message = message.textInput }
-  
-      const playerNumbers = message.checkedPlayers.reduce((acc, el, i) => (el ? [...acc, i + 1] : acc), []);
 
+      // Convert from array of booleans to array of checked player numbers
+      const playerNumbers = message.checkedPlayers.reduce((acc, el, i) => (el ? [...acc, i] : acc), []);
+
+      // Send message
       const socket = io.connect('http://localhost:3100/');
       
       socket.emit("displayBasicText", JSON.stringify({
         content: localContent,
         playerNumbers: playerNumbers,
-        playerNames: playerNumbers.map((player) => players['Player' + player]),
+        playerNames: playerNumbers.map((playerNum) => players[playerNum]),
         timestamp: new Date()
       }), () => {
         socket.disconnect();
@@ -42,7 +47,7 @@ export default function Messenger() {
         background: null,
         filter: null,
         textInput: '',
-        checkedPlayers: Object.keys(players).map(() => false)
+        checkedPlayers: players.map(() => false)
     });
     } 
   }
