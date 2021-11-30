@@ -36,16 +36,16 @@ function StartPage() {
   const handleEnter = (event) => {  // Submit user input if 'Enter' key is pressed   
     if (event.key !== undefined) {
       if (event.key === 'Enter') {
-        initalizeGame();
+        initializeGame();
       }
     } else if (event.keyCode !== undefined) {
       if (event.keyCode === 13) {
-        initalizeGame();
+        initializeGame();
       };
     }
   }
 
-  const initalizeGame = () => {
+  const initializeGame = () => {
     // Gather values from inputs, check they are not empty, trim empty space
     let playerArr = [];
 
@@ -67,6 +67,7 @@ function StartPage() {
     const socket = io.connect('http://localhost:3100/');
 
     socket.emit("initializeServer", JSON.stringify({players: playerArr}));
+
     playerArr.forEach((player, i) => {
       let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");     
 
@@ -107,7 +108,7 @@ function StartPage() {
       <label>How many players will you have?</label>
       {createDivs()}
       {displayError()}
-      <button onClick={initalizeGame} type="submit">Enter</button>
+      <button onClick={initializeGame} type="submit">Enter</button>
     </Container>
   )
 }

@@ -75,23 +75,25 @@ io.on('connection', (socket) => {
 
   /*  SENDING CONTENT TO PLAYERS  */
 
-  socket.on('displayBasicText', (content, fn) => {
-    let parseContent = JSON.parse(content);
+  socket.on('displayBasicText', (data, fn) => {
+    console.log(data);
+    let parsedData = JSON.parse(data);
 
-    if (!Object.keys(parseContent.content).includes('init')) {
+    if (!Object.keys(parsedData.content).includes('init')) {
+      // ^^^ Get rid of init message somehow
       
       //Push to player's history
-      parseContent.playerNumbers.forEach((player) => {
-        history[player].push(parseContent);
+      parsedData.playerNumbers.forEach((player) => {
+        history[player].push(parsedData);
       });
       
       //Push to allHistory array at the end
-      history[history.length -1].push(parseContent);
+      history[history.length -1].push(parsedData);
 
       io.emit('displayHistory', history);
     }
     
-    io.emit('displayBasicText', content);
+    io.emit('displayBasicText', data);
     
     fn('ack');
 

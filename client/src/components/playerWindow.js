@@ -35,7 +35,7 @@ function PlayerWindow(props) {
               func = (x) => setFilter(x);
               break;
             default:
-              func = (x) => setMessage(x); // used for the 'init' message that displays a player's name on  window initalization
+              func = (x) => setMessage(x); // used for the 'init' message that displays a player's name on  window initialization
               break;
           }
 
