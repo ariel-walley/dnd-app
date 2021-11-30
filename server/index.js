@@ -48,17 +48,13 @@ app.get('/res/', async (req, res, next) => {
   res.json(contentObj);
 })
 
-/*  HISTORY OBJECT    */
+/*  VARIABLES    */
+let players = [];
+let history = [];
 
 // for now -- let's push to different histories but eventually we'll parse this out
 
-let history = {
-  allHistory: [],
-  history0: [],
-  history1: [],
-  history2: [],
-  history3: []
-}
+/*    INITIALIZING SOCKET    */
 
 io.on('connection', (socket) => {
 
@@ -70,18 +66,27 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
+  /*  INITIALIZING SERVER  */
+  socket.on('initializeServer', (data) => {
+    players = JSON.parse(data).players;
+    history = players.map(() => []);
+    history.push([]); // adding one more array for the "allHistory" array
+  });
+
   /*  SENDING CONTENT TO PLAYERS  */
 
   socket.on('displayBasicText', (content, fn) => {
-    console.log(content);
     let parseContent = JSON.parse(content);
 
     if (!Object.keys(parseContent.content).includes('init')) {
-      history.allHistory.push(parseContent);
-
+      
+      //Push to player's history
       parseContent.playerNumbers.forEach((player) => {
-        history['history' + player].push(parseContent)
+        history[player].push(parseContent);
       });
+      
+      //Push to allHistory array at the end
+      history[history.length -1].push(parseContent);
 
       io.emit('displayHistory', history);
     }

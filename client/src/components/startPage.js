@@ -66,6 +66,7 @@ function StartPage() {
     // Launch player windows and send init message
     const socket = io.connect('http://localhost:3100/');
 
+    socket.emit("initializeServer", JSON.stringify({players: playerArr}));
     playerArr.forEach((player, i) => {
       let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");     
 

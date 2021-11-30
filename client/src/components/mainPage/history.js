@@ -38,14 +38,7 @@ export default function HistoryContainer() {
   const { players } = useContext(PlayersContext);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [history, setHistory] = React.useState({ 
-    "allHistory": [],
-    "history0": [],
-    "history1": [],
-    "history2": [],
-    "history3": []
-  });
-
+  const [history, setHistory] = React.useState([]);
   /*    CONNECTING TO WEB SOCKET    */
 
     useEffect(() => {
@@ -73,19 +66,24 @@ export default function HistoryContainer() {
     })
   }
 
-  const generateHistory = (playerNum) => {
-    // Figuring out which part of the history object to generate
-    let historyStr = playerNum === 'all' ? 'allHistory' : 'history' + playerNum;
+  const generateHistory = (playerInd) => {
+    // Figuring out which array in the history array to generate
+    if (playerInd === 'all') {
+      playerInd = history.length - 1
   
     //Mapping content to JSX
-    return history[historyStr].map((hist, index) => 
-      <HistoryEntry key={'allHist' + index}>
-        <p>Sent</p>
-        <div>{generateContent(hist.content)}</div>
-        {historyStr === 'allHistory' ? (' to ' + generateNames(hist.playerNames)) : '' }
-        <p>{new Date(hist.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
-      </HistoryEntry>
-    )
+    if (history.length > 0) {
+      return history[playerInd].map((hist, index) => 
+        <HistoryEntry key={'allHist' + index}>
+          <p>Sent</p>
+          <div>{generateContent(hist.content)}</div>
+          {playerInd === history.length -  1 ? (' to ' + generateNames(hist.playerNames)) : '' }
+          <p>{new Date(hist.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
+        </HistoryEntry>
+      )
+    } else {
+      return 'No history yet.'
+    }
   }
 
   /*    CREATING TAB STRUCTURE    */
@@ -151,7 +149,7 @@ export default function HistoryContainer() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          { history.allHistory.length > 0 ? generateHistory('all') : 'No history yet.'}
+          {generateHistory('all')}
         </TabPanel>
         {generateTabPanels}
       </Box>
