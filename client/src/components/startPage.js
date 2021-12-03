@@ -61,30 +61,23 @@ function StartPage() {
 
     // Update PlayerContext
     setPlayers(playerArr);
+
     console.log('Players are: ' + JSON.stringify(playerArr));
 
     // Launch player windows and send init message
-    const socket = io.connect('http://localhost:3100/');
-
-    socket.emit("initializeServer", JSON.stringify({players: playerArr}));
-
     playerArr.forEach((player, i) => {
-      let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");     
+      let newWindow = window.open(`http://localhost:3000/player/${i}`, "_blank", "resizable=yes, top=400,left=400,width=400,height=400");
 
-      newWindow.addEventListener('load', () => { // Display player name on window initalization
-        socket.emit("displayBasicText", JSON.stringify({
-          content: {
-            init: player
-          },
-          playerNumbers: [i],
-          playerNames: player,
-          timestamp: new Date()
-        }), (data) => {
-          console.log(data)
-          socket.disconnect();
-        })
-      }, false);
-    })
+      if (i === playerArr.length - 1) { //Connecting to socket once the last player window launches
+        const socket = io.connect('http://localhost:3100/');
+
+        newWindow.addEventListener('load', () => {
+          socket.emit("setUp", playerArr, (data) => {
+            socket.disconnect();
+          })
+        }, false);
+      }     
+    });  
 
     // Direct to control panel page
     history.push("/dm");

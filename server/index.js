@@ -52,8 +52,6 @@ app.get('/res/', async (req, res, next) => {
 let players = [];
 let history = [];
 
-// for now -- let's push to different histories but eventually we'll parse this out
-
 /*    INITIALIZING SOCKET    */
 
 io.on('connection', (socket) => {
@@ -67,10 +65,27 @@ io.on('connection', (socket) => {
   });
 
   /*  INITIALIZING SERVER  */
-  socket.on('initializeServer', (data) => {
-    players = JSON.parse(data).players;
-    history = players.map(() => []);
+  socket.on('setUp', (data, fn) => {
+    //Resetting obj in case the user returns to the start page make an adjustment
+    playerWindowContent = [];
+
+    //Updating index.js variables
+    players = data;
+    history = data.map(() => []);
     history.push([]); // adding one more array for the "allHistory" array
+
+    playerWindowContent = data.map((player) => {return {
+      message: player,
+      background: null,
+      filter: null
+    }});
+
+    console.log(playerWindowContent);
+    io.emit('snapshots', playerWindowContent); //Send so snapshots.js has the inital playerWindow display
+
+    io.emit('playerWindow2', data); //Send to display the inital player name
+
+    fn('ack');
   });
 
   /*  SENDING CONTENT TO PLAYERS  */
