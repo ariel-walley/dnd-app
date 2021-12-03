@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import styled from 'styled-components';
 import { Container } from '../styles';
 
@@ -19,34 +20,24 @@ function PlayerWindow(props) {
 
     socket.on("displayBasicText", (raw_data) => {
       let data = JSON.parse(raw_data);
+      console.log(data);
 
       if (data.playerNumbers.includes(props.playerInd)) {
-        Object.keys(data.content).forEach((contentType) => {
-          let func = () => {};
-          
+        Object.keys(data.content).forEach((contentType) => {          
           switch(contentType) {
-            case 'message':
-              func = (x) => setMessage(x);
-              break;
             case 'background':
-              func = (x) => setBackground(x);
+              setBackground(data.content.background);  
               break;
             case 'filter':
-              func = (x) => setFilter(x);
+              setFilter(data.content.filter);  
               break;
             default:
-              func = (x) => setMessage(x); // used for the 'init' message that displays a player's name on  window initialization
+              setMessage(data.content.message);
+              setTimeout(() => {
+                setMessage('');
+              }, 45 * 1000)
               break;
           }
-
-          func(data.content[contentType]);
-
-          if (!Object.keys(data.content).includes('init')) {
-            setTimeout(() => {
-              contentType === 'message' ? func('') : func(null);
-            }, 6 * 1000)
-          }
-
         });
       }
     });
