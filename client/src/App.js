@@ -21,7 +21,7 @@ function App() {
     for (let i = 0; i < 4; i++) {
       routes.push(
         <Route path={`/player/${i}`} key={`Route${i}`}>
-          <PlayerWindow key={`Player${i}Window`} playerInd={i}/>
+          <PlayerWindow key={`Player${i}Window`} playerInd={i} display={"popOut"}/>
         </Route>
       )
     }

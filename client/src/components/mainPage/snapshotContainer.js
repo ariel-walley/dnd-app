@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { PlayersContext } from '../../context';
 
 import PlayerWindow from '../playerWindow';
@@ -22,18 +22,20 @@ const Wrapper = styled.div`
   width: 40%;
   height: 40%;
   margin: 15px;
-  border: white 5px solid;
+  position: relative;
+  border: #202021 5px solid;
 `;
 
 function SnapshotContainer() {
   const { players } = useContext(PlayersContext);
+  const [parentSize, updateParentSize] = useState(null);
 
   const generateSnapshots = players.map((player, i) => 
-    <Wrapper key={player + 'SnapshotWrapper'}>
-      <PlayerWindow key={player + 'Snapshot'} playerInd={i}/>
+    <Wrapper key={i + 'SnapshotWrapper'} id={i + 'SnapshotWrapper'}>
+      <PlayerWindow key={i + 'Snapshot'} playerInd={i} display={"controlPanel"} parentSize={parentSize}/>
     </Wrapper>
   )
-  
+
   return(
     <Container>
       <SnapshotTitle>Snapshots</SnapshotTitle>
