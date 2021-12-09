@@ -32,17 +32,18 @@ function PlayerWindow(props) {
     socket = io.connect('http://localhost:3100/');
 
     socket.on("sendContent", (data) => {
-      let content = data[props.playerInd];
-
-      if (content.message !== message) { 
-        setMessage(content.message);
-        setTimeout(() => {
-          setMessage('');
-        }, 45 * 1000);
-        //review my semi-colons policy. it's legit not necessary. linting or strict mode or something?
+      if (data.playerNumbers.includes(props.playerInd)) {
+        Object.keys(data.content).forEach((contentType) => {
+          if (contentType === 'background') {setBackground(data.content.background)}
+          if (contentType === 'filter') {setFilter(data.content.filter)}
+          if (contentType === 'message') {
+            setMessage(data.content.message);
+            setTimeout(() => {
+              setMessage('');
+            }, 10 * 1000);
+          }
+        });        
       }
-      if (content.background !== background) {setBackground(content.background)}
-      if (content.filter !== filter) {setFilter(content.filter)}
     });
 
     socket.on("setUpPlayerWindow", (data) => {

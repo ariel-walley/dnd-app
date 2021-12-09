@@ -32,12 +32,12 @@ export default function Messenger() {
       // Send message
       const socket = io.connect('http://localhost:3100/');
       
-      socket.emit("sendContent", JSON.stringify({
+      socket.emit("sendContent", {
         content: localContent,
         playerNumbers: playerNumbers,
         playerNames: playerNumbers.map((playerNum) => players[playerNum]),
         timestamp: new Date()
-      }), () => {
+      }, () => {
         socket.disconnect();
       })
       event.preventDefault();

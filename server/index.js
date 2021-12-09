@@ -90,23 +90,16 @@ io.on('connection', (socket) => {
 
   /*  SENDING CONTENT TO PLAYERS  */
 
-  socket.on('sendContent', (data, fn) => {
-    console.log(data);
-    let parsedData = JSON.parse(data);      
-      
-    //Update history and playerWindowContent for each player
-    parsedData.playerNumbers.forEach((playerNum) => {
-      history[playerNum].push(parsedData);
-
-      Object.keys(parsedData.content).forEach((contentType) => {
-        playerWindowContent[playerNum] = {...playerWindowContent[playerNum], [contentType]: parsedData.content[contentType]}
-      })
+  socket.on('sendContent', (data, fn) => { 
+    //Update history for each player
+    data.playerNumbers.forEach((playerNum) => {
+      history[playerNum].push(data);
     });
     
     //Push to allHistory array at the end
-    history[history.length -1].push(parsedData);
+    history[history.length -1].push(data);
 
-    io.emit('sendContent', playerWindowContent);
+    io.emit('sendContent', data);
     io.emit('sendHistory', history);
 
     fn('ack');
