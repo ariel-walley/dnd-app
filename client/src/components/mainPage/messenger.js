@@ -10,8 +10,8 @@ import { io } from 'socket.io-client';
 export default function Messenger() {
   const { players } = useContext(PlayersContext);
   const [message, updateMessage] = useState({
-    background: null,
-    filter: null,
+    background: '',
+    filter: '',
     textInput: '',
     checkedPlayers: players.map(() => false)
   });
@@ -32,7 +32,7 @@ export default function Messenger() {
       // Send message
       const socket = io.connect('http://localhost:3100/');
       
-      socket.emit("displayBasicText", JSON.stringify({
+      socket.emit("sendContent", JSON.stringify({
         content: localContent,
         playerNumbers: playerNumbers,
         playerNames: playerNumbers.map((playerNum) => players[playerNum]),
@@ -44,8 +44,8 @@ export default function Messenger() {
       
       // Reset text input and checkboxes after submission
       updateMessage({
-        background: null,
-        filter: null,
+        background: '',
+        filter: '',
         textInput: '',
         checkedPlayers: players.map(() => false)
     });

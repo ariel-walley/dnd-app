@@ -51,6 +51,7 @@ app.get('/res/', async (req, res, next) => {
 /*  VARIABLES    */
 let players = [];
 let history = [];
+let playerWindowContent = []
 
 /*    INITIALIZING SOCKET    */
 
@@ -79,39 +80,35 @@ io.on('connection', (socket) => {
 
     playerWindowContent = data.map((player) => {return {
       message: player,
-      background: null,
-      filter: null
+      background: '',
+      filter: ''
     }});
 
-    console.log(playerWindowContent);
-    io.emit('snapshots', playerWindowContent); //Send so snapshots.js has the inital playerWindow display
-
-    io.emit('playerWindow2', data); //Send to display the inital player name
+    io.emit('setUpPlayerWindow', data); //Send to display the inital player name
 
   });
 
   /*  SENDING CONTENT TO PLAYERS  */
 
-  socket.on('displayBasicText', (data, fn) => {
+  socket.on('sendContent', (data, fn) => {
     console.log(data);
-    let parsedData = JSON.parse(data);
-
-    if (!Object.keys(parsedData.content).includes('init')) {
-      // ^^^ Get rid of init message somehow
+    let parsedData = JSON.parse(data);      
       
-      //Push to player's history
-      parsedData.playerNumbers.forEach((player) => {
-        history[player].push(parsedData);
-      });
-      
-      //Push to allHistory array at the end
-      history[history.length -1].push(parsedData);
+    //Update history and playerWindowContent for each player
+    parsedData.playerNumbers.forEach((playerNum) => {
+      history[playerNum].push(parsedData);
 
-      io.emit('displayHistory', history);
-    }
+      Object.keys(parsedData.content).forEach((contentType) => {
+        playerWindowContent[playerNum] = {...playerWindowContent[playerNum], [contentType]: parsedData.content[contentType]}
+      })
+    });
     
-    io.emit('displayBasicText', data);
-    
+    //Push to allHistory array at the end
+    history[history.length -1].push(parsedData);
+
+    io.emit('sendContent', playerWindowContent);
+    io.emit('sendHistory', history);
+
     fn('ack');
 
   }); 

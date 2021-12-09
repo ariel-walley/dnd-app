@@ -11,38 +11,28 @@ const Text = styled.p`
 `;
 
 function PlayerWindow(props) {
-  const [displayMessage, setMessage] = useState('');
-  const [displayBackground, setBackground] = useState(null);
-  const [displayFilter, setFilter] = useState(null);
+  const [message, setMessage] = useState('');
+  const [background, setBackground] = useState('');
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     socket = io.connect('http://localhost:3100/');
 
-    socket.on("displayBasicText", (raw_data) => {
-      let data = JSON.parse(raw_data);
-      console.log(data);
+    socket.on("sendContent", (data) => {
+      let content = data[props.playerInd];
 
-      if (data.playerNumbers.includes(props.playerInd)) {
-        Object.keys(data.content).forEach((contentType) => {          
-          switch(contentType) {
-            case 'background':
-              setBackground(data.content.background);  
-              break;
-            case 'filter':
-              setFilter(data.content.filter);  
-              break;
-            default:
-              setMessage(data.content.message);
-              setTimeout(() => {
-                setMessage('');
-              }, 45 * 1000)
-              break;
-          }
-        });
+      if (content.message !== message) { 
+        setMessage(content.message);
+        setTimeout(() => {
+          setMessage('');
+        }, 45 * 1000);
+        //review my semi-colons policy. it's legit not necessary. linting or strict mode or something?
       }
+      if (content.background !== background) {setBackground(content.background)}
+      if (content.filter !== filter) {setFilter(content.filter)}
     });
 
-    socket.on("playerWindow2", (data) => {
+    socket.on("setUpPlayerWindow", (data) => {
       setMessage(data[props.playerInd]);
     });
 
@@ -55,9 +45,9 @@ function PlayerWindow(props) {
 
   return (
     <Container>
-      <Text>Message: {displayMessage}</Text>
-      <Text>Background: {displayBackground}</Text>
-      <Text>Filter: {displayFilter}</Text>
+      <Text>Message: {message}</Text>
+      <Text>Background: {background}</Text>
+      <Text>Filter: {filter}</Text>
     </Container>
   )
 }

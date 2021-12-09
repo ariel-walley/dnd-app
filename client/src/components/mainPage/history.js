@@ -44,7 +44,7 @@ export default function HistoryContainer() {
     useEffect(() => {
       socket = io.connect('http://localhost:3100/');
   
-      socket.on("displayHistory", (data) => {
+      socket.on("sendHistory", (data) => {
         setHistory(data);
       })
 

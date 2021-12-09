@@ -26,7 +26,7 @@ export default function SelectBar() {
         src={message[type]} 
         key={message[type] + 'Thumbnail'} 
         alt={'thumbnail of ' + message[type]} 
-        onClick={() => updateMessage({...message, [type]: null})}
+        onClick={() => updateMessage({...message, [type]: ''})}
       /> 
     } else {
       return <p>None</p>

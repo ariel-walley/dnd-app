@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container } from '../../styles';
 
-import Snapshots from './snapshots';
+import SnapshotContainer from './snapshotContainer';
 import Messenger from './messenger';
 import Notes from './notes';
 import History from './history';
@@ -19,7 +19,7 @@ function MainPage() {
   return(
     <UpdatedContainer>
       <Column>
-        <Snapshots/>
+        <SnapshotContainer/>
       </Column>
       <Column>
         <Messenger/>
