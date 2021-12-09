@@ -50,21 +50,26 @@ function PlayerWindow(props) {
     });
 
     return function() {
-      //need to clean up open connection here or everytime you update component it'll open a new connection AND keep old one open and you'll end up with multiple conenctions from each child window
       console.log('exit', socket);
       if(socket != null) socket.disconnect();
     }
-  }, [props.playerInd]); 
+  }, [props.playerInd]);
 
   useEffect(() => {
-    if (props.display === 'controlPanel') {
-      let parentElementHeight = document.getElementById(props.playerInd + 'SnapshotWrapper').offsetHeight;
-      setFontSize(parentElementHeight * .07 + 'px');
+    const resizeObserver = new ResizeObserver((entries) => {
+      setFontSize(elem.offsetHeight / 6 + 'px');
+    });
+
+    let elem = document.getElementById(props.playerInd + 
+      (props.display === 'popOut' ? 'PlayerWindowContainer' : 'SnapshotWrapper')
+    );
+
+    resizeObserver.observe(elem);
+
+    return function() {
     }
-  }, [props.parentSize])
 
   return (
-    <StyledContainer>
       {background === '' ? <div/> : <Img src={background} content="background"/>}
       {filter === '' ? <div/> : <Img src={filter} content="filter"/>}
       <Text fontSize={fontSize}>{message}</Text>      
