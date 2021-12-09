@@ -57,7 +57,7 @@ function PlayerWindow(props) {
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
-      setFontSize(elem.offsetHeight / 6 + 'px');
+      setFontSize(elem.offsetHeight * 0.07 + 'px');
     });
 
     let elem = document.getElementById(props.playerInd + 
@@ -67,9 +67,12 @@ function PlayerWindow(props) {
     resizeObserver.observe(elem);
 
     return function() {
+      resizeObserver.unobserve(elem)
     }
+  }, [props.display, props.playerInd]);
 
   return (
+    <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
       {background === '' ? <div/> : <Img src={background} content="background"/>}
       {filter === '' ? <div/> : <Img src={filter} content="filter"/>}
       <Text fontSize={fontSize}>{message}</Text>      
