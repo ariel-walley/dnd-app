@@ -13,20 +13,22 @@ const StyledContainer = styled(Container)`
 
 const Text = styled.p`
   font-size: ${props => props.fontSize};
+  transform: ${props => (props.display === 'popOut' ? 'scale(-1, 1)' : 'none')};
 `;
 
 const Img = styled.img`
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: ${props => props.content === 'background' ? -10 : -5}
+  z-index: ${props => (props.content === 'background' ? -10 : -5)};
+  transform: ${props => (props.display === 'popOut' ? 'scaleX(-1)' : 'none')};
 `;
 
 function PlayerWindow(props) {
   const [message, setMessage] = useState('');
   const [background, setBackground] = useState('');
   const [filter, setFilter] = useState('');
-  const [fontSize, setFontSize] = useState('7vh'); //is this a good default value?
+  const [fontSize, setFontSize] = useState('7vh');
 
   useEffect(() => {
     socket = io.connect('http://localhost:3100/');
@@ -74,9 +76,9 @@ function PlayerWindow(props) {
 
   return (
     <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
-      {background === '' ? <div/> : <Img src={background} content="background"/>}
-      {filter === '' ? <div/> : <Img src={filter} content="filter"/>}
-      <Text fontSize={fontSize}>{message}</Text>      
+      {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
+      {filter === '' ? <div/> : <Img src={filter} content="filter" display={props.display}/>}
+      <Text fontSize={fontSize} display={props.display}>{message}</Text>      
     </StyledContainer>
   )
 }
