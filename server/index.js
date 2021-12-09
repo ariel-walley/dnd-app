@@ -54,18 +54,21 @@ let history = [];
 
 /*    INITIALIZING SOCKET    */
 
+let connections = 0;
+
 io.on('connection', (socket) => {
 
   /*  BASIC CONNECTIONS */
-
-  console.log('a user connected');
+  connections++;
+  console.log(`A user connected (${connections + (connections === 1 ? ' connection' : ' connections')})`);
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    connections--;
+    console.log(`A user disconnected (${connections + (connections === 1 ? ' connection' : ' connections')})`);
   });
 
   /*  INITIALIZING SERVER  */
-  socket.on('setUp', (data, fn) => {
+  socket.on('setUp', (data) => {
     //Resetting obj in case the user returns to the start page make an adjustment
     playerWindowContent = [];
 
@@ -85,7 +88,6 @@ io.on('connection', (socket) => {
 
     io.emit('playerWindow2', data); //Send to display the inital player name
 
-    fn('ack');
   });
 
   /*  SENDING CONTENT TO PLAYERS  */

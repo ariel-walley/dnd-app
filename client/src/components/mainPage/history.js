@@ -47,6 +47,11 @@ export default function HistoryContainer() {
       socket.on("displayHistory", (data) => {
         setHistory(data);
       })
+
+      return function() {
+        console.log('exit', socket)
+        if(socket != null) socket.disconnect()
+      }
     }, [])
 
   /*    CREATING ROWS FOR HISTORY ENTRIES    */
@@ -70,6 +75,7 @@ export default function HistoryContainer() {
     // Figuring out which array in the history array to generate
     if (playerInd === 'all') {
       playerInd = history.length - 1
+    }
   
     //Mapping content to JSX
     if (history.length > 0) {

@@ -27,7 +27,7 @@ function MainPage() {
       <Column>
         <Notes/>
         <History/>
-      </Column>      
+      </Column>
     </UpdatedContainer>
   )
 }

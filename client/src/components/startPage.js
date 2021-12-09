@@ -72,12 +72,11 @@ function StartPage() {
         const socket = io.connect('http://localhost:3100/');
 
         newWindow.addEventListener('load', () => {
-          socket.emit("setUp", playerArr, (data) => {
-            socket.disconnect();
-          })
-        }, false);
-      }     
-    });  
+          socket.emit("setUp", playerArr);
+          socket.disconnect();
+        }, false); 
+      } 
+    }); 
 
     // Direct to control panel page
     history.push("/dm");

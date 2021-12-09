@@ -43,13 +43,13 @@ function PlayerWindow(props) {
     });
 
     socket.on("playerWindow2", (data) => {
-      setMessage(data[props.playerInd])
+      setMessage(data[props.playerInd]);
     });
 
     return function() {
-      console.log('exit', socket)
       //need to clean up open connection here or everytime you update component it'll open a new connection AND keep old one open and you'll end up with multiple conenctions from each child window
-      if(socket != null) socket.disconnect()
+      console.log('exit', socket);
+      if(socket != null) socket.disconnect();
     }
   }, [props.playerInd]); 
 
