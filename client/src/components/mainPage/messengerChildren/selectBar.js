@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { MessageContext } from '../../../context';
+
 import styled from 'styled-components';
+import { Container, ClearDiv } from '../../../styles';
+import CloseIcon from '@mui/icons-material/Close';
 
-const SelectContainer = styled.div`
-  width: 100%;
-  min-height: 50px;
-`;
 
-const SelectDiv = styled.div`
-  height: 100%;
-  width: 100%:
+const SelectContainer = styled(Container)`
+  height: auto;
+  flex-direction: row;
 `;
 
 const StyledContent = styled.img` 
@@ -22,12 +21,22 @@ export default function SelectBar() {
 
   const renderSelected = (type) => {
     if (message[type]) { 
-      return  <StyledContent 
-        src={message[type]} 
-        key={message[type] + 'Thumbnail'} 
-        alt={'thumbnail of ' + message[type]} 
-        onClick={() => updateMessage({...message, [type]: ''})}
-      /> 
+      if (message[type] === 'clear') {
+        return (
+          <ClearDiv alt='Black box with an "x" in the center to indicate clearing the screen' onClick={() => updateMessage({...message, [type]: ''})}>
+            <CloseIcon/>
+          </ClearDiv>
+        )
+      } else {
+        return (
+          <StyledContent 
+            src={message[type]} 
+            key={message[type] + 'Thumbnail'} 
+            alt={'thumbnail of ' + message[type]} 
+            onClick={() => updateMessage({...message, [type]: ''})}
+          /> 
+        )
+      }
     } else {
       return <p>None</p>
     }
@@ -35,14 +44,14 @@ export default function SelectBar() {
 
   return(
     <SelectContainer>
-      <SelectDiv>
+      <Container>
         <p>Background:</p>
         {renderSelected('background')}
-      </SelectDiv>
-      <SelectDiv>
+      </Container>
+      <Container>
         <p>Filter:</p>
         {renderSelected('filter')}
-      </SelectDiv>
+      </Container>
     </SelectContainer>
   );
 }

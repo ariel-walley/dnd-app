@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { MessageContext } from '../../../context';
 
-import { Container } from '../../../styles';
+import { Container, ClearDiv } from '../../../styles';
 import styled from 'styled-components';
+import CloseIcon from '@mui/icons-material/Close';
 
 const UpdatedContainer = styled(Container)`
   flex-direction: row;
@@ -18,9 +19,14 @@ export default function Gallery (props) {
   const { message, updateMessage } = useContext(MessageContext); 
 
   const selectContent = (path) => {
-    let type = '';
-    props.name === 'filters' ? type = 'filter' : type = 'background'; //update message.background for "images" and "gifs" only
-    updateMessage({...message, [type]: `/${props.name}/` + path})
+    let type;
+    props.name === 'filters' ? type = 'filter' : type = 'background'; //will update message.background for "images" and "gifs" only
+
+    if (path === 'clear') {
+      updateMessage({...message, [type]: 'clear'})
+    } else {
+      updateMessage({...message, [type]: `/${props.name}/` + path})
+    }
   }
 
   if (props.paths === undefined) { 
@@ -34,6 +40,9 @@ export default function Gallery (props) {
           key={path} alt={props.name + 'image'} 
           onClick={() => selectContent(path)} />
       )}
+      <ClearDiv onClick={() => selectContent('clear')} alt='Black box with an "x" in the center to indicate clearing the screen'>
+        <CloseIcon/>
+      </ClearDiv>
     </UpdatedContainer>)
   } else {
     return <p>No {props.name} found.</p>

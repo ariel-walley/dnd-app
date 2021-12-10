@@ -22,8 +22,12 @@ export default function Messenger() {
 
       // Build content object to send
       let localContent = {};
-      if (message.background) { localContent.background = message.background }
-      if (message.filter) { localContent.filter = message.filter }
+      if (message.background) {
+        localContent.background = (message.background === 'clear' ? '' : message.background);
+      }
+      if (message.filter) {
+        localContent.filter = (message.filter === 'clear' ? '' : message.filter);
+      }
       if (message.textInput !== '') { localContent.message = message.textInput }
 
       // Convert from array of booleans to array of checked player numbers

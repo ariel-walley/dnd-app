@@ -9,3 +9,9 @@ export const Container = styled.div`
   align-items: center;
   align-content: center;
 `;
+
+export const ClearDiv = styled(Container)`
+  width: 100px;
+  height: 60px;
+  border: white solid 1px;
+`;
