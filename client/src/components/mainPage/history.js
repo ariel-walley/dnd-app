@@ -55,11 +55,6 @@ export default function HistoryContainer() {
     }, [])
 
   /*    CREATING ROWS FOR HISTORY ENTRIES    */
-  const generateNames = (playerNames) => {
-    let playerNames2 = [...playerNames];
-    let str = [playerNames2.slice(0, -1).join(', '), playerNames2.pop()].filter(w => w !== '').join(' and ');
-    return str;
-  }
 
   const generateHistory = (playerInd) => {
     // Figuring out which array in the history array to generate
@@ -69,45 +64,39 @@ export default function HistoryContainer() {
   
     //Mapping content to JSX
     if (history.length > 0) {
-      return history[playerInd].map((histEntry, entryIndex) => {
-
-        let display = [];
-
-        Object.keys(histEntry.content).forEach((contentType) => { // Cycle through each history contentType
-          let clearCopy = histEntry.content.clear.slice(0);
-          if (contentType === 'clear') {
-            display.push(
-              <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
-                <p>Cleared {[clearCopy.slice(0, -1).join(', '), clearCopy.pop()].filter(w => w !== '').join(' and ')}</p> 
-                {playerInd === history.length -  1 ? (' for ' + generateNames(histEntry.playerNames)) : '' }
-                <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
-              </HistoryEntry>
-              )
-          } else if (contentType === 'textInput') {
-            display.push(
-              <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
-                <p>Sent</p>
-                <p>{histEntry.content[contentType]}</p>
-                {playerInd === history.length -  1 ? (' to ' + generateNames(histEntry.playerNames)) : '' }
-                <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
-              </HistoryEntry>
-            )
-          } else {
-            display.push(
-              <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
-                <p>Sent</p>
-                <img style={{height: '50px'}} src={histEntry.content[contentType]} alt={contentType + ' thumbnail'}/>
-                {playerInd === history.length -  1 ? (' to ' + generateNames(histEntry.playerNames)) : '' }
-                <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
-              </HistoryEntry>
-            )
-          }
-        }) 
-
-        return display
+      return history[playerInd].map((histEntry, entryIndex) => {  // Cycle through each history entry
+        return Object.keys(histEntry.content).map((contentType) =>  // Cycle through each history contentType
+          <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
+            <p>{contentType === 'clear' ? 'Cleared' : 'Sent' }</p>
+            {generateHistoryContent(contentType, histEntry)}
+            <p>{contentType === 'clear' ? 'for' : 'to' }</p>
+            <p>{playerInd === history.length -  1 ? generateNames(histEntry.playerNames) : '' }</p>
+            <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
+          </HistoryEntry>
+        )
       })
     } else {
       return 'No history yet.'
+    }
+  }
+
+  const generateNames = (playerNames) => {
+    let playerNames2 = [...playerNames];
+    if (JSON.stringify(players) === JSON.stringify(playerNames2)) {
+      return 'all players'
+    } else {
+      return [playerNames2.slice(0, -1).join(', '), playerNames2.pop()].filter(w => w !== '').join(' and ')
+    }
+  }
+
+  const generateHistoryContent = (contentType, histEntry) => {
+    if (contentType === 'clear') { 
+      let clearCopy = histEntry.content.clear.slice(0);
+      return <p>{[clearCopy.slice(0, -1).join(', '), clearCopy.pop()].filter(w => w !== '').join(' and ')}</p>
+    } else if (contentType === 'textInput') { 
+      return <p>{histEntry.content[contentType]}</p>
+    } else if (contentType === 'background' || contentType === 'filter') {
+      return <img style={{height: '50px'}} src={histEntry.content[contentType]} alt={contentType + ' thumbnail'}/>
     }
   }
 
