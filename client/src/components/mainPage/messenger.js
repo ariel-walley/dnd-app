@@ -22,13 +22,18 @@ export default function Messenger() {
 
       // Build content object to send
       let localContent = {};
-      if (message.background) {
-        localContent.background = (message.background === 'clear' ? '' : message.background);
-      }
-      if (message.filter) {
-        localContent.filter = (message.filter === 'clear' ? '' : message.filter);
-      }
-      if (message.textInput !== '') { localContent.message = message.textInput }
+      
+      let keys = Object.keys(message);
+      keys.pop();
+      keys.forEach((contentType) => {
+        if (message[contentType] === 'clear') {
+          localContent.clear === undefined ? localContent.clear = [contentType] : localContent.clear.push(contentType)
+        }
+      
+        if (message[contentType] !== '' && message[contentType] !== 'clear') {
+          localContent[contentType] = message[contentType]
+        }
+      });
 
       // Convert from array of booleans to array of checked player numbers
       const playerNumbers = message.checkedPlayers.reduce((acc, el, i) => (el ? [...acc, i] : acc), []);

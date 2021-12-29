@@ -38,11 +38,17 @@ function PlayerWindow(props) {
         Object.keys(data.content).forEach((contentType) => {
           if (contentType === 'background') {setBackground(data.content.background)}
           if (contentType === 'filter') {setFilter(data.content.filter)}
-          if (contentType === 'message') {
-            setMessage(data.content.message);
+          if (contentType === 'textInput') {
+            setMessage(data.content.textInput);
             setTimeout(() => {
               setMessage('');
             }, 10 * 1000);
+          }
+          if (contentType === 'clear') {
+            data.content.clear.forEach((clearedContent) => {
+              if (clearedContent === 'background') {setBackground('')}
+              if (clearedContent === 'filter') {setFilter('')}
+            })
           }
         });        
       }

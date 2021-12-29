@@ -61,15 +61,6 @@ export default function HistoryContainer() {
     return str;
   }
 
-  const generateContent = (contentObj) => {
-    return Object.keys(contentObj).map(function(content) {
-      if (content === 'message') {
-        return (<p>{contentObj[content]}</p>)
-      } else {
-        return (<img style={{height: '50px'}} src={contentObj[content]} alt={content + ' thumbnail'}/>)
-      }
-    })
-  }
 
   const generateHistory = (playerInd) => {
     // Figuring out which array in the history array to generate
@@ -79,14 +70,42 @@ export default function HistoryContainer() {
   
     //Mapping content to JSX
     if (history.length > 0) {
-      return history[playerInd].map((hist, index) => 
-        <HistoryEntry key={'allHist' + index}>
-          <p>Sent</p>
-          <div>{generateContent(hist.content)}</div>
-          {playerInd === history.length -  1 ? (' to ' + generateNames(hist.playerNames)) : '' }
-          <p>{new Date(hist.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
-        </HistoryEntry>
-      )
+      return history[playerInd].map((histEntry, entryIndex) => {
+
+        let display = [];
+
+        Object.keys(histEntry.content).forEach((contentType) => { // Cycle through each history contentType
+          if (contentType === 'clear') {
+            display.push(
+              <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
+                <p>Cleared {histEntry.content.clear}</p> 
+                {playerInd === history.length -  1 ? (' for ' + generateNames(histEntry.playerNames)) : '' }
+                <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
+              </HistoryEntry>
+              )
+          } else if (contentType === 'textInput') {
+            display.push(
+              <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
+                <p>Sent</p>
+                <p>{histEntry.content[contentType]}</p>
+                {playerInd === history.length -  1 ? (' to ' + generateNames(histEntry.playerNames)) : '' }
+                <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
+              </HistoryEntry>
+            )
+          } else {
+            display.push(
+              <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
+                <p>Sent</p>
+                <img style={{height: '50px'}} src={histEntry.content[contentType]} alt={contentType + ' thumbnail'}/>
+                {playerInd === history.length -  1 ? (' to ' + generateNames(histEntry.playerNames)) : '' }
+                <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
+              </HistoryEntry>
+            )
+          }
+        }) 
+
+        return display
+      })
     } else {
       return 'No history yet.'
     }
