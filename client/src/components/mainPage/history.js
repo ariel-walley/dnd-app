@@ -61,7 +61,6 @@ export default function HistoryContainer() {
     return str;
   }
 
-
   const generateHistory = (playerInd) => {
     // Figuring out which array in the history array to generate
     if (playerInd === 'all') {
@@ -75,10 +74,11 @@ export default function HistoryContainer() {
         let display = [];
 
         Object.keys(histEntry.content).forEach((contentType) => { // Cycle through each history contentType
+          let clearCopy = histEntry.content.clear.slice(0);
           if (contentType === 'clear') {
             display.push(
               <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
-                <p>Cleared {histEntry.content.clear}</p> 
+                <p>Cleared {[clearCopy.slice(0, -1).join(', '), clearCopy.pop()].filter(w => w !== '').join(' and ')}</p> 
                 {playerInd === history.length -  1 ? (' for ' + generateNames(histEntry.playerNames)) : '' }
                 <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
               </HistoryEntry>
