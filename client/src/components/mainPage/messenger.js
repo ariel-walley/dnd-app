@@ -15,6 +15,7 @@ export default function Messenger() {
     filter: '',
     textInput: '',
     checkedPlayers: players.map(() => false) 
+  });
   const [clearCheckboxes, toggleClearCheckboxes] = useState({
     clearText: false,
     clearAll: false
