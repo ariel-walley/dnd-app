@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { PlayersContext, MessageContext } from '../../context';
+import { PlayersContext, MessageContext, ClearCheckboxesContext } from '../../context';
 
 import GalleryContainer from './messengerChildren/galleryContainer';
 import TextInput from './messengerChildren/textInput';
+import ClearButtons from './messengerChildren/clearButtons';
 import PlayerCheckboxes from './messengerChildren/playerCheckboxes';
 
 import { io } from 'socket.io-client';
@@ -13,7 +14,10 @@ export default function Messenger() {
     background: '',
     filter: '',
     textInput: '',
-    checkedPlayers: players.map(() => false)
+    checkedPlayers: players.map(() => false) 
+  const [clearCheckboxes, toggleClearCheckboxes] = useState({
+    clearText: false,
+    clearAll: false
   });
 
   const sendMessage = (event) => {
@@ -64,6 +68,9 @@ export default function Messenger() {
   return(
     <MessageContext.Provider value={{message, updateMessage}}>
       <GalleryContainer/>
+      <ClearCheckboxesContext.Provider value={{clearCheckboxes, toggleClearCheckboxes}}>
+        <ClearButtons/>
+      </ClearCheckboxesContext.Provider>      
       <TextInput/>
       <PlayerCheckboxes/>
       <input id="submit-button" onClick={sendMessage} type="button" value="Send" />

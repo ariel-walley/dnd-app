@@ -10,3 +10,8 @@ export const MessageContext = React.createContext({
   updateMessage: () => {}
 })
 
+export const ClearCheckboxesContext = React.createContext({
+  clearCheckboxes: {},
+  toggleClearCheckboxes: () => {}
+})
+
