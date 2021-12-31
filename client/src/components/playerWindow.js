@@ -48,6 +48,7 @@ function PlayerWindow(props) {
             data.content.clear.forEach((clearedContent) => {
               if (clearedContent === 'background') {setBackground('')}
               if (clearedContent === 'filter') {setFilter('')}
+              if (clearedContent === 'textInput') {setMessage('')}
             })
           }
         });        

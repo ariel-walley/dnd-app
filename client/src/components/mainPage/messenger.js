@@ -32,7 +32,7 @@ export default function Messenger() {
       let keys = Object.keys(message);
       keys.pop();
       keys.forEach((contentType) => {
-        if (message[contentType] !== '' && JSON.stringify(message[contentType]) !== JSON.stringify([]) ) {
+        if (!message.clear.includes(contentType) && message[contentType] !== '' && JSON.stringify(message[contentType]) !== JSON.stringify([]) ) {
           localContent[contentType] = message[contentType]
         }
       });
@@ -69,8 +69,8 @@ export default function Messenger() {
       <GalleryContainer/>
       <ClearCheckboxesContext.Provider value={{clearCheckboxes, toggleClearCheckboxes}}>
         <ClearButtons/>
-      </ClearCheckboxesContext.Provider>      
-      <TextInput/>
+        <TextInput/>
+      </ClearCheckboxesContext.Provider> 
       <PlayerCheckboxes/>
       <input id="submit-button" onClick={sendMessage} type="button" value="Send" />
     </MessageContext.Provider>
