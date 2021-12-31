@@ -23,9 +23,11 @@ export default function Gallery (props) {
     props.name === 'filters' ? type = 'filter' : type = 'background'; //will update message.background for "images" and "gifs" only
 
     if (path === 'clear') {
-      updateMessage({...message, [type]: 'clear'})
+      let stateCopy = message.clear.slice(0);
+      if (!stateCopy.includes(type)) { stateCopy.push(type) }; // To prevent multiple clicks
+      updateMessage({...message, clear: stateCopy, [type]: ''});
     } else {
-      updateMessage({...message, [type]: `/${props.name}/` + path})
+      updateMessage({...message, [type]: `/${props.name}/` + path});
     }
   }
 

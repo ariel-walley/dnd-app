@@ -11,6 +11,7 @@ import { io } from 'socket.io-client';
 export default function Messenger() {
   const { players } = useContext(PlayersContext);
   const [message, updateMessage] = useState({
+    clear: [],
     background: '',
     filter: '',
     textInput: '',
@@ -23,7 +24,7 @@ export default function Messenger() {
 
   const sendMessage = (event) => {
   
-    if (message.checkedPlayers.includes(true) && (message.background || message.filter || message.textInput !== '')) {
+    if (message.checkedPlayers.includes(true) && (message.background || message.filter || message.textInput !== '' || message.clear.length > 0)) {
 
       // Build content object to send
       let localContent = {};
@@ -31,11 +32,7 @@ export default function Messenger() {
       let keys = Object.keys(message);
       keys.pop();
       keys.forEach((contentType) => {
-        if (message[contentType] === 'clear') {
-          localContent.clear === undefined ? localContent.clear = [contentType] : localContent.clear.push(contentType)
-        }
-      
-        if (message[contentType] !== '' && message[contentType] !== 'clear') {
+        if (message[contentType] !== '' && JSON.stringify(message[contentType]) !== JSON.stringify([]) ) {
           localContent[contentType] = message[contentType]
         }
       });
@@ -58,6 +55,7 @@ export default function Messenger() {
       
       // Reset text input and checkboxes after submission
       updateMessage({
+        clear: [],
         background: '',
         filter: '',
         textInput: '',

@@ -19,26 +19,34 @@ const StyledContent = styled.img`
 export default function SelectBar() {
   const { message, updateMessage } = useContext(MessageContext);
 
+  const deselectContent = (e, type) => {
+    updateMessage({...message, [type]: ''});
+  }
+
+  const deselectClearBox = (e, type) => {
+    let stateCopy = message.clear.slice(0);
+    stateCopy.splice(stateCopy.indexOf(type, 1));
+    updateMessage({...message, clear: stateCopy});
+  }
+
   const renderSelected = (type) => {
-    if (message[type]) { 
-      if (message[type] === 'clear') {
-        return (
-          <ClearDiv alt='Black box with an "x" in the center to indicate clearing the screen' onClick={() => updateMessage({...message, [type]: ''})}>
-            <CloseIcon/>
-          </ClearDiv>
-        )
-      } else {
-        return (
-          <StyledContent 
-            src={message[type]} 
-            key={message[type] + 'Thumbnail'} 
-            alt={'thumbnail of ' + message[type]} 
-            onClick={() => updateMessage({...message, [type]: ''})}
-          /> 
-        )
-      }
-    } else {
+    if (message.clear.includes(type)) {
+      return (
+        <ClearDiv alt='Black box with an "x" in the center to indicate clearing the screen' onClick={(event) => deselectClearBox(event, type)}>
+          <CloseIcon/>
+        </ClearDiv>
+      )
+    } else if (!message[type]) {
       return <p>None</p>
+    } else {
+      return (
+        <StyledContent 
+          src={message[type]} 
+          key={message[type] + 'Thumbnail'} 
+          alt={'thumbnail of ' + message[type]} 
+          onClick={(e) => deselectContent(e, type)}
+        /> 
+      )
     }
   }
 
