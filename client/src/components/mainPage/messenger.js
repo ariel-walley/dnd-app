@@ -60,7 +60,8 @@ export default function Messenger() {
         filter: '',
         textInput: '',
         checkedPlayers: players.map(() => false)
-    });
+      });
+      toggleClearCheckboxes({clearAll: false, clearText: false})
     } 
   }
 

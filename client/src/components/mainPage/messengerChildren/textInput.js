@@ -13,7 +13,7 @@ export default function TextInput() {
   const handleInputChange = (event) => {
     let localClear = message.clear.slice(0);
     if (localClear.includes('textInput')) { // If clearText is checked, uncheck it once the text input is changed
-      localClear.splice(localClear.indexOf('textInput, 1'));
+      localClear.splice(localClear.indexOf('textInput'), 1);
       toggleClearCheckboxes({clearAll: false, clearText: false});
       updateMessage({...message, textInput: event.target.value, clear: localClear});
     } else {

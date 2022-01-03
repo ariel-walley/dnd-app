@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MessageContext } from '../../../context';
+import { MessageContext, ClearCheckboxesContext } from '../../../context';
 
 import { Container, ClearDiv } from '../../../styles';
 import styled from 'styled-components';
@@ -16,18 +16,22 @@ const StyledContent = styled.img`
 `;
 
 export default function Gallery (props) {
-  const { message, updateMessage } = useContext(MessageContext); 
+  const { message, updateMessage } = useContext(MessageContext);
+  const { clearCheckboxes, toggleClearCheckboxes } = useContext(ClearCheckboxesContext);
 
   const selectContent = (path) => {
     let type;
     props.name === 'filters' ? type = 'filter' : type = 'background'; //will update message.background for "images" and "gifs" only
 
+    let stateCopy = message.clear.slice(0);
+
     if (path === 'clear') {
-      let stateCopy = message.clear.slice(0);
       if (!stateCopy.includes(type)) { stateCopy.push(type) }; // To prevent multiple clicks
       updateMessage({...message, clear: stateCopy, [type]: ''});
     } else {
-      updateMessage({...message, [type]: `/${props.name}/` + path});
+      stateCopy.splice(stateCopy.indexOf(type), 1);
+      updateMessage({...message, clear: stateCopy, [type]: `/${props.name}/` + path});
+      toggleClearCheckboxes({...clearCheckboxes, clearAll: false});
     }
   }
 

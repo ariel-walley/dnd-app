@@ -25,7 +25,7 @@ export default function SelectBar() {
 
   const deselectClearBox = (e, type) => {
     let stateCopy = message.clear.slice(0);
-    stateCopy.splice(stateCopy.indexOf(type, 1));
+    stateCopy.splice(stateCopy.indexOf(type), 1);
     updateMessage({...message, clear: stateCopy});
   }
 

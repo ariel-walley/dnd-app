@@ -21,7 +21,7 @@ export default function ClearButtons() {
       localClear.push('textInput')
       updateMessage({...message, textInput: '', clear: localClear})
     } else { //Unchecking clearText
-      localClear.splice(localClear.indexOf('textInput', 1));
+      localClear.splice(localClear.indexOf('textInput'), 1);
       updateMessage({...message, clear: localClear})
     }
   }
@@ -32,10 +32,7 @@ export default function ClearButtons() {
     toggleClearCheckboxes({clearAll: newState, clearText: newState});
 
     if (newState) { // Checking clearAll
-      let localClear = message.clear.slice(0);
-      if (!localClear.includes('textInput')) { localClear.push('textInput')};
-      localClear.push('filter', 'background');
-      updateMessage({...message, textInput: '', clear: localClear});
+      updateMessage({...message, textInput: '', clear: ['textInput', 'background', 'filter']});
     } else { // Unchecking clearAll
       updateMessage({...message, clear: []})
     }
