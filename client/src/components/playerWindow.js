@@ -42,7 +42,7 @@ function PlayerWindow(props) {
             setMessage(data.content.textInput);
             setTimeout(() => {
               setMessage('');
-            }, 10 * 1000);
+            }, 45 * 1000);
           }
           if (contentType === 'clear') {
             data.content.clear.forEach((clearedContent) => {

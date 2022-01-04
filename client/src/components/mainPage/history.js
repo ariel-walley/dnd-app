@@ -69,7 +69,7 @@ export default function HistoryContainer() {
           <HistoryEntry key={`player${playerInd}entry${entryIndex + contentType}`}>
             <p>{contentType === 'clear' ? 'Cleared' : 'Sent' }</p>
             {generateHistoryContent(contentType, histEntry)}
-            <p>{contentType === 'clear' ? 'for' : 'to' }</p>
+            <p>{playerInd === history.length -  1 ? (contentType === 'clear' ? 'for' : 'to') : '' }</p>
             <p>{playerInd === history.length -  1 ? generateNames(histEntry.playerNames) : '' }</p>
             <p>{new Date(histEntry.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit'})}</p>
           </HistoryEntry>
@@ -92,7 +92,12 @@ export default function HistoryContainer() {
   const generateHistoryContent = (contentType, histEntry) => {
     if (contentType === 'clear') { 
       let clearCopy = histEntry.content.clear.slice(0);
-      return <p>{[clearCopy.slice(0, -1).join(', '), clearCopy.pop()].filter(w => w !== '').join(' and ')}</p>
+
+      if (clearCopy.includes('textInput') && clearCopy.includes('filter') && clearCopy.includes('background')) {
+        return <p>all</p>
+      } else {
+        return <p>{[clearCopy.slice(0, -1).join(', '), clearCopy.pop()].filter(w => w !== '').join(' and ')}</p>
+      }
     } else if (contentType === 'textInput') { 
       return <p>{histEntry.content[contentType]}</p>
     } else if (contentType === 'background' || contentType === 'filter') {
