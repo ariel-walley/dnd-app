@@ -9,7 +9,7 @@ const UpdatedContainer = styled(Container)`
   flex-direction: row;
   flex-wrap: wrap;
 `;
-
+//StyledContent renamed GalleryContent in messengerStyles.css file - Melody.
 const StyledContent = styled.img`
   max-width: 100px;
   margin: 10px;
@@ -35,15 +35,15 @@ export default function Gallery (props) {
     }
   }
 
-  if (props.paths === undefined) { 
+  if (props.paths === undefined) {
     return <p>Loading...</p>
   } else if (props.paths.length > 0) {
     return (
     <UpdatedContainer>
-      {props.paths.map((path) => 
-        <StyledContent 
-          src={`/${props.name}/` + path} 
-          key={path} alt={props.name + 'image'} 
+      {props.paths.map((path) =>
+        <StyledContent
+          src={`/${props.name}/` + path}
+          key={path} alt={props.name + 'image'}
           onClick={() => selectContent(path)} />
       )}
       <ClearDiv onClick={() => selectContent('clear')} alt='Black box with an "x" in the center to indicate clearing the screen'>

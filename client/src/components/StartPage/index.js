@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { PlayersContext } from '../context';
+import { PlayersContext } from '../../context';
 
 import styled from 'styled-components';
-import { Container } from '../styles';
+import { Container } from '../../styles';
 
 import { io } from 'socket.io-client';
 
@@ -17,10 +17,10 @@ const UserInput = styled.input`
 `;
 
 function StartPage() {
-  const { setPlayers } = useContext(PlayersContext); 
+  const { setPlayers } = useContext(PlayersContext);
   const [error, toggleError] = useState([false]);
   const history = useHistory();
-  
+
   const createDivs = () => {
     let display = [];
 
@@ -32,8 +32,8 @@ function StartPage() {
 
     return display;
   }
-  
-  const handleEnter = (event) => {  // Submit user input if 'Enter' key is pressed   
+
+  const handleEnter = (event) => {  // Submit user input if 'Enter' key is pressed
     if (event.key !== undefined) {
       if (event.key === 'Enter') {
         initializeGame();
@@ -57,7 +57,7 @@ function StartPage() {
       } else if (value !== '') {
         playerArr.push(value);
       }
-    }    
+    }
 
     // Update PlayerContext
     setPlayers(playerArr);
@@ -74,20 +74,20 @@ function StartPage() {
         newWindow.addEventListener('load', () => {
           socket.emit("setUp", playerArr);
           socket.disconnect();
-        }, false); 
-      } 
-    }); 
+        }, false);
+      }
+    });
 
     // Direct to control panel page
     history.push("/dm");
 
-  }  
+  }
 
   const displayError = () => {
     if (error[0]) {
       return (
         <div style={{color: 'red'}}>
-          <p>Error: "{error[1]}" is entered twice. Please enter unique names for all players.</p> 
+          <p>Error: "{error[1]}" is entered twice. Please enter unique names for all players.</p>
           <p>If you have two players with the same name, one can be capitalized and the other entered in lower case.</p>
         </div>
       )

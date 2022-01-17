@@ -5,12 +5,12 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 export default function ClearButtons() {
   const { message, updateMessage } = useContext(MessageContext)
   const { clearCheckboxes, toggleClearCheckboxes } = useContext(ClearCheckboxesContext);
-   
+
   const toggleClearText = () => {
     let newState = !clearCheckboxes.clearText;
     let localClear = message.clear.slice(0);
@@ -48,19 +48,19 @@ export default function ClearButtons() {
 
   return (
     <FormGroup>
-      <FormControlLabel 
-        control={<Checkbox 
-          checked={clearCheckboxes.clearText} 
+      <FormControlLabel
+        control={<Checkbox
+          checked={clearCheckboxes.clearText}
           onChange={(event) => toggleClearText(event, 'clearText')}
           inputProps={{ 'aria-label': 'controlled' }}
-        />} 
+        />}
         label="Clear text" />
-      <FormControlLabel 
-        control={<Checkbox 
-          checked={checkIfClearAll()} 
+      <FormControlLabel
+        control={<Checkbox
+          checked={checkIfClearAll()}
           onChange={(event) => toggleClearAll(event, 'clearAll')}
           inputProps={{ 'aria-label': 'controlled' }}
-        />} 
+        />}
         label="Clear all" />
     </FormGroup>
   );

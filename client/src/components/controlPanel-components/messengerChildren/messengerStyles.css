@@ -1,0 +1,23 @@
+SelectContainer {
+  height: auto;
+  flex-direction: row;
+}
+
+StyledContent {
+  max-width: 50px;
+  margin: 10px;
+}
+
+StyledInput {
+  width: 250px;
+}
+
+UpdatedContainer{
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+GalleryContent{
+  max-width: 100px;
+  margin: 10px;
+}

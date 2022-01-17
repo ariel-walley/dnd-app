@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
-import { Container } from '../styles';
+import { Container } from '../../styles';
 
 import { io } from 'socket.io-client';
 let socket = null;
@@ -51,7 +51,7 @@ function PlayerWindow(props) {
               if (clearedContent === 'textInput') {setMessage('')}
             })
           }
-        });        
+        });
       }
     });
 
@@ -70,7 +70,7 @@ function PlayerWindow(props) {
       setFontSize(elem.offsetHeight * 0.07 + 'px');
     });
 
-    let elem = document.getElementById(props.playerInd + 
+    let elem = document.getElementById(props.playerInd +
       (props.display === 'popOut' ? 'PlayerWindowContainer' : 'SnapshotWrapper')
     );
 
@@ -85,7 +85,7 @@ function PlayerWindow(props) {
     <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
       {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
       {filter === '' ? <div/> : <Img src={filter} content="filter" display={props.display}/>}
-      <Text fontSize={fontSize} display={props.display}>{message}</Text>      
+      <Text fontSize={fontSize} display={props.display}>{message}</Text>
     </StyledContainer>
   )
 }

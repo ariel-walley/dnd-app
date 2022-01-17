@@ -6,13 +6,13 @@ import { PlayersContext } from './context';
 import GlobalStyle from './globalStyles';
 import { Container } from './styles';
 
-import StartPage from './components/startPage';
-import ControlPanel from './components/controlPanel-components/controlPanel';
-import PlayerWindow from './components/playerWindow';
+import StartPage from './components/StartPage';
+import ControlPanel from './components/controlPanel-components/ControlPanel';
+import PlayerWindow from './components/PlayerWindow';
 
 function App() {
   const [players, setPlayers] = useState([]);
-    
+
   const value = { players, setPlayers }
 
   const createRoutes = () => {
