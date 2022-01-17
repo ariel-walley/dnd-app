@@ -68,7 +68,7 @@ export default function Notes() {
     }
   }
 
-  const remoteNote = (index) => {
+  const removeNote = (index) => {
     let localstate = inputHistory.slice(0);
     localstate.splice(index, 1);
     setInputHistory(localstate);
@@ -82,7 +82,7 @@ export default function Notes() {
           <RowContainer key={'DMnote' + index}>
             <Timestamp>{note.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</Timestamp>
             <NoteText>{note.content}</NoteText>
-            <CloseIcon onClick={() => remoteNote(index)}/>
+            <CloseIcon onClick={() => removeNote(index)}/>
           </RowContainer>
         )}
       </BodyContainer>
