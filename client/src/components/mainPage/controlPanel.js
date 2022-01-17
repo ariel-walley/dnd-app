@@ -15,7 +15,7 @@ const Column = styled(Container)`
   margin: 15px;
 `;
 
-function MainPage() {
+function ControlPanel() {
   return(
     <UpdatedContainer>
       <Column>
@@ -32,4 +32,4 @@ function MainPage() {
   )
 }
 
-export default MainPage;
+export default ControlPanel;
