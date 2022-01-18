@@ -31,20 +31,20 @@ import './Snapshot.css';
 export default function SnapshotContainer() {
   const { players } = useContext(PlayersContext);
 
-  // const generateSnapshots = players.map((player, i) =>
-  //   <Wrapper key={i + 'SnapshotWrapper'} id={i + 'SnapshotWrapper'}>
-  //     <PlayerWindow key={i + 'Snapshot'} playerInd={i} display={"controlPanel"}/>
-  //   </Wrapper>
-  // )
+  const generateSnapshots = players.map((player, i) =>
+    <wrapper key={i + 'SnapshotWrapper'} id={i + 'SnapshotWrapper'}>
+      <PlayerWindow key={i + 'Snapshot'} playerInd={i} display={"controlPanel"}/>
+    </wrapper>
+  )
 
-  // return(
-  //   <Container>
-  //     <SnapshotTitle>Snapshots</SnapshotTitle>
-  //     <StyledContainer>
-  //       {generateSnapshots}
-  //     </StyledContainer>
-  //   </Container>
-  // )
+  return(
+    <Container>
+      <snapshotTitle>Snapshots</snapshotTitle>
+      <styledContainer>
+        {generateSnapshots}
+      </styledContainer>
+    </Container>
+  )
 }
 
 // export default SnapshotContainer;

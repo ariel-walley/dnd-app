@@ -1,20 +1,21 @@
 import React, { useContext } from 'react';
 import { MessageContext } from '../../../context';
-
-import styled from 'styled-components';
+import '../../../index.css';
+import '../messengerChildren/messengerStyles.css';
+// import styled from 'styled-components';
 import { Container, ClearDiv } from '../../../styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 
-const SelectContainer = styled(Container)`
-  height: auto;
-  flex-direction: row;
-`;
+// const SelectContainer = styled(Container)`
+//   height: auto;
+//   flex-direction: row;
+// `;
 
-const StyledContent = styled.img` 
-  max-width: 50px;
-  margin: 10px;
-`;
+// const StyledContent = styled.img`
+//   max-width: 50px;
+//   margin: 10px;
+// `;
 
 export default function SelectBar() {
   const { message, updateMessage } = useContext(MessageContext);
@@ -32,26 +33,26 @@ export default function SelectBar() {
   const renderSelected = (type) => {
     if (message.clear.includes(type)) {
       return (
-        <ClearDiv alt='Black box with an "x" in the center to indicate clearing the screen' onClick={(event) => deselectClearBox(event, type)}>
+        <clearDiv alt='Black box with an "x" in the center to indicate clearing the screen' onClick={(event) => deselectClearBox(event, type)}>
           <CloseIcon/>
-        </ClearDiv>
+        </clearDiv>
       )
     } else if (!message[type]) {
       return <p>None</p>
     } else {
       return (
-        <StyledContent 
-          src={message[type]} 
-          key={message[type] + 'Thumbnail'} 
-          alt={'thumbnail of ' + message[type]} 
+        <styledContent
+          src={message[type]}
+          key={message[type] + 'Thumbnail'}
+          alt={'thumbnail of ' + message[type]}
           onClick={(e) => deselectContent(e, type)}
-        /> 
+        />
       )
     }
   }
 
   return(
-    <SelectContainer>
+    <div id = 'selectContainer'>
       <Container>
         <p>Background:</p>
         {renderSelected('background')}
@@ -60,6 +61,6 @@ export default function SelectBar() {
         <p>Filter:</p>
         {renderSelected('filter')}
       </Container>
-    </SelectContainer>
+    </div>
   );
 }

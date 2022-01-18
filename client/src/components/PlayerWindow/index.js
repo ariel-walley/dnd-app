@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
-
-import styled from 'styled-components';
+import './PlayerWindow.css';
+// import styled from 'styled-components';
 import { Container } from '../../styles';
 
 import { io } from 'socket.io-client';
 let socket = null;
 
-const StyledContainer = styled(Container)`
-  width: 100%;
-  height: 100%;
-`;
+// const StyledContainer = styled(Container)`
+//   width: 100%;
+//   height: 100%;
+// `;
 
-const Text = styled.p`
-  font-size: ${props => props.fontSize};
-  transform: ${props => (props.display === 'popOut' ? 'scale(-1, 1)' : 'none')};
-`;
+// const Text = styled.p`
+//   font-size: ${props => props.fontSize};
+//   transform: ${props => (props.display === 'popOut' ? 'scale(-1, 1)' : 'none')};
+// `;
 
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: ${props => (props.content === 'background' ? -10 : -5)};
-  transform: ${props => (props.display === 'popOut' ? 'scaleX(-1)' : 'none')};
-`;
+// const Img = styled.img`
+//   width: 100%;
+//   height: 100%;
+//   position: absolute;
+//   z-index: ${props => (props.content === 'background' ? -10 : -5)};
+//   transform: ${props => (props.display === 'popOut' ? 'scaleX(-1)' : 'none')};
+// `;
 
-function PlayerWindow(props) {
+export default function PlayerWindow(props) {
   const [message, setMessage] = useState('');
   const [background, setBackground] = useState('');
   const [filter, setFilter] = useState('');
@@ -36,9 +36,9 @@ function PlayerWindow(props) {
     socket.on("sendContent", (data) => {
       if (data.playerNumbers.includes(props.playerInd)) {
         Object.keys(data.content).forEach((contentType) => {
-          if (contentType === 'background') {setBackground(data.content.background)}
-          if (contentType === 'filter') {setFilter(data.content.filter)}
-          if (contentType === 'textInput') {
+          if (contentType === 'background') { setBackground(data.content.background); }
+          if (contentType === 'filter') { setFilter(data.content.filter); }
+          if (contentType === 'message') {
             setMessage(data.content.textInput);
             setTimeout(() => {
               setMessage('');
@@ -46,10 +46,10 @@ function PlayerWindow(props) {
           }
           if (contentType === 'clear') {
             data.content.clear.forEach((clearedContent) => {
-              if (clearedContent === 'background') {setBackground('')}
-              if (clearedContent === 'filter') {setFilter('')}
-              if (clearedContent === 'textInput') {setMessage('')}
-            })
+              if (clearedContent === 'background') { setBackground(''); }
+              if (clearedContent === 'filter') { setFilter(''); }
+              if (clearedContent === 'message') { setMessage(''); }
+            });
           }
         });
       }
@@ -59,10 +59,10 @@ function PlayerWindow(props) {
       setMessage(data[props.playerInd]);
     });
 
-    return function() {
+    return function () {
       console.log('exit', socket);
-      if(socket != null) socket.disconnect();
-    }
+      if (socket != null) socket.disconnect();
+    };
   }, [props.playerInd]);
 
   useEffect(() => {
@@ -74,20 +74,45 @@ function PlayerWindow(props) {
       (props.display === 'popOut' ? 'PlayerWindowContainer' : 'SnapshotWrapper')
     );
 
-    resizeObserver.observe(elem);
+      // resizeObserver.observe(elem);
 
-    return function() {
-      resizeObserver.unobserve(elem)
-    }
-  }, [props.display, props.playerInd]);
+      // return function() {
+      //   resizeObserver.unobserve(elem)
+      // }
+    }, [props.display, props.playerInd]);
 
-  return (
-    <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
-      {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
-      {filter === '' ? <div/> : <Img src={filter} content="filter" display={props.display}/>}
-      <Text fontSize={fontSize} display={props.display}>{message}</Text>
-    </StyledContainer>
-  )
+    return (
+      <>
+        <message>
+          < div
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          ></div>
+        </message>
+        <background>
+          < div
+            value={background}
+            onChange={(e) => setBackground(e.target.value)}
+          ></div>
+        </background>
+        <filter>
+          < div
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          ></div>
+        </filter>
+        <fontSize>
+          <div
+            value={fontSize}
+            onChange={(e) => setFontSize(e.target.value)}
+          ></div>
+        </fontSize>
+      </>
+      // <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
+      //   {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
+      //   {filter === '' ? <div/> : <Img src={filter} content="filter" display={props.display}/>}
+      //   <Text fontSize={fontSize} display={props.display}>{message}</Text>
+      // </StyledContainer>
+      )
+
 }
-
-export default PlayerWindow;

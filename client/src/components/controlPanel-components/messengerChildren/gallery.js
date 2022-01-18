@@ -2,18 +2,19 @@ import React, { useContext } from 'react';
 import { MessageContext, ClearCheckboxesContext } from '../../../context';
 
 import { Container, ClearDiv } from '../../../styles';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
+import './messengerStyles.css';
 
-const UpdatedContainer = styled(Container)`
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
+// const UpdatedContainer = styled(Container)`
+//   flex-direction: row;
+//   flex-wrap: wrap;
+// `;
 //StyledContent renamed GalleryContent in messengerStyles.css file - Melody.
-const StyledContent = styled.img`
-  max-width: 100px;
-  margin: 10px;
-`;
+// const GalleryContent = styled.img`
+//   max-width: 100px;
+//   margin: 10px;
+// `;
 
 export default function Gallery (props) {
   const { message, updateMessage } = useContext(MessageContext);
@@ -39,17 +40,19 @@ export default function Gallery (props) {
     return <p>Loading...</p>
   } else if (props.paths.length > 0) {
     return (
-    <UpdatedContainer>
+      <>
+      <div id = 'updatedContainer'>
       {props.paths.map((path) =>
-        <StyledContent
+        <div id = 'galleryContent'
           src={`/${props.name}/` + path}
           key={path} alt={props.name + 'image'}
           onClick={() => selectContent(path)} />
       )}
-      <ClearDiv onClick={() => selectContent('clear')} alt='Black box with an "x" in the center to indicate clearing the screen'>
-        <CloseIcon/>
-      </ClearDiv>
-    </UpdatedContainer>)
+          <ClearDiv onClick={() => selectContent('clear')} alt='Black box with an "x" in the center to indicate clearing the screen'>
+            <CloseIcon/>
+          </ClearDiv>
+        </div>
+      </>)
   } else {
     return <p>No {props.name} found.</p>
   }

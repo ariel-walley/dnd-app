@@ -1,9 +1,9 @@
-SelectContainer {
+selectContainer {
   height: auto;
   flex-direction: row;
 }
 
-StyledContent {
+styledContent {
   max-width: 50px;
   margin: 10px;
 }
@@ -12,12 +12,20 @@ StyledInput {
   width: 250px;
 }
 
-UpdatedContainer{
+updatedContainer{
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-GalleryContent{
+galleryContent{
   max-width: 100px;
   margin: 10px;
+}
+
+userInput {
+  height: 25px;
+  width: 220px;
+  margin: 25px;
+  padding: 5px;
+  font-size: 18px;
 }

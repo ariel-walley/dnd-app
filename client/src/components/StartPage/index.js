@@ -2,19 +2,18 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { PlayersContext } from '../../context';
 
-import styled from 'styled-components';
-import { Container } from '../../styles';
-
+// import styled from 'styled-components';
+// import { Container } from '../../styles';
+// import '../controlPanel-components/messengerChildren/messengerStyles.css';
 import { io } from 'socket.io-client';
-
-
-const UserInput = styled.input`
-  height: 25px;
-  width: 220px;
-  margin: 25px;
-  padding: 5px;
-  font-size: 18px;
-`;
+import './StartPage.css';
+// const UserInput = styled.input`
+//   height: 25px;
+//   width: 220px;
+//   margin: 25px;
+//   padding: 5px;
+//   font-size: 18px;
+// `;
 
 function StartPage() {
   const { setPlayers } = useContext(PlayersContext);
@@ -26,7 +25,7 @@ function StartPage() {
 
     for (let i = 1; i < 5; i++) {
       display.push(
-        <UserInput key={`Input${i}`} id={`Input${i}`} onKeyDown={handleEnter}/>
+        <input key={`Input${i}`} id={`Input${i}`} onKeyDown={handleEnter}/>
       )
     }
 
@@ -95,13 +94,15 @@ function StartPage() {
   }
 
   return(
-    <Container>
+    // <Container>
+    <>
       <p>Welcome!</p>
       <label>How many players will you have?</label>
       {createDivs()}
       {displayError()}
       <button onClick={initializeGame} type="submit">Enter</button>
-    </Container>
+    </>
+    // </Container>
   )
 }
 
