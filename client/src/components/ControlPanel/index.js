@@ -6,9 +6,9 @@ import { Route, Switch } from 'react-router-dom';
 
 import Snapshot from '../Snapshot';
 import PlayerWindow from '../PlayerWindow';
-import Messenger from '../Messenger/index';
-import Notes from '../Messenger/notes';
-import History from '../Messenger/history';
+import Messenger from '../Messenger';
+// import Notes from '../Messenger/notes';
+// import History from '../Messenger/history';
 import './ControlPanel.css';
 
 // const UpdatedContainer = styled(Container)`
@@ -27,10 +27,10 @@ function Controls() {
         Snapshot
         <Snapshot />
       </Route>
-        <Route path='/notes'>
+        {/* <Route path='/notes'>
           Notes
           <Notes />
-        </Route>
+        </Route> */}
         <Route path='/messenger'>
           Messenger
           <Messenger />
@@ -39,10 +39,10 @@ function Controls() {
           Player Windows
           <PlayerWindow />
         </Route>
-        <Route path='/history'>
+        {/* <Route path='/history'>
           History
           <History />
-        </Route>
+        </Route> */}
     </>
     // </Switch>
     // <UpdatedContainer>
