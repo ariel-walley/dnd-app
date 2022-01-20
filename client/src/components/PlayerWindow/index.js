@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PlayerWindow.css';
 // import styled from 'styled-components';
-import { Container } from '../../styles';
+// import { Container } from '../../styles';
 
 import { io } from 'socket.io-client';
 let socket = null;

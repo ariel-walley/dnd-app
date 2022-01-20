@@ -43,7 +43,7 @@ export default function HistoryContainer() {
 
     useEffect(() => {
       socket = io.connect('http://localhost:3100/');
-  
+
       socket.on("sendHistory", (data) => {
         setHistory(data);
       })
@@ -61,7 +61,7 @@ export default function HistoryContainer() {
     if (playerInd === 'all') {
       playerInd = history.length - 1
     }
-  
+
     //Mapping content to JSX
     if (history.length > 0) {
       return history[playerInd].map((histEntry, entryIndex) => {  // Cycle through each history entry
@@ -90,7 +90,7 @@ export default function HistoryContainer() {
   }
 
   const generateHistoryContent = (contentType, histEntry) => {
-    if (contentType === 'clear') { 
+    if (contentType === 'clear') {
       let clearCopy = histEntry.content.clear.slice(0);
 
       if (clearCopy.includes('textInput') && clearCopy.includes('filter') && clearCopy.includes('background')) {
@@ -98,7 +98,7 @@ export default function HistoryContainer() {
       } else {
         return <p>{[clearCopy.slice(0, -1).join(', '), clearCopy.pop()].filter(w => w !== '').join(' and ')}</p>
       }
-    } else if (contentType === 'textInput') { 
+    } else if (contentType === 'textInput') {
       return <p>{histEntry.content[contentType]}</p>
     } else if (contentType === 'background' || contentType === 'filter') {
       return <img style={{height: '50px'}} src={histEntry.content[contentType]} alt={contentType + ' thumbnail'}/>
@@ -140,7 +140,7 @@ export default function HistoryContainer() {
     };
   }
 
-  const generateTabs = players.map((player, index) => 
+  const generateTabs = players.map((player, index) =>
     <Tab key={player + 'HistoryTab'} label={player} style={{textTransform: 'none'}} {...a11yProps(index)} />
   );
 

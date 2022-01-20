@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 
-import { PlayersContext } from './context';
+// import { PlayersContext } from './context';
 
-import GlobalStyle from './globalStyles';
-import { Container } from './styles';
+// import GlobalStyle from './globalStyles';
+// import { Container } from './styles';
 
 import StartPage from './components/StartPage';
-import ControlPanel from './components/controlPanel-components/ControlPanel';
+import ControlPanel from './components/ControlPanel';
 import PlayerWindow from './components/PlayerWindow';
+// import Messenger from './components/Messenger';
+import './index.css'
+import './App.css'
 
 function App() {
   const [players, setPlayers] = useState([]);
@@ -30,15 +33,17 @@ function App() {
   }
 
   return (
-    <Container>
-      <GlobalStyle/>
-      <PlayersContext.Provider value={value}>
+    // <Container>
+      // <GlobalStyle/>
+      // <PlayersContext.Provider value={value}>
+      <>
         <Route exact path="/"><StartPage/></Route>
-        <Route path="/dm"><ControlPanel/></Route>
-        {createRoutes()}
-      </PlayersContext.Provider>
-    </Container>
-  )
+        <Route path="/dm"><ControlPanel /></Route>
+    </>
+      // </PlayersContext.Provider>
+      // </Container>
+      )
+  {createRoutes()}
 }
 
 export default App;

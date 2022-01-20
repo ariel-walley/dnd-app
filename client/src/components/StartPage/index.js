@@ -4,7 +4,7 @@ import { PlayersContext } from '../../context';
 
 // import styled from 'styled-components';
 // import { Container } from '../../styles';
-// import '../controlPanel-components/messengerChildren/messengerStyles.css';
+import '../Messenger/messengerStyles.css';
 import { io } from 'socket.io-client';
 import './StartPage.css';
 // const UserInput = styled.input`

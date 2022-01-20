@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { PlayersContext, MessageContext, ClearCheckboxesContext } from '../../context';
+import { PlayersContext, MessageContext, ClearCheckboxesContext } from '../../../context';
 
-import GalleryContainer from './messengerChildren/galleryContainer';
-import TextInput from './messengerChildren/textInput';
-import ClearButtons from './messengerChildren/clearButtons';
-import PlayerCheckboxes from './messengerChildren/playerCheckboxes';
+import GalleryContainer from './galleryContainer';
+import TextInput from './textInput';
+import ClearButtons from './clearButtons';
+import PlayerCheckboxes from './playerCheckboxes';
 
 import { io } from 'socket.io-client';
 
@@ -15,7 +15,7 @@ export default function Messenger() {
     background: '',
     filter: '',
     textInput: '',
-    checkedPlayers: players.map(() => false) 
+    checkedPlayers: players.map(() => false)
   });
   const [clearCheckboxes, toggleClearCheckboxes] = useState({
     clearText: false,
@@ -23,12 +23,12 @@ export default function Messenger() {
   });
 
   const sendMessage = (event) => {
-  
+
     if (message.checkedPlayers.includes(true) && (message.background || message.filter || message.textInput !== '' || message.clear.length > 0)) {
 
       // Build content object to send
       let localContent = {};
-      
+
       let keys = Object.keys(message);
       keys.pop();
       keys.forEach((contentType) => {
@@ -42,7 +42,7 @@ export default function Messenger() {
 
       // Send message
       const socket = io.connect('http://localhost:3100/');
-      
+
       socket.emit("sendContent", {
         content: localContent,
         playerNumbers: playerNumbers,
@@ -52,7 +52,7 @@ export default function Messenger() {
         socket.disconnect();
       })
       event.preventDefault();
-      
+
       // Reset text input and checkboxes after submission
       updateMessage({
         clear: [],
@@ -62,7 +62,7 @@ export default function Messenger() {
         checkedPlayers: players.map(() => false)
       });
       toggleClearCheckboxes({clearAll: false, clearText: false})
-    } 
+    }
   }
 
   return(
@@ -71,7 +71,7 @@ export default function Messenger() {
       <ClearCheckboxesContext.Provider value={{clearCheckboxes, toggleClearCheckboxes}}>
         <ClearButtons/>
         <TextInput/>
-      </ClearCheckboxesContext.Provider> 
+      </ClearCheckboxesContext.Provider>
       <PlayerCheckboxes/>
       <input id="submit-button" onClick={sendMessage} type="button" value="Send" />
     </MessageContext.Provider>

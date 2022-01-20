@@ -1,18 +1,34 @@
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+
 body {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-family: Arial, Calibri, sans-serif;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-/* import styled from 'styled-components'; */
 
 container {
   width: 100%;
@@ -28,4 +44,9 @@ clearDiv {
   width: 100px;
   height: 60px;
   border: white solid 1px;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }
