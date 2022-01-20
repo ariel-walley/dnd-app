@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { PlayersContext, MessageContext } from '../../../context';
+import { PlayersContext, MessageContext } from '../../context';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -19,14 +19,14 @@ export default function PlayerCheckboxes() {
     updateMessage({...message, checkedPlayers: localChecked});
   };
 
-  const generateChildren = players.map((player, index) => 
+  const generateChildren = players.map((player, index) =>
   <FormControlLabel
       label={player}
       key={player + 'FormControlLabel'}
-      control={<Checkbox 
-          key={player + 'Checkbox'} 
-          id={index + 'Checkbox'} 
-          checked={message.checkedPlayers[index]} 
+      control={<Checkbox
+          key={player + 'Checkbox'}
+          id={index + 'Checkbox'}
+          checked={message.checkedPlayers[index]}
           onChange={(e) => handleChangeChild(e, index)} />}
   />
 )

@@ -37,13 +37,17 @@ function App() {
       // <GlobalStyle/>
       // <PlayersContext.Provider value={value}>
       <>
-        <Route exact path="/"><StartPage/></Route>
-        <Route path="/dm"><ControlPanel /></Route>
+      <Route exact path="/">
+        <StartPage />
+      </Route>
+      <Route path="/dm">
+        <ControlPanel />
+      </Route>
+      {createRoutes()}
     </>
       // </PlayersContext.Provider>
       // </Container>
       )
-  {createRoutes()}
 }
 
 export default App;

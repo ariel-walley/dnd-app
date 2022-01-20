@@ -74,39 +74,31 @@ export default function PlayerWindow(props) {
       (props.display === 'popOut' ? 'PlayerWindowContainer' : 'SnapshotWrapper')
     );
 
-      // resizeObserver.observe(elem);
+      resizeObserver.observe(elem);
 
-      // return function() {
-      //   resizeObserver.unobserve(elem)
-      // }
+      return function() {
+        resizeObserver.unobserve(elem)
+      }
     }, [props.display, props.playerInd]);
 
     return (
       <>
-        <message>
-          < div
+          < div id='message'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           ></div>
-        </message>
-        <background>
-          < div
+          < div id='background'
             value={background}
             onChange={(e) => setBackground(e.target.value)}
           ></div>
-        </background>
-        <filter>
-          < div
+          < div id='filter'
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           ></div>
-        </filter>
-        <fontSize>
-          <div
+          <div id="fontSize"
             value={fontSize}
             onChange={(e) => setFontSize(e.target.value)}
           ></div>
-        </fontSize>
       </>
       // <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
       //   {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}

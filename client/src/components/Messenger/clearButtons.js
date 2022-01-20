@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { MessageContext, ClearCheckboxesContext } from '../../../context';
+import { MessageContext, ClearCheckboxesContext } from '../../context';
 
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';

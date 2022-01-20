@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { PlayersContext } from '../../../context';
+import { PlayersContext } from '../../context';
 
-import PlayerWindow from '../../PlayerWindow';
+import PlayerWindow from '../PlayerWindow';
 
 // import styled from 'styled-components';
-import { Container } from '../../../styles';
+// import { Container } from '../../../styles';
 import './Snapshot.css';
 
 // const snapshotTitle = SnapshotTitle;
@@ -28,7 +28,7 @@ import './Snapshot.css';
 //   border: #202021 5px solid;
 // `;
 
-export default function SnapshotContainer() {
+export default function Snapshot() {
   const { players } = useContext(PlayersContext);
 
   const generateSnapshots = players.map((player, i) =>
@@ -37,14 +37,14 @@ export default function SnapshotContainer() {
     </wrapper>
   )
 
-  return(
-    <Container>
-      <snapshotTitle>Snapshots</snapshotTitle>
-      <styledContainer>
-        {generateSnapshots}
-      </styledContainer>
-    </Container>
-  )
+  return (
+		// <Container>
+		<>
+			<snapshotTitle>Snapshots</snapshotTitle>
+			<styledContainer>{generateSnapshots}</styledContainer>
+		</>
+		// </Container>
+	);
 }
 
 // export default SnapshotContainer;

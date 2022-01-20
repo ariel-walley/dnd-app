@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { MessageContext, ClearCheckboxesContext } from '../../../context';
+import { MessageContext, ClearCheckboxesContext } from '../../context';
 
-import { Container, ClearDiv } from '../../../styles';
+import { Container, ClearDiv } from '../../styles';
 // import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import './messengerStyles.css';

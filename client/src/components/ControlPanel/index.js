@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 // import styled from 'styled-components';
 // import { Container } from '../../styles';
-// import SnapshotContainer from '../Snapshot/snapshot';
-
 // import ControlPanel from '../ControlPanel';
+
+import Snapshot from '../Snapshot';
 import PlayerWindow from '../PlayerWindow';
 import Messenger from '../Messenger/index';
 import Notes from '../Messenger/notes';
@@ -22,8 +22,11 @@ import './ControlPanel.css';
 function Controls() {
   return (
     <>
-      <Switch>
-        <Route path='/notes'>
+      <Switch><Route path='/snapshot'>
+        Snapshot
+        <Snapshot />
+      </Route>
+        <Route exact-path='/notes'>
           Notes
           <Notes />
         </Route>
@@ -31,11 +34,11 @@ function Controls() {
           Messenger
           <Messenger />
         </Route>
-        <Route path='/players'>
+        <Route exact-path='/players'>
           Player Windows
           <PlayerWindow />
         </Route>
-        <Route path='/history'>
+        <Route exact-path='/history'>
           History
           <History />
         </Route>

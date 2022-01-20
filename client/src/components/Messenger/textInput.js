@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MessageContext, ClearCheckboxesContext } from '../../../context';
+import { MessageContext, ClearCheckboxesContext } from '../../context';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
@@ -9,7 +9,7 @@ const StyledInput = styled.input`
 export default function TextInput() {
   const { message, updateMessage } = useContext(MessageContext);
   const { clearCheckboxes, toggleClearCheckboxes } = useContext(ClearCheckboxesContext);
-  
+
   const handleInputChange = (event) => {
     let localClear = message.clear.slice(0);
     if (localClear.includes('textInput')) { // If clearText is checked, uncheck it once the text input is changed
@@ -26,11 +26,11 @@ export default function TextInput() {
   }
 
   return(
-    <StyledInput 
-      type="text" 
+    <StyledInput
+      type="text"
       value={message.textInput}
       onChange={(event) => updateMessage({...message, textInput: event.target.value})}
       onKeyDown={handleInputChange}
-    />  
+    />
   )
 }
