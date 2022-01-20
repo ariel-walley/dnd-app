@@ -21,29 +21,30 @@ import './ControlPanel.css';
 
 function Controls() {
   return (
+      // <Switch>
     <>
-      <Switch><Route path='/snapshot'>
+        <Route path='/snapshot'>
         Snapshot
         <Snapshot />
       </Route>
-        <Route exact-path='/notes'>
+        <Route path='/notes'>
           Notes
           <Notes />
         </Route>
-        <Route exact-path='/messenger'>
+        <Route path='/messenger'>
           Messenger
           <Messenger />
         </Route>
-        <Route exact-path='/players'>
+        <Route path='/players'>
           Player Windows
           <PlayerWindow />
         </Route>
-        <Route exact-path='/history'>
+        <Route path='/history'>
           History
           <History />
         </Route>
-      </Switch>
     </>
+    // </Switch>
     // <UpdatedContainer>
     //   <Column>
     //     <SnapshotContainer/>

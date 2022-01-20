@@ -1,16 +1,16 @@
-snapshotTitle{
+.snapshotTitle{
   width: 100%;
   text-align: center;
   font-size: 25px;
 }
 
-styledContainer {
+.styledContainer {
   flex-direction: row;
   flex-wrap: wrap;
   padding: 5px;
 }
 /* Wrapper is a commonly used term in css and probably shouldn't be used as a styling component name */
-wrapper {
+.wrapper {
   width: 40%;
   height: 40%;
   margin: 15px;

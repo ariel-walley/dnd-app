@@ -12,3 +12,19 @@ img {
   height: 100%;
   position: absolute;
 }
+
+.message {
+  color: white;
+}
+
+.background {
+  color: white;
+}
+
+.filter {
+  color: white;
+}
+
+.fontSize {
+  color: white;
+}

@@ -40,8 +40,12 @@ export default function Snapshot() {
   return (
 		// <Container>
 		<>
-			<snapshotTitle>Snapshots</snapshotTitle>
-			<styledContainer>{generateSnapshots}</styledContainer>
+      <div className='snapshotTitle'>
+        Snapshots
+      </div>
+      <div className='styledContainer'>
+        {generateSnapshots}
+      </div>
 		</>
 		// </Container>
 	);

@@ -10,13 +10,13 @@ export default function Notes() {
   const [inputHistory, setInputHistory] = useState([]);
   // const [showNotes, setShowNotes] = useState('');
 
-  const createNote = (note, content, timestamp) => {
-    let note = {
-      content: content,
-      timestamp: timestamp,
+  // const createNote = (note, content, timestamp) => {
+  //   let note = {
+  //     content: content,
+  //     timestamp: timestamp,
 
-    }
-  }
+  //   }
+  // }
 
   const handleInputChange = (event) => {
     if (event.code === "Enter" || event.code === "NumpadEnter" || event.key === "Enter" || event.keyCode === "13") {
@@ -38,30 +38,28 @@ export default function Notes() {
   };
 
   const generateNoteHistory = () => {
-     inputHistory.map((note, index) => {
-       return inputHistory.length > 0 ? generateNoteHistory() : 'No note history yet.';
-     })
+    inputHistory.map((note, index) => {
+      return inputHistory.length > 0 ? generateNoteHistory() : 'No note history yet.';
+    });
   };
 
-      return (
-        <>
+  return (
+      <>
         <div id='styledInput'
           type="text"
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
-          onKeyDown={handleInputChange} />
-          <div id='rowContainer'
-            value={'DMnote' +  this.index}>
-        <div id='timestamp'>
-          {notes.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
+          onKeyDown={handleInputChange}>
         </div>
-      </div>
-      <div id='notesText'>
-        {note.content}
-      </div>
-      {/* <CloseIcon onClick={() => removeNote(index)} /> */}
-    </>
-  );
+        <div id='rowContainer'
+            value={'DMnote'}>
+        </div>
+        <div id='timestamp'>
+          {/* {notes.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} */}
+        </div>
+      </>
+);
+}
   // return(
   //   <NotesMainContainer>
   //     <NotesTitle>Notes</NotesTitle>
@@ -119,4 +117,3 @@ export default function Notes() {
   //   font-family: Arial, Calibri, sans-serif;
   //   font-size: 16px;
   // `;}
-}

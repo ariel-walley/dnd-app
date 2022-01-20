@@ -33,7 +33,7 @@ return (
                 Select Bar
                 <SelectBar />
             </Route>
-            <Route exact path='/text-input'>
+            <Route path='/text-input'>
                 Text
                 <TextInput />
             </Route>

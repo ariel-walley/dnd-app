@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 
-// import { PlayersContext } from './context';
+import { PlayersContext } from './context';
 
 // import GlobalStyle from './globalStyles';
 // import { Container } from './styles';
@@ -21,7 +21,7 @@ function App() {
   const createRoutes = () => {
     let routes = [];
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 1; i < 5; i++) {
       routes.push(
         <Route path={`/player/${i}`} key={`Route${i}`}>
           <PlayerWindow key={`Player${i}Window`} playerInd={i} display={"popOut"}/>
@@ -33,21 +33,21 @@ function App() {
   }
 
   return (
-    // <Container>
-      // <GlobalStyle/>
-      // <PlayersContext.Provider value={value}>
-      <>
-      <Route exact path="/">
-        <StartPage />
-      </Route>
-      <Route path="/dm">
-        <ControlPanel />
-      </Route>
-      {createRoutes()}
-    </>
-      // </PlayersContext.Provider>
-      // </Container>
-      )
+		// <Container>
+		// <GlobalStyle/>
+		<>
+				<Route exact path="/">
+					<StartPage />
+				</Route>
+				<Route path="/dm">
+					<ControlPanel />
+				</Route>
+			{createRoutes()}
+		<PlayersContext.Provider value={value}>
+		</PlayersContext.Provider>
+		</>
+		// </Container>
+	);
 }
 
 export default App;

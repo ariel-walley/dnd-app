@@ -4,11 +4,18 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
+
+function Root() {
+  return (
     <BrowserRouter>
       <App />
     </BrowserRouter>
+  );
+}
+
+ReactDOM.render(
+  <React.StrictMode>
+      <Root />
   </React.StrictMode>,
   document.getElementById('root')
 );

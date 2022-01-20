@@ -65,46 +65,46 @@ export default function PlayerWindow(props) {
     };
   }, [props.playerInd]);
 
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver((entries) => {
-      setFontSize(elem.offsetHeight * 0.07 + 'px');
-    });
+  // useEffect(() => {
+  //   const resizeObserver = new ResizeObserver((entries) => {
+  //     setFontSize(elem.offsetHeight * 0.07 + 'px');
+  //   });
 
-    let elem = document.getElementById(props.playerInd +
-      (props.display === 'popOut' ? 'PlayerWindowContainer' : 'SnapshotWrapper')
-    );
+  //   let elem = document.getElementById(props.playerInd +
+  //     (props.display === 'popOut' ? 'PlayerWindowContainer' : 'SnapshotWrapper')
+  //   );
+  // }
 
-      resizeObserver.observe(elem);
+    //   resizeObserver.observe(elem);
 
-      return function() {
-        resizeObserver.unobserve(elem)
-      }
-    }, [props.display, props.playerInd]);
+    //   return function() {
+    //     resizeObserver.unobserve(elem)
+    //   }
+    // }, [props.display, props.playerInd]);
 
     return (
-      <>
-          < div id='message'
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          ></div>
-          < div id='background'
-            value={background}
-            onChange={(e) => setBackground(e.target.value)}
-          ></div>
-          < div id='filter'
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          ></div>
-          <div id="fontSize"
-            value={fontSize}
-            onChange={(e) => setFontSize(e.target.value)}
-          ></div>
-      </>
-      // <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
-      //   {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
-      //   {filter === '' ? <div/> : <Img src={filter} content="filter" display={props.display}/>}
-      //   <Text fontSize={fontSize} display={props.display}>{message}</Text>
-      // </StyledContainer>
-      )
-
+    <>
+      < div className='message'
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      ></div>
+      < div className='background'
+        value={background}
+        onChange={(e) => setBackground(e.target.value)}
+      ></div>
+      < div className='filter'
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      ></div>
+      <div className="fontSize"
+        value={fontSize}
+        onChange={(e) => setFontSize(e.target.value)}
+      ></div>
+    </>
+    // <StyledContainer className={props.playerInd + 'PlayerWindowContainer'}>
+    //   {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
+    //   {filter === '' ? <div/> : <Img src={filter} content="filter" display={props.display}/>}
+    //   <Text fontSize={fontSize} display={props.display}>{message}</Text>
+    // </StyledContainer>
+  );
 }
