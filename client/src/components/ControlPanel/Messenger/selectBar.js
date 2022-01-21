@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { MessageContext } from '../../context';
-import '../../index.css';
+import { MessageContext } from '../../../context';
+import '../../../index.css';
 import './messengerStyles.css';
 // import styled from 'styled-components';
-import { Container, ClearDiv } from '../../styles';
+import { Container, ClearDiv } from '../../../styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 

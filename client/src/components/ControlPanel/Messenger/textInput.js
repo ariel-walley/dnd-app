@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MessageContext, ClearCheckboxesContext } from '../../context';
+import { MessageContext, ClearCheckboxesContext } from '../../../context';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`

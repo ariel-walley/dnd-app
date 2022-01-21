@@ -7,15 +7,18 @@ import { PlayersContext } from './context';
 // import { Container } from './styles';
 
 import StartPage from './components/StartPage';
-import ControlPanel from './components/ControlPanel';
+import Controls from './components/ControlPanel';
 import PlayerWindow from './components/PlayerWindow';
-// import Messenger from './components/Messenger';
+import Messenger from './components/ControlPanel/Messenger';
+import History from './components/ControlPanel/Messenger/history'
+import Notes from './components/ControlPanel/Messenger/notes'
+import Snapshot from './components/ControlPanel/Snapshot'
 import './index.css'
 import './App.css'
 
 function App() {
   const [players, setPlayers] = useState([]);
-
+//   const [isLoaded, setIsLoaded] = useState(false)
   const value = { players, setPlayers }
 
   const createRoutes = () => {
@@ -33,20 +36,22 @@ function App() {
   }
 
   return (
-		// <Container>
-		// <GlobalStyle/>
-		<>
-				<Route exact path="/">
-					<StartPage />
-				</Route>
-				<Route path="/dm">
-					<ControlPanel />
-				</Route>
+	  <>
+			<Route exact path="/">
+				<StartPage />
+			</Route>
+			<Route path="/dm">
+				<Controls />
+			</Route>
+
+		{/* <Route path='/players'>
+          		Player Windows
+          		<PlayerWindow />
+        	</Route> */}
 			{createRoutes()}
-		<PlayersContext.Provider value={value}>
-		</PlayersContext.Provider>
+			<PlayersContext.Provider value={value}>
+			</PlayersContext.Provider>
 		</>
-		// </Container>
 	);
 }
 

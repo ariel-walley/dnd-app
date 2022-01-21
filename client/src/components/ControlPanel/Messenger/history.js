@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { PlayersContext } from '../../context';
+import { PlayersContext } from '../../../context';
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';

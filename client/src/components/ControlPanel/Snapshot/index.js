@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { PlayersContext } from '../../context';
+import { PlayersContext } from '../../../context';
 
-import PlayerWindow from '../PlayerWindow';
+import PlayerWindow from '../../PlayerWindow';
 
 // import styled from 'styled-components';
 // import { Container } from '../../../styles';

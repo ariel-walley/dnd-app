@@ -1,14 +1,14 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 // import styled from 'styled-components';
 // import { Container } from '../../styles';
 // import ControlPanel from '../ControlPanel';
-
-import Snapshot from '../Snapshot';
-import PlayerWindow from '../PlayerWindow';
-import Messenger from '../Messenger';
-// import Notes from '../Messenger/notes';
-// import History from '../Messenger/history';
+import Navigation from '../Navigation'
+import Snapshot from './Snapshot';
+// import PlayerWindow from '../PlayerWindow';
+import Messenger from './Messenger';
+import Notes from './Messenger/notes';
+import History from './Messenger/history';
 import './ControlPanel.css';
 
 // const UpdatedContainer = styled(Container)`
@@ -21,43 +21,36 @@ import './ControlPanel.css';
 
 function Controls() {
   return (
-      // <Switch>
-    <>
-        <Route path='/snapshot'>
-        Snapshot
-        <Snapshot />
-      </Route>
-        {/* <Route path='/notes'>
-          Notes
-          <Notes />
-        </Route> */}
-        <Route path='/messenger'>
-          Messenger
-          <Messenger />
-        </Route>
-        <Route path='/players'>
-          Player Windows
-          <PlayerWindow />
-        </Route>
-        {/* <Route path='/history'>
-          History
-          <History />
-        </Route> */}
-    </>
-    // </Switch>
-    // <UpdatedContainer>
-    //   <Column>
-    //     <SnapshotContainer/>
-    //   </Column>
-    //   <Column>
-    //     <Messenger/>
-    //   </Column>
-    //   <Column>
-    //     <Notes/>
-    //     <History/>
-    //   </Column>
-    // </UpdatedContainer>
-  )
+		<>
+			<Navigation />
+			<Switch>
+				<Route exact path="/messenger">
+					Messenger
+					<Messenger />
+				</Route>
+				<Route path="/history">
+					History
+					<History />
+				</Route>
+				<Route exact path="/notes">
+					Notes
+					<Notes />
+				</Route>
+				<Route path="/snapshot">
+					Snapshot
+					<Snapshot />
+				</Route>
+			</Switch>
+		</>
+		// <>
+		//   <div className='snapshot'>
+		//   </div>
+		//   <div className='messenger'>
+		//   </div>
+		//   <div className='gallery'>
+		//   </div>
+		// </>
+	);
 }
 
 export default Controls;

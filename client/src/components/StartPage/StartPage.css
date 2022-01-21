@@ -1,4 +1,10 @@
+p {
+    color: white;
+}
+
 input {
+    display: flex;
+    justify-items: center;
     background-color: white;
     width: 250px;
     height: 15px;
