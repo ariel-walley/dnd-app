@@ -85,22 +85,24 @@ export default function PlayerWindow(props) {
     return (
     <>
       < div className='message'
-        onChange={(e) => setMessage(e.target.value)}
-      >
+        onChange={(e) => setMessage(e.target.value)}>
         {message}
       </div>
       < div className='background'
         value={background}
-        onChange={(e) => setBackground(e.target.value)}
-      ></div>
+        onChange={(e) => setBackground(e.target.value)}>
+          {background}
+        </div>
       < div className='filter'
         value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-      ></div>
+          onChange={(e) => setFilter(e.target.value)}>
+          {filter}
+        </div>
       <div className="fontSize"
         value={fontSize}
-        onChange={(e) => setFontSize(e.target.value)}
-      ></div>
+          onChange={(e) => setFontSize(e.target.value)}>
+          {fontSize}
+        </div>
     </>
     // <StyledContainer className={props.playerInd + 'PlayerWindowContainer'}>
     //   {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
