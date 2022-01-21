@@ -85,9 +85,10 @@ export default function PlayerWindow(props) {
     return (
     <>
       < div className='message'
-        value={message}
         onChange={(e) => setMessage(e.target.value)}
-      ></div>
+      >
+        {message}
+      </div>
       < div className='background'
         value={background}
         onChange={(e) => setBackground(e.target.value)}
