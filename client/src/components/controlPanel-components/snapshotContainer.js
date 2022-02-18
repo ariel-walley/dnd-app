@@ -1,30 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { PlayersContext } from '../../context';
-
 import PlayerWindow from '../playerWindow';
 
-import styled from 'styled-components';
-import { Container } from '../../styles';
+import { Container } from '../../styles/styles';
+import { SnapshotTitle, StyledContainer, Wrapper } from '../../styles/snapshotContainerStyles';
 
-const SnapshotTitle = styled.h1`
-  width: 100%;
-  text-align: center;
-  font-size: 25px;
-`;
-
-const StyledContainer = styled(Container)`
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 5px;
-`;
-
-const Wrapper = styled.div` 
-  width: 40%;
-  height: 40%;
-  margin: 15px;
-  position: relative;
-  border: #202021 5px solid;
-`;
 
 function SnapshotContainer() {
   const { players } = useContext(PlayersContext);

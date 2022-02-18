@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { PlayersContext, MessageContext, ClearCheckboxesContext } from '../../context';
 
 import GalleryContainer from './messengerChildren/galleryContainer';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Gallery from './gallery';
 import SelectBar from './selectBar';
 
@@ -56,8 +56,8 @@ export default function GalleryContainer() {
   const classes = useStyles();
   const contentTypes = ["images", "gifs", "filters"];
 
-  const [value, setValue] = React.useState(0);
-  const [content, setContent] = React.useState({}); //Resources (images, gifs, and filters) to render
+  const [value, setValue] = useState(0);
+  const [content, setContent] = useState({}); //Resources (images, gifs, and filters) to render
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

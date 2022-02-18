@@ -1,20 +1,11 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { PlayersContext } from '../context';
 
-import styled from 'styled-components';
-import { Container } from '../styles';
+import { Container } from '../styles/styles';
+import { UserInput } from '../styles/startPageStyles';
 
 import { io } from 'socket.io-client';
-
-
-const UserInput = styled.input`
-  height: 25px;
-  width: 220px;
-  margin: 25px;
-  padding: 5px;
-  font-size: 18px;
-`;
 
 function StartPage() {
   const { setPlayers } = useContext(PlayersContext); 
