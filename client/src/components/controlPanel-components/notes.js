@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import { NotesMainContainer, NotesTitle, BodyContainer, RowContainer, Timestamp, NoteText, StyledInput } from '../../styles/notesStyles';
+import * as styles from '../../styles/notesStyles';
 
 export default function Notes() {
   const [inputValue, setInputValue] = useState('');
@@ -27,24 +27,24 @@ export default function Notes() {
 
   const generateNoteHistory = () => {
     return (
-      <BodyContainer>
+      <styles.BodyContainer>
         {
         inputHistory.map((note, index) =>
-          <RowContainer key={'DMnote' + index}>
-            <Timestamp>{note.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</Timestamp>
-            <NoteText>{note.content}</NoteText>
+          <styles.RowContainer key={'DMnote' + index}>
+            <styles.Timestamp>{note.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</styles.Timestamp>
+            <styles.NoteText>{note.content}</styles.NoteText>
             <CloseIcon onClick={() => removeNote(index)}/>
-          </RowContainer>
+          </styles.RowContainer>
         )}
-      </BodyContainer>
+      </styles.BodyContainer>
     )
   }
 
   return(
-    <NotesMainContainer>
-      <NotesTitle>Notes</NotesTitle>
+    <styles.NotesMainContainer>
+      <styles.NotesTitle>Notes</styles.NotesTitle>
       { inputHistory.length > 0 ? generateNoteHistory() : <p>No note history yet.</p>}
-      <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleInputChange} />
-    </NotesMainContainer>
+      <styles.StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleInputChange} />
+    </styles.NotesMainContainer>
   )
 }
