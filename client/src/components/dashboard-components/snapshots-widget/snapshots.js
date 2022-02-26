@@ -11,7 +11,7 @@ function SnapshotContainer() {
 
   const generateSnapshots = players.map((player, i) => 
     <Wrapper key={i + 'SnapshotWrapper'} id={i + 'SnapshotWrapper'}>
-      <PlayerWindow key={i + 'Snapshot'} playerInd={i} display={"controlPanel"}/>
+      <PlayerWindow key={i + 'Snapshot'} playerInd={i} display={"dashboard"}/>
     </Wrapper>
   )
 

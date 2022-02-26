@@ -2,9 +2,9 @@ import SnapshotContainer from './snapshots-widget/snapshots';
 import Messenger from './messenger-widget/messenger';
 import Notes from './notes-widget/notes';
 import History from './history-widget/history';
-import { UpdatedContainer, Column } from './controlPanelStyles';
+import { UpdatedContainer, Column } from './dashboardStyles';
 
-function ControlPanel() {
+function Dashboard() {
   return(
     <UpdatedContainer>
       <Column>
@@ -21,4 +21,4 @@ function ControlPanel() {
   )
 }
 
-export default ControlPanel;
+export default Dashboard;
