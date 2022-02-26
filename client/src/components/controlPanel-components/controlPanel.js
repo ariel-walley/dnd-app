@@ -1,8 +1,8 @@
-import SnapshotContainer from './snapshotContainer';
-import Messenger from './messenger';
-import Notes from './notes';
-import History from './history';
-import { UpdatedContainer, Column } from '../../styles/controlPanelStyles';
+import SnapshotContainer from './snapshots-widget/snapshots';
+import Messenger from './messenger-widget/messenger';
+import Notes from './notes-widget/notes';
+import History from './history-widget/history';
+import { UpdatedContainer, Column } from './controlPanelStyles';
 
 function ControlPanel() {
   return(

@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { MessageContext } from '../../../context';
+import { MessageContext } from '../../../../context';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { ClearDiv, Container } from '../../../styles/styles';
-import { SelectContainer, StyledContent } from '../../../styles/selectBarStyles';
+import { SelectContainer, StyledContent } from './selectBarStyles';
 
 export default function SelectBar() {
   const { message, updateMessage } = useContext(MessageContext);

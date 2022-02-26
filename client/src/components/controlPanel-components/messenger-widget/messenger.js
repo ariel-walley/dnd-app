@@ -1,10 +1,10 @@
 import { useState, useContext } from 'react';
-import { PlayersContext, MessageContext, ClearCheckboxesContext } from '../../context';
+import { PlayersContext, MessageContext, ClearCheckboxesContext } from '../../../context';
 
-import GalleryContainer from './messengerChildren/galleryContainer';
-import TextInput from './messengerChildren/textInput';
-import ClearButtons from './messengerChildren/clearButtons';
-import PlayerCheckboxes from './messengerChildren/playerCheckboxes';
+import GalleryContainer from './gallery-components/galleryContainer';
+import TextInput from './textInput';
+import ClearButtons from './clearButtons';
+import PlayerCheckboxes from './playerCheckboxes';
 
 import { io } from 'socket.io-client';
 

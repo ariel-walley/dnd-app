@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { PlayersContext } from '../../context';
-import PlayerWindow from '../playerWindow';
+import { PlayersContext } from '../../../context';
+import PlayerWindow from '../../playerWindow';
 
 import { Container } from '../../styles/styles';
-import { SnapshotTitle, StyledContainer, Wrapper } from '../../styles/snapshotContainerStyles';
+import { SnapshotTitle, StyledContainer, Wrapper } from './snapshotsStyles';
 
 
 function SnapshotContainer() {

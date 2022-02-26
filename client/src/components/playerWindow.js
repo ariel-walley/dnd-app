@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { StyledContainer, Text, Img } from '../styles/playerWindowStyles';
+import { StyledContainer, Text, Img } from './playerWindowStyles';
 
 import { io } from 'socket.io-client';
 let socket = null;

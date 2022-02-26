@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
-import { PlayersContext } from '../../context';
+import { PlayersContext } from '../../../context';
 
-import { HistoryEntry, useStyles } from '../../styles/historyStyles';
+import { HistoryEntry, useStyles } from './historyStyles';
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
