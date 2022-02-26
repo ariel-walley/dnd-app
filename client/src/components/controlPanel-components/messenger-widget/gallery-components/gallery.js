@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { MessageContext, ClearCheckboxesContext } from '../../../context';
+import { MessageContext, ClearCheckboxesContext } from '../../../../context';
 
 import { ClearDiv } from '../../../styles/styles';
-import { UpdatedContainer, StyledContent } from '../../../styles/galleryStyles';
+import { UpdatedContainer, StyledContent } from './galleryStyles';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function Gallery (props) {

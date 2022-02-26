@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from './styles';
+import { Container } from '../../styles/styles';
 
 export const SnapshotTitle = styled.h1`
   width: 100%;

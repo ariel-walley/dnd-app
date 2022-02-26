@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import * as styles from '../../styles/notesStyles';
+import * as styles from './notesStyles';
 
 export default function Notes() {
   const [inputValue, setInputValue] = useState('');

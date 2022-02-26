@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { MessageContext, ClearCheckboxesContext } from '../../../context';
-import { StyledInput } from '../../../styles/textInputStyles';
+import { StyledInput } from './textInputStyles';
 
 export default function TextInput() {
   const { message, updateMessage } = useContext(MessageContext);

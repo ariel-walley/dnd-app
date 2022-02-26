@@ -3,8 +3,8 @@ import { Route } from 'react-router-dom';
 
 import { PlayersContext } from './context';
 
-import GlobalStyle from './styles/globalStyles';
-import { Container } from './styles/styles';
+import GlobalStyle from './components/styles/globalStyles';
+import { Container } from './components/styles/styles';
 
 import StartPage from './components/startPage';
 import ControlPanel from './components/controlPanel-components/controlPanel';
