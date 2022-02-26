@@ -1,59 +1,10 @@
-import React from 'react';
-import styled from 'styled-components'
-import { Container } from '../../styles';
+import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-
-/*    MAIN CONTAINER  */
-const NotesMainContainer = styled(Container)`
-  height: 50%;
-  margin: 15px;
-  padding: 15px;
-  background-color: #202021;
-  justify-content: space-between;
-`;
-
-const NotesTitle = styled.h1`
-  margin: 5px 5px 15px 5px;
-  font-size: 24px;
-  font-weight: 700;
-`;
-
-/*  NOTES ROWS  */
-
-const BodyContainer = styled(Container)`
-  justify-content: flex-start;
-`;
-
-const RowContainer = styled(Container)`
-  height: auto;
-  margin-top: 13px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-
-const Timestamp = styled.div`
-  white-space: nowrap;
-`;
-
-const NoteText = styled.div`
-  width: 100%;
-  margin: 0px 20px;
-  text-align: left;
-  font-size: 16px;
-`;
-
-/*  NOTES INPUT */
-const StyledInput = styled.textarea`
-  min-height: 100px;  
-  min-width: 70%;
-  font-family: Arial, Calibri, sans-serif;
-  font-size: 16px;
-`;
+import * as styles from '../../styles/notesStyles';
 
 export default function Notes() {
-  const [inputValue, setInputValue] = React.useState('');
-  const [inputHistory, setInputHistory] = React.useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [inputHistory, setInputHistory] = useState([]);
 
   const handleInputChange = (event) => {
     if (event.code === "Enter" || event.code === "NumpadEnter" || event.key === "Enter" || event.keyCode === "13") {
@@ -76,24 +27,24 @@ export default function Notes() {
 
   const generateNoteHistory = () => {
     return (
-      <BodyContainer>
+      <styles.BodyContainer>
         {
         inputHistory.map((note, index) =>
-          <RowContainer key={'DMnote' + index}>
-            <Timestamp>{note.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</Timestamp>
-            <NoteText>{note.content}</NoteText>
+          <styles.RowContainer key={'DMnote' + index}>
+            <styles.Timestamp>{note.timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</styles.Timestamp>
+            <styles.NoteText>{note.content}</styles.NoteText>
             <CloseIcon onClick={() => removeNote(index)}/>
-          </RowContainer>
+          </styles.RowContainer>
         )}
-      </BodyContainer>
+      </styles.BodyContainer>
     )
   }
 
   return(
-    <NotesMainContainer>
-      <NotesTitle>Notes</NotesTitle>
+    <styles.NotesMainContainer>
+      <styles.NotesTitle>Notes</styles.NotesTitle>
       { inputHistory.length > 0 ? generateNoteHistory() : <p>No note history yet.</p>}
-      <StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleInputChange} />
-    </NotesMainContainer>
+      <styles.StyledInput type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleInputChange} />
+    </styles.NotesMainContainer>
   )
 }

@@ -1,19 +1,9 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { MessageContext, ClearCheckboxesContext } from '../../../context';
 
-import { Container, ClearDiv } from '../../../styles';
-import styled from 'styled-components';
+import { ClearDiv } from '../../../styles/styles';
+import { UpdatedContainer, StyledContent } from '../../../styles/galleryStyles';
 import CloseIcon from '@mui/icons-material/Close';
-
-const UpdatedContainer = styled(Container)`
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-const StyledContent = styled.img`
-  max-width: 100px;
-  margin: 10px;
-`;
 
 export default function Gallery (props) {
   const { message, updateMessage } = useContext(MessageContext);

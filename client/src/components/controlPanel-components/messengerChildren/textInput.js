@@ -1,14 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { MessageContext, ClearCheckboxesContext } from '../../../context';
-import styled from 'styled-components';
-
-const StyledInput = styled.input`
-  width: 250px;
-`;
+import { StyledInput } from '../../../styles/textInputStyles';
 
 export default function TextInput() {
   const { message, updateMessage } = useContext(MessageContext);
-  const { clearCheckboxes, toggleClearCheckboxes } = useContext(ClearCheckboxesContext);
+  const { toggleClearCheckboxes } = useContext(ClearCheckboxesContext);
   
   const handleInputChange = (event) => {
     let localClear = message.clear.slice(0);

@@ -1,20 +1,9 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { MessageContext } from '../../../context';
 
-import styled from 'styled-components';
-import { Container, ClearDiv } from '../../../styles';
 import CloseIcon from '@mui/icons-material/Close';
-
-
-const SelectContainer = styled(Container)`
-  height: auto;
-  flex-direction: row;
-`;
-
-const StyledContent = styled.img` 
-  max-width: 50px;
-  margin: 10px;
-`;
+import { ClearDiv, Container } from '../../../styles/styles';
+import { SelectContainer, StyledContent } from '../../../styles/selectBarStyles';
 
 export default function SelectBar() {
   const { message, updateMessage } = useContext(MessageContext);

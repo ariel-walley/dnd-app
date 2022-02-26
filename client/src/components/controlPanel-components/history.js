@@ -1,44 +1,21 @@
-import React, { useContext, useEffect } from 'react';
-import styled from 'styled-components';
+import { useContext, useState, useEffect } from 'react';
 import { PlayersContext } from '../../context';
+
+import { HistoryEntry, useStyles } from '../../styles/historyStyles';
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
 
 import { io } from 'socket.io-client';
 let socket = null;
 
-/*    STYLING    */
-
-const useStyles = makeStyles((theme) => ({
-  header: {
-    backgroundColor: "#141314"
-  },
-  body: {
-    flexGrow: 1,
-    backgroundColor: "#212021"
-  },
-}));
-
-const HistoryEntry = styled.div`
-  width: 100%;
-  height: 100%;
-  margin: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-  border: solid black 1px;
-`;
-
 export default function HistoryContainer() {
   const { players } = useContext(PlayersContext);
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const [history, setHistory] = React.useState([]);
+  const [value, setValue] = useState(0);
+  const [history, setHistory] = useState([]);
   /*    CONNECTING TO WEB SOCKET    */
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { PlayersContext, MessageContext } from '../../../context';
 
 import FormControlLabel from '@mui/material/FormControlLabel';

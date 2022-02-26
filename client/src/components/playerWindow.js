@@ -1,28 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-import styled from 'styled-components';
-import { Container } from '../styles';
+import { StyledContainer, Text, Img } from '../styles/playerWindowStyles';
 
 import { io } from 'socket.io-client';
 let socket = null;
-
-const StyledContainer = styled(Container)`
-  width: 100%;
-  height: 100%;
-`;
-
-const Text = styled.p`
-  font-size: ${props => props.fontSize};
-  transform: ${props => (props.display === 'popOut' ? 'scale(-1, 1)' : 'none')};
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: ${props => (props.content === 'background' ? -10 : -5)};
-  transform: ${props => (props.display === 'popOut' ? 'scaleX(-1)' : 'none')};
-`;
 
 function PlayerWindow(props) {
   const [message, setMessage] = useState('');

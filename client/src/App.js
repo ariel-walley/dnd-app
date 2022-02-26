@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Route } from 'react-router-dom';
 
 import { PlayersContext } from './context';
 
-import GlobalStyle from './globalStyles';
-import { Container } from './styles';
+import GlobalStyle from './styles/globalStyles';
+import { Container } from './styles/styles';
 
 import StartPage from './components/startPage';
 import ControlPanel from './components/controlPanel-components/controlPanel';
