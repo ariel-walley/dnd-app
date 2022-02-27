@@ -6,7 +6,7 @@ import { ColumnContainer } from '../../styles/styles';
 import { SnapshotTitle, StyledContainer, Wrapper } from './snapshotsStyles';
 
 
-function SnapshotContainer() {
+function Snapshots() {
   const { players } = useContext(PlayersContext);
 
   const generateSnapshots = players.map((player, i) => 
@@ -25,4 +25,4 @@ function SnapshotContainer() {
   )
 }
 
-export default SnapshotContainer;
+export default Snapshots;

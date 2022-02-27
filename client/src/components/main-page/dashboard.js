@@ -3,11 +3,11 @@ import { useState } from 'react';
 import WidgetLibrary from './editing-components/widgetLibrary';
 import EmptyWidget from './editing-components/emptyWidget';
 
+import Snapshots from '../widgets/snapshots-widget/snapshots';
+import Messenger from '../widgets/messenger-widget/messenger';
+import Notes from '../widgets/notes-widget/notes';
+import History from '../widgets/history-widget/history';
 
-import SnapshotContainer from '../dashboard-components/snapshots-widget/snapshots';
-import Messenger from '../dashboard-components/messenger-widget/messenger';
-import Notes from '../dashboard-components/notes-widget/notes';
-import History from '../dashboard-components/history-widget/history';
 
 import { Container } from '../styles/styles';
 import { Column } from './dashboardStyles';
@@ -16,7 +16,7 @@ import { Column } from './dashboardStyles';
 const storage = [
   <Container>
     <Column>
-      <SnapshotContainer/>
+      <Snapshots/>
     </Column>
     <Column>
       <Messenger/>
