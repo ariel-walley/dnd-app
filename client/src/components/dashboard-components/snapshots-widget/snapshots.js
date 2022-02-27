@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { PlayersContext } from '../../../context';
 import PlayerWindow from '../../playerWindow';
 
-import { Container } from '../../styles/styles';
+import { ColumnContainer } from '../../styles/styles';
 import { SnapshotTitle, StyledContainer, Wrapper } from './snapshotsStyles';
 
 
@@ -16,12 +16,12 @@ function SnapshotContainer() {
   )
 
   return(
-    <Container>
+    <ColumnContainer>
       <SnapshotTitle>Snapshots</SnapshotTitle>
       <StyledContainer>
         {generateSnapshots}
       </StyledContainer>
-    </Container>
+    </ColumnContainer>
   )
 }
 

@@ -1,11 +1,5 @@
 
 import styled from 'styled-components';
-import { Container } from './styles/styles';
-
-export const StyledContainer = styled(Container)`
-  width: 100%;
-  height: 100%;
-`;
 
 export const Text = styled.p`
   font-size: ${props => props.fontSize};

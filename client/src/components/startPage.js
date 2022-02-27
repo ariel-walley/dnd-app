@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { PlayersContext } from '../context';
 
-import { Container } from './styles/styles';
+import { ColumnContainer } from './styles/styles';
 import { UserInput } from './startPageStyles';
 
 import { io } from 'socket.io-client';
@@ -86,13 +86,13 @@ function StartPage() {
   }
 
   return(
-    <Container>
+    <ColumnContainer>
       <p>Welcome!</p>
       <label>How many players will you have?</label>
       {createDivs()}
       {displayError()}
       <button onClick={initializeGame} type="submit">Enter</button>
-    </Container>
+    </ColumnContainer>
   )
 }
 

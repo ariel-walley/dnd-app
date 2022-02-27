@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { Container } from '../../styles/styles';
+import { Container, ColumnContainer } from '../../styles/styles';
 
 /*    MAIN CONTAINER  */
-export const NotesMainContainer = styled(Container)`
+export const NotesMainContainer = styled(ColumnContainer)`
   height: 50%;
   margin: 15px;
   padding: 15px;
@@ -18,14 +18,13 @@ export const NotesTitle = styled.h1`
 
 /*  NOTES ROWS  */
 
-export const BodyContainer = styled(Container)`
+export const BodyContainer = styled(ColumnContainer)`
   justify-content: flex-start;
 `;
 
 export const RowContainer = styled(Container)`
   height: auto;
   margin-top: 13px;
-  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
 `;

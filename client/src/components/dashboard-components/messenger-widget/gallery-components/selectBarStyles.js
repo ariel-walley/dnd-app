@@ -3,7 +3,6 @@ import { Container } from '../../../styles/styles';
 
 export const SelectContainer = styled(Container)`
   height: auto;
-  flex-direction: row;
 `;
 
 export const StyledContent = styled.img` 

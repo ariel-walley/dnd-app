@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import { StyledContainer, Text, Img } from './playerWindowStyles';
+import { ColumnContainer } from './styles/styles';
+import { Text, Img } from './playerWindowStyles';
 
 import { io } from 'socket.io-client';
 let socket = null;
 
-function PlayerWindow(props) {
+export default function PlayerWindow(props) {
   const [message, setMessage] = useState('');
   const [background, setBackground] = useState('');
   const [filter, setFilter] = useState('');
@@ -63,12 +64,10 @@ function PlayerWindow(props) {
   }, [props.display, props.playerInd]);
 
   return (
-    <StyledContainer id={props.playerInd + 'PlayerWindowContainer'}>
+    <ColumnContainer id={props.playerInd + 'PlayerWindowContainer'}>
       {background === '' ? <div/> : <Img src={background} content="background" display={props.display}/>}
       {filter === '' ? <div/> : <Img src={filter} content="filter" display={props.display}/>}
       <Text fontSize={fontSize} display={props.display}>{message}</Text>      
-    </StyledContainer>
+    </ColumnContainer>
   )
-}
-
-export default PlayerWindow;
+};

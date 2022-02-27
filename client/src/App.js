@@ -4,13 +4,13 @@ import { Route } from 'react-router-dom';
 import { PlayersContext } from './context';
 
 import GlobalStyle from './components/styles/globalStyles';
-import { Container } from './components/styles/styles';
+import { ColumnContainer } from './components/styles/styles';
 
 import StartPage from './components/startPage';
 import Dashboard from './components/dashboard-components/dashboard';
 import PlayerWindow from './components/playerWindow';
 
-function App() {
+export default function App() {
   const [players, setPlayers] = useState([]);
     
   const value = { players, setPlayers }
@@ -30,15 +30,13 @@ function App() {
   }
 
   return (
-    <Container>
+    <ColumnContainer>
       <GlobalStyle/>
       <PlayersContext.Provider value={value}>
         <Route exact path="/"><StartPage/></Route>
         <Route path="/dm"><Dashboard/></Route>
         {createRoutes()}
       </PlayersContext.Provider>
-    </Container>
+    </ColumnContainer>
   )
-}
-
-export default App;
+};

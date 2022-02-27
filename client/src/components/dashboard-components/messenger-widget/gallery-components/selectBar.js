@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { MessageContext } from '../../../../context';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { ClearDiv, Container } from '../../../styles/styles';
+import { ClearDiv, ColumnContainer } from '../../../styles/styles';
 import { SelectContainer, StyledContent } from './selectBarStyles';
 
 export default function SelectBar() {
@@ -41,14 +41,14 @@ export default function SelectBar() {
 
   return(
     <SelectContainer>
-      <Container>
+      <ColumnContainer>
         <p>Background:</p>
         {renderSelected('background')}
-      </Container>
-      <Container>
+      </ColumnContainer>
+      <ColumnContainer>
         <p>Filter:</p>
         {renderSelected('filter')}
-      </Container>
+      </ColumnContainer>
     </SelectContainer>
   );
 }

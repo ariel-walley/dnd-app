@@ -8,7 +8,6 @@ export const SnapshotTitle = styled.h1`
 `;
 
 export const StyledContainer = styled(Container)`
-  flex-direction: row;
   flex-wrap: wrap;
   padding: 5px;
 `;
