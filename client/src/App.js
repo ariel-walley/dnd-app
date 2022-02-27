@@ -7,7 +7,7 @@ import GlobalStyle from './components/styles/globalStyles';
 import { ColumnContainer } from './components/styles/styles';
 
 import StartPage from './components/startPage';
-import Dashboard from './components/dashboard-components/dashboard';
+import MainPage from './components/main-page/mainPage';
 import PlayerWindow from './components/playerWindow';
 
 export default function App() {
@@ -34,7 +34,7 @@ export default function App() {
       <GlobalStyle/>
       <PlayersContext.Provider value={value}>
         <Route exact path="/"><StartPage/></Route>
-        <Route path="/dm"><Dashboard/></Route>
+        <Route path="/dm"><MainPage/></Route>
         {createRoutes()}
       </PlayersContext.Provider>
     </ColumnContainer>
