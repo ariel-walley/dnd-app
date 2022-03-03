@@ -7,29 +7,29 @@ import { Container } from '../styles/styles';
 let widgetInfo = [{
   "id": 0,
   "type": "snapshots",
-  "placement": 1,
-  "size": "vert-column",
+  "width": 1,
+  "height": 2,
   "settings": {}
 },
 {
   "id": 1,
   "type": "messenger",
-  "placement": 2,
-  "size": "vert-column",
+  "width": 1,
+  "height": 2,
   "settings": {}
 },
 {
   "id": 2,
   "type": "notes",
-  "placement": 3,
-  "size": "vert-half",
+  "width": 1,
+  "height": 1,
   "settings": {}
 },
 {
   "id": 3,
   "type": "history",
-  "placement": 4,
-  "size": "vert-half",
+  "width": 1,
+  "height": 1,
   "settings": {}
 }];
 
@@ -41,7 +41,7 @@ export default function MainPage() {
       "id": 0,
       "name": "Main",
       "icon": "",
-      "widgets": []
+      "widgets": widgetInfo
     }
   ]);
 

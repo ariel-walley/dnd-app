@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: black;
     color: white;
     font-family: Arial, Calibri, sans-serif;
+    cursor: default;
   }
 
   `;

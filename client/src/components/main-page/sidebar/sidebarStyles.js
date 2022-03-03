@@ -17,14 +17,14 @@ export const AppIcon = styled.div`
   background-color: yellow;
 `;
 
-export const Menu = styled.div`
+export const AppMenu = styled.div`
   width: 50px;
   height: 50px;
   margin: 20px 0px 50px 0px;
   background-color: white;
 `;
 
-export const DashboardIcon = styled.div`
+export const DashboardIcon = styled(ColumnContainer)`
   width: 50px;
   height: 50px;
   margin: 10px;

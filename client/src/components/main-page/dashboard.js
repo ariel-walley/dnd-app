@@ -1,20 +1,17 @@
 import { useState } from 'react';
 
 import WidgetLibrary from './editing-components/widgetLibrary';
-import EmptyWidget from './editing-components/emptyWidget';
+//import EmptyWidget from './editing-components/emptyWidget';
 
 import Snapshots from '../widgets/snapshots-widget/snapshots';
 import Messenger from '../widgets/messenger-widget/messenger';
 import Notes from '../widgets/notes-widget/notes';
 import History from '../widgets/history-widget/history';
 
-
-import { Container } from '../styles/styles';
-import { Column } from './dashboardStyles';
-
+import { UpdatedContainer, Column } from './dashboardStyles';
 
 const storage = [
-  <Container>
+  <UpdatedContainer>
     <Column>
       <Snapshots/>
     </Column>
@@ -25,22 +22,43 @@ const storage = [
       <Notes/>
       <History/>
     </Column>
-  </Container>
+  </UpdatedContainer>
 ];
 
 export default function Dashboard(props) {
-  const [editMode, toggleEditMode] = useState(true);
-  const [placement, updatePlacecment] = useState()
+  const [editMode, toggleEditMode] = useState(false);
+  const [placement, updatePlacecment] = useState([null, null, null, null, null, null])
 
-  const renderWidgets = () => {
+  const displayWidgets = () => {
+    return props.widgets.map((widget) => {
+      switch(widget.type) {
+        case 'history':
+          return <History key={widget.type}/>
+        case 'messenger':
+          return <Messenger key={widget.type}/>
+        case 'notes':
+          return <Notes key={widget.type}/>
+        case 'snapshots':
+          return <Snapshots key={widget.type}/>
+        default: return <div key={'nullWidget'}></div>
+      }
+    })
+  }
+
+  const toggleEditing = () => {
     if (editMode) {
       return (
         <WidgetLibrary/>
       )
     } else {
-      return <p>Widgets will be rendered here</p>
+      return (
+        <UpdatedContainer>
+          <p>testing testing 123</p>
+          {displayWidgets()}
+        </UpdatedContainer>
+      )
     }
   }
 
-  return renderWidgets()
+  return toggleEditing()
 }
