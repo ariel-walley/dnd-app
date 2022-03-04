@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
-import { PlayersContext, MessageContext, ClearCheckboxesContext } from '../../../context';
+import { PlayersContext } from '../../../playersContext';
+import { MessageContext, ClearCheckboxesContext } from './messengerContext';
 
 import GalleryContainer from './gallery-components/galleryContainer';
 import TextInput from './textInput';

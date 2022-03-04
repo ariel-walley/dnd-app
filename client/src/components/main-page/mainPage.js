@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { DashboardInfoContext, CurrentDashboardContext } from './mainPageContext';
 import Sidebar from './sidebar/sidebar'
 import Dashboard from './dashboard';
 
@@ -47,8 +48,12 @@ export default function MainPage() {
 
   return (
     <Container>
-      <Sidebar info={dashboardInfo} updateInfo={updateDashboardInfo} current={currentDashboard} updateCurrent={switchDashboard}/>
-      <Dashboard widgets={dashboardInfo[currentDashboard].widgets} update={updateDashboardInfo}/>
+      <DashboardInfoContext.Provider value={{dashboardInfo, updateDashboardInfo}}>
+        <CurrentDashboardContext.Provider value={{currentDashboard, switchDashboard}}>
+          <Sidebar/>
+          <Dashboard widgets={dashboardInfo[currentDashboard].widgets}/>
+        </CurrentDashboardContext.Provider>
+      </DashboardInfoContext.Provider>
     </Container>
   )
 }

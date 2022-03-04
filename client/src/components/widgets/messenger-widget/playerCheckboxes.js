@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { PlayersContext, MessageContext } from '../../../context';
+import { PlayersContext } from '../../../playersContext';
+import { MessageContext } from './messengerContext';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';

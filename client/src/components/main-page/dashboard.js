@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { DashboardInfoContext, CurrentDashboardContext } from './mainPageContext';
 
 import WidgetLibrary from './editing-components/widgetLibrary';
 //import EmptyWidget from './editing-components/emptyWidget';
-
 import Snapshots from '../widgets/snapshots-widget/snapshots';
 import Messenger from '../widgets/messenger-widget/messenger';
 import Notes from '../widgets/notes-widget/notes';
@@ -26,11 +26,14 @@ const storage = [
 ];
 
 export default function Dashboard(props) {
+  const { dashboardInfo, updateDashboardInfo } = useContext(DashboardInfoContext);
+  const { currentDashboard, switchDashboard } = useContext(CurrentDashboardContext);
+
   const [editMode, toggleEditMode] = useState(false);
   const [placement, updatePlacecment] = useState([null, null, null, null, null, null])
 
   const displayWidgets = () => {
-    return props.widgets.map((widget) => {
+    return dashboardInfo[currentDashboard].widgets.map((widget) => {
       switch(widget.type) {
         case 'history':
           return <History key={widget.type}/>

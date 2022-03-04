@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { PlayersContext } from '../context';
+import { PlayersContext } from '../playersContext';
 
 import { ColumnContainer } from './styles/styles';
 import { UserInput } from './startPageStyles';
@@ -50,7 +50,7 @@ function StartPage() {
       }
     }    
 
-    // Update PlayerContext
+    // Update PlayersContext
     setPlayers(playerArr);
 
     console.log('Players are: ' + JSON.stringify(playerArr));

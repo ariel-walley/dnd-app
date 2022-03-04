@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { MessageContext } from '../../../../context';
+import { MessageContext } from '../messengerContext';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { ClearDiv, ColumnContainer } from '../../../styles/styles';

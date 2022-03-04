@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Route } from 'react-router-dom';
 
-import { PlayersContext } from './context';
+import { PlayersContext } from './playersContext';
 
 import GlobalStyle from './components/styles/globalStyles';
 import { ColumnContainer } from './components/styles/styles';

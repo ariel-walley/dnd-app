@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { MessageContext, ClearCheckboxesContext } from '../../../../context';
+import { MessageContext, ClearCheckboxesContext } from '../messengerContext';
 
 import { ClearDiv } from '../../../styles/styles';
 import { UpdatedContainer, StyledContent } from './galleryStyles';

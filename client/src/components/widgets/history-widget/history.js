@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { PlayersContext } from '../../../context';
+import { PlayersContext } from '../../../playersContext';
 
 import { HistoryEntry, useStyles } from './historyStyles';
 
